@@ -24,7 +24,8 @@ extern vex::inertial Inert;
 
 
 void drive();
-
+void shoot();
+void pto();
 
 #define waitUntil(condition)                                                   \
   do {                                                                         \

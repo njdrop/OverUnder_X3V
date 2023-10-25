@@ -64,13 +64,13 @@ void usercontrol(void)
                 drive(); //run drive state code (see "drive.cpp")
                 break;
             case 1:
-                //ptoToShoot State
+                pto(); //ptoToShoot State
                 break;
             case 2:
-                //ptoToDrive State
+                pto(); //ptoToDrive State
                 break;
             case 3:
-                //shoot State
+                shoot(); //shoot State
                 break;
             default:
                 printf("%d\n", 404); //if we reach this point, then no we did not
