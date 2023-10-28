@@ -6,8 +6,7 @@ void sendInputToMotors () {
 }
 
 void drive() {
-        if (con.ButtonR2.pressing())
-        {
-                
-        }
+        PTOSolenoid.open();
+       
+
 }
