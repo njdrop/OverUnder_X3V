@@ -21,16 +21,10 @@ extern vex::line leftPTO;
 extern vex::line rightPTO;
 extern vex::rotation cataRot;
 extern vex::inertial Inert;
+extern vex::pneumatics intakeSolenoid;
+extern vex::pneumatics blockerSolenoid;
 
-
+extern int state;
 void drive();
 void shoot();
 void pto();
-
-#define waitUntil(condition)                                                   \
-  do {                                                                         \
-    wait(5, msec);                                                             \
-  } while (!(condition))
-
-#define repeat(iterations)                                                     \
-  for (int iterator = 0; iterator < iterations; iterator++)

@@ -7,6 +7,7 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
+#include "library.h"
 using namespace vex;
 competition Competition;
 
@@ -23,12 +24,19 @@ vex::motor  rightMotor3 = motor(PORT10, ratio18_1, false);
 vex::motor  rightMotor4 = motor(PORT9, ratio18_1, true);
 vex::pneumatics wingsSolenoid = pneumatics(Brain.ThreeWirePort.H);
 vex::pneumatics PTOSolenoid = pneumatics(Brain.ThreeWirePort.A);
+vex::pneumatics intakeSolenoid = pneumatics(Brain.ThreeWirePort.D);
+vex::pneumatics blockerSolenoid = pneumatics(Brain.ThreeWirePort.E);
 vex::line leftPTO = line(Brain.ThreeWirePort.B);
 vex::line rightPTO = line(Brain.ThreeWirePort.C);
 vex::rotation cataRot = rotation(PORT20, false);
 vex::inertial Inert = inertial(PORT19);
 ////////////////////  Const Values (DO NOT CHANGE)    ///////////////////////
 bool f1 = true;
+bool f2 = true;
+bool f3 = true;
+bool wingsToggle = false;
+bool blockerToggle = false;
+bool liftIntakeToggle = false;
 ////////////////////////  Tuning Values   ///////////////////////////////////
 double lineSensorEdgeValue = 0.5;
 ////////////////////////   State Values    //////////////////////////////////
@@ -39,7 +47,7 @@ bool rightDriveEngaged = false;
 
 void pre_auton(void)
 {
-
+    
 }
 
 void autonomous(void)
@@ -57,10 +65,17 @@ void usercontrol(void)
         leftDriveEngaged = (leftPTO.value(pct) > lineSensorEdgeValue); 
         rightDriveEngaged = (rightPTO.value(pct) > lineSensorEdgeValue);
 
-        if (con.ButtonR2.pressing())
-        {
-               if (state == 0) {state = 3;}  else {state = 0;}
-        }
+
+        //////////////////////////// Universal Controls ////////////////////////////
+        
+        lib::toggleBool(con.ButtonUp.pressing(), wingsToggle);
+        lib::toggleSolenoid(wingsSolenoid, wingsToggle);
+
+        lib::toggleBool(con.ButtonB.pressing(), blockerToggle);
+        lib::toggleSolenoid(blockerSolenoid, blockerToggle);
+
+        lib::toggleBool(con.ButtonX.pressing(), liftIntakeToggle);
+        lib::toggleSolenoid(intakeSolenoid, liftIntakeToggle);
 
         switch (state) 
         {
