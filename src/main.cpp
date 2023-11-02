@@ -28,7 +28,7 @@ vex::pneumatics intakeSolenoid = pneumatics(Brain.ThreeWirePort.D);
 vex::pneumatics blockerSolenoid = pneumatics(Brain.ThreeWirePort.E);
 vex::line leftPTO = line(Brain.ThreeWirePort.B);
 vex::line rightPTO = line(Brain.ThreeWirePort.C);
-vex::rotation cataRot = rotation(PORT20, false);
+// vex::rotation cataRot = rotation(PORT20, false);
 vex::inertial Inert = inertial(PORT19);
 ////////////////////  Const Values (DO NOT CHANGE)    ///////////////////////
 bool f1 = true;
@@ -38,16 +38,15 @@ bool wingsToggle = false;
 bool blockerToggle = false;
 bool liftIntakeToggle = false;
 ////////////////////////  Tuning Values   ///////////////////////////////////
-double lineSensorEdgeValue = 0.5;
+double lineSensorEdgeValue = 0.5; // the percent at which the line sensor should read the the pto gear has engaged with the drivetrain
 ////////////////////////   State Values    //////////////////////////////////
-int state = 0;
-bool leftDriveEngaged = false;
-bool rightDriveEngaged = false;
+int state = 0; // state control => changes what configuration the bot is in depending on the state
+bool leftDriveEngaged = true; // a boolean value that determines weather the light sensor reads that the pto gear is moved to engae with the left side of the drivetrain
+bool rightDriveEngaged = true; // a boolean value that determines weather the light sensor reads that the pto gear is moved to engae with the right side of the drivetrain
 /////////////////////////////////////////////////////////////////////////////
 
 void pre_auton(void)
 {
-    
 }
 
 void autonomous(void)
@@ -56,47 +55,61 @@ void autonomous(void)
 }
 
 void usercontrol(void) 
-
 {
-    while (true) {
+    while (true) 
+    {
         // define states of sensors
         // each loop determine if the line sensor dectects a light level greater than the edge case 
         // indecates weather pto gear is engaged or disengaged from the drivetrain
-        leftDriveEngaged = (leftPTO.value(pct) > lineSensorEdgeValue); 
-        rightDriveEngaged = (rightPTO.value(pct) > lineSensorEdgeValue);
+        // leftDriveEngaged = (leftPTO.value(pct) > lineSensorEdgeValue); 
+        // rightDriveEngaged = (rightPTO.value(pct) > lineSensorEdgeValue);
 
 
         //////////////////////////// Universal Controls ////////////////////////////
         
-        lib::toggleBool(con.ButtonUp.pressing(), wingsToggle);
-        lib::toggleSolenoid(wingsSolenoid, wingsToggle);
+        // toggles wings using button Up (see library.cpp for explaination)
+        // lib::toggleBool(con.ButtonUp.pressing(), wingsToggle);
+        // lib::toggleSolenoid(wingsSolenoid, wingsToggle);
+        
+        // // toggles blocker using button B (see library.cpp for explaination)
+        // lib::toggleBool(con.ButtonB.pressing(), blockerToggle);
+        // lib::toggleSolenoid(blockerSolenoid, blockerToggle);
 
-        lib::toggleBool(con.ButtonB.pressing(), blockerToggle);
-        lib::toggleSolenoid(blockerSolenoid, blockerToggle);
+        // // toggles intake lift using button X (see library.cpp for explaination)
+        // lib::toggleBool(con.ButtonX.pressing(), liftIntakeToggle);
+        // lib::toggleSolenoid(intakeSolenoid, liftIntakeToggle);
 
-        lib::toggleBool(con.ButtonX.pressing(), liftIntakeToggle);
-        lib::toggleSolenoid(intakeSolenoid, liftIntakeToggle);
+        double leftStickY = con.Axis3.value(); 
+        // runs the 2 left side drive motors at right left value
+        leftMotor1.spin(fwd, nearbyint(leftStickY), vex::voltageUnits::mV);
+        leftMotor2.spin(fwd, nearbyint(leftStickY), vex::voltageUnits::mV);
 
+        double rightStickY = con.Axis2.value(); 
+        // runs the 2 right side drive motors at right stick value
+        rightMotor1.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
+        rightMotor2.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
+  
+        //////////////////////////// State Control ////////////////////////////
         switch (state) 
         {
             case 0:
-                drive(); //run drive state code (see "drive.cpp")
+                //drive(); // run drive state code (see "drive.cpp")
                 break;
             case 1:
-                pto(); //ptoToShoot State
+                //pto(); // ptoToShoot State
                 break;
             case 2:
-                pto(); //ptoToDrive State
+                //pto(); // ptoToDrive State
                 break;
             case 3:
-                shoot(); //shoot State
+                //shoot(); // shoot State
                 break;
             default:
-                printf("%d\n", 404); //if we reach this point, then no we did not
+                printf("%d\n", 404); // if we reach this point, then no we did not
                 break;
-        } //end of switch (state)
-    } //end of while (true)
-} //end of void usercontrol (void)
+        } // end of switch (state)
+    } // end of while (true)
+} // end of void usercontrol (void)
 
 int main() {
 
@@ -108,4 +121,4 @@ int main() {
   while (true) {
     wait(100, msec);
   }
-} //end of int main {
+} // end of int main {
