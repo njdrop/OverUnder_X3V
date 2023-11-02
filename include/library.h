@@ -21,14 +21,45 @@ namespace lib {
          */
         void toggleSolenoid(vex::pneumatics solenoid, bool toggleValue);
 
-        /**
-         * @brief If a button is pressed then it will toggle a boolean variable. If this function is run multiple time,
-         * the bool will only be toggle in the first loop until the button is released again
-         * 
-         * @param button the solenoid that should be controlled
-         * @param toggleValue the bool that should be used to evaluate if it should be toggled 
-         */
-        void toggleBool(bool buttonValue, bool &toggleValue);
-}
+
+}       
+
+ class toggleBoolObject 
+ {
+        public:
+                /**
+                 * @brief Construct a new toggle Boolean object
+                 * 
+                 * @param initialValue the value the boolean will be set to initaly
+                 */
+                toggleBoolObject(bool);
+                /**
+                 * @brief Set the Boolean objects value manually
+                 * 
+                 * @param value the value the boolean will be manually set to
+                 */
+                void setValue (bool);
+                /**
+                 * @brief changes the boolean object's value based on input from the controller
+                 * on the first loop in which the button value is true the objects's value will toggle
+                 * subsequent loops will not change the value until the button value becomes false again
+                 * 
+                 * @param buttonValue weather the button is being pressed. Used to determine if the boolean object should be toggled 
+                 */
+                void changeValueFromInput(bool);
+
+                /**
+                 * @brief Get the Value of the boolean object
+                 * 
+                 * @return true 
+                 * @return false 
+                 */
+                bool getValue();
+        private:
+                void init();
+                bool firstLoop; 
+                bool toggleValue;             
+};
+
 
 #endif

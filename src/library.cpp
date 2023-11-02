@@ -30,24 +30,34 @@ namespace lib {
                         solenoid.close();
                 }
         }
+}
 
-        static bool firstLoop = true;
-        void toggleBool(bool buttonValue, bool &toggleValue) {
-                //if the up button is pressed
-                if (buttonValue)
-                {
-                        if (firstLoop) 
-                        {
-                                firstLoop = false;  
-                                toggleValue = !toggleValue;
-                        }
 
-                }
-                else 
-                {
-                        firstLoop = true;
-                }
-        }
 
+toggleBoolObject::toggleBoolObject(bool initialValue) {
+        firstLoop = true;
+        toggleValue = initialValue;
+}
+
+void toggleBoolObject::setValue(bool value) {
+        toggleValue = value;
+}
+
+void toggleBoolObject::changeValueFromInput(bool buttonValue) {
         
+        if (buttonValue) {
+                if (firstLoop) 
+                {
+                        firstLoop = false;
+                        toggleValue = !toggleValue;
+                } 
+        }
+        else
+        {
+                firstLoop = true;
+        }
+}
+
+bool toggleBoolObject::getValue() {
+        return toggleValue;
 }
