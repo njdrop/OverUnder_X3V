@@ -28,7 +28,7 @@ vex::pneumatics intakeSolenoid = pneumatics(Brain.ThreeWirePort.D);
 vex::pneumatics blockerSolenoid = pneumatics(Brain.ThreeWirePort.E);
 vex::line leftPTO = line(Brain.ThreeWirePort.B);
 vex::line rightPTO = line(Brain.ThreeWirePort.C);
-// vex::rotation cataRot = rotation(PORT20, false);
+vex::rotation cataRot = rotation(PORT20, false);
 vex::inertial Inert = inertial(PORT19);
 
 
