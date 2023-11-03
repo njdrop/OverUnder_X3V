@@ -37,7 +37,7 @@ bool f1 = true;
 bool f2 = true;
 bool f3 = true;
 ////////////////////////  Tuning Values   ///////////////////////////////////
-double lineSensorEdgeValue = 0.5; // the percent at which the line sensor should read the the pto gear has engaged with the drivetrain
+double lineSensorEdgeValue = 57; // the percent at which the line sensor should read the the pto gear has engaged with the drivetrain
 ////////////////////////   State Values    //////////////////////////////////
 int state = 0; // state control => changes what configuration the bot is in depending on the state
 bool leftDriveEngaged = true; // a boolean value that determines weather the light sensor reads that the pto gear is moved to engae with the left side of the drivetrain
@@ -64,6 +64,7 @@ void usercontrol(void)
 
     while (true) 
     {
+        printf("%f\n", leftMotor3.power(vex::powerUnits::watt));
         // define states of sensors
         // each loop determine if the line sensor dectects a light level greater than the edge case 
         // indecates weather pto gear is engaged or disengaged from the drivetrain
@@ -102,10 +103,12 @@ void usercontrol(void)
                 drive(); // run drive state code (see "drive.cpp")
                 break;
             case 1:
-                pto(); // ptoToShoot State
+                con.rumble("-");
+                ptoDriveToCata(); // ptoToShoot State
                 break;
             case 2:
-                pto(); // ptoToDrive State
+                con.rumble(".");
+                ptoCataToDrive(); // ptoToDrive State
                 break;
             case 3:
                 shoot(); // shoot State

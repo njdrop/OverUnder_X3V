@@ -25,7 +25,10 @@ extern vex::pneumatics intakeSolenoid;
 extern vex::pneumatics blockerSolenoid;
 
 extern int state;
+extern bool leftDriveEngaged;
+extern bool rightDriveEngaged;
 void drive();
 void shoot();
-void pto();
+void ptoDriveToCata();
+void ptoCataToDrive();
 
