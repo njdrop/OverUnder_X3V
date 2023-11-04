@@ -45,14 +45,27 @@ bool rightDriveEngaged = true; // a boolean value that determines weather the li
 
 void pre_auton(void)
 {
-    
+    PTOSolenoid.open();
 }
 
 void autonomous(void)
 {
-    PTOSolenoid.close();
-    driveStraight(-30, 100, 3);
-    driveStraight(10, 100, 2);
+    wingsSolenoid.open();
+    while (true) {
+        if (cataRot.velocity(rpm) > 0) 
+        {
+            leftMotor3.stop(brake);
+            leftMotor4.stop(brake);
+            rightMotor3.stop(brake);
+            rightMotor4.stop(brake);
+        }
+        else
+        {
+            // sets the pto motors to run the extake
+            lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
+            lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
+        }
+    }
 }
 
 void usercontrol(void) 

@@ -80,5 +80,4 @@ void shoot() {
                         rightMotor4.stop(coast);
                 }
         }
-        prevCataPos = cataRot.position(deg);
 }
