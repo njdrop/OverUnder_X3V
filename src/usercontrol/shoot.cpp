@@ -6,7 +6,7 @@ double cataTopPosition = 297;
 double cataLoadedPostition = 225;
 int cataIsFiring = 0;
 int cataFireNumberOfLoops = 2;
-
+double prevCataPos = 0;
 void shoot() {
 
         printf("%f\n", cataRot.position(deg));
@@ -23,7 +23,8 @@ void shoot() {
         // ButtonB               => Toggles the blocker up or down
 
         //is switch state button pressed
-        if (con.ButtonR2.pressing()) {
+        if (con.ButtonR2.pressing()) 
+        {
                 // switch to pto state
                 state = 2;
         }
@@ -34,36 +35,50 @@ void shoot() {
                 lib::sendInputToMotors(leftMotor3, leftMotor4, 12000);
                 lib::sendInputToMotors(rightMotor3, rightMotor4, 12000);
         }
-        else if (con.ButtonL1.pressing())
+        else if (con.ButtonUp.pressing())
         {
                 // sets the pto motors to run the extake
                 lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
                 lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
         } 
-        else if (con.ButtonL2.pressing()) 
+        else if (con.ButtonL1.pressing()) 
         {
-                if (cataRot.velocity(rpm) > 0) {
+                if (cataRot.velocity(rpm) >0) 
+                {
                         leftMotor3.stop(brake);
                         leftMotor4.stop(brake);
                         rightMotor3.stop(brake);
                         rightMotor4.stop(brake);
-                } else {
+                }
+                else
+                {
                         // sets the pto motors to run the extake
-                        lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
-                        lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
+                        lib::sendInputToMotors(leftMotor3, leftMotor4, -10000);
+                        lib::sendInputToMotors(rightMotor3, rightMotor4, -10000);
                 }
         }
         else
         {
-                if (!con.ButtonRight.pressing() && (cataRot.position(deg) >= cataLoadedPostition)) {
-                        // sets the pto motors to run the extake
-                        lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
-                        lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
-                } else {
+                  if (cataRot.velocity(rpm) >0) 
+                {
                         leftMotor3.stop(brake);
                         leftMotor4.stop(brake);
                         rightMotor3.stop(brake);
                         rightMotor4.stop(brake);
                 }
+                else if (!con.ButtonRight.pressing() && (cataRot.position(deg) >= cataLoadedPostition)) 
+                {
+                        // sets the pto motors to run the extake
+                        lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
+                        lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
+                }
+                else 
+                {
+                        leftMotor3.stop(coast);
+                        leftMotor4.stop(coast);
+                        rightMotor3.stop(coast);
+                        rightMotor4.stop(coast);
+                }
         }
+        prevCataPos = cataRot.position(deg);
 }

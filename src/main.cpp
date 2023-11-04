@@ -45,13 +45,14 @@ bool rightDriveEngaged = true; // a boolean value that determines weather the li
 
 void pre_auton(void)
 {
+    
 }
 
 void autonomous(void)
 {
     PTOSolenoid.close();
-    driveStraight(20, 100, 3);
-    driveStraight(-20, 100, 3);
+    driveStraight(-30, 100, 3);
+    driveStraight(10, 100, 2);
 }
 
 void usercontrol(void) 
@@ -76,7 +77,7 @@ void usercontrol(void)
         //////////////////////////// Universal Controls ////////////////////////////
         
         // toggles wings using button Up (see library.cpp for explaination)
-        wingsToggle.changeValueFromInput(con.ButtonUp.pressing());
+        wingsToggle.changeValueFromInput(con.ButtonL2.pressing());
         lib::toggleSolenoid(wingsSolenoid, wingsToggle.getValue());
         
         // toggles blocker using button B (see library.cpp for explaination)
