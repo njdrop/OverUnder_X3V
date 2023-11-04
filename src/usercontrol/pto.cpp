@@ -1,5 +1,4 @@
 #include "vex.h"
-#include "library.h"
 
 using namespace vex;
 
@@ -10,6 +9,10 @@ void ptoDriveToCata () {
         {
                 // if both gears have disengaged with the drive then we are good so switch to the shooting state
                 state = 3;
+        }
+
+        if (con.ButtonDown.pressing()) {
+                state = 2;
         }
 
         // if left side is still engaed with the drive
@@ -48,6 +51,10 @@ void ptoCataToDrive () {
         {
                 // if both gears have engaged with the drive then we are good so switch to the drive state
                 state = 0;
+        }
+
+         if (con.ButtonDown.pressing()) {
+                state = 1;
         }
 
         // if left side is still disengaed with the drive

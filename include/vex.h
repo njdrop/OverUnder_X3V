@@ -6,6 +6,10 @@
 #include "v5.h"
 #include "v5_vcs.h"
 
+#include "autoFunctions.h"
+#include "library.h"
+#include "MiniPID.h"
+
 extern vex::controller con;
 extern vex::motor  leftMotor1;
 extern vex::motor  leftMotor2;

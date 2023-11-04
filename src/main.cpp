@@ -7,7 +7,6 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
-#include "library.h"
 using namespace vex;
 competition Competition;
 
@@ -23,12 +22,12 @@ vex::motor  rightMotor2 = motor(PORT5, ratio18_1, false);
 vex::motor  rightMotor3 = motor(PORT10, ratio18_1, false);
 vex::motor  rightMotor4 = motor(PORT9, ratio18_1, true);
 vex::pneumatics wingsSolenoid = pneumatics(Brain.ThreeWirePort.H);
-vex::pneumatics PTOSolenoid = pneumatics(Brain.ThreeWirePort.A);
+vex::pneumatics PTOSolenoid = pneumatics(Brain.ThreeWirePort.F);
 vex::pneumatics intakeSolenoid = pneumatics(Brain.ThreeWirePort.D);
 vex::pneumatics blockerSolenoid = pneumatics(Brain.ThreeWirePort.E);
 vex::line leftPTO = line(Brain.ThreeWirePort.B);
 vex::line rightPTO = line(Brain.ThreeWirePort.C);
-vex::rotation cataRot = rotation(PORT20, false);
+vex::rotation cataRot = rotation(PORT12, false);
 vex::inertial Inert = inertial(PORT19);
 
 
@@ -50,7 +49,9 @@ void pre_auton(void)
 
 void autonomous(void)
 {
-
+    PTOSolenoid.close();
+    driveStraight(20, 100, 3);
+    driveStraight(-20, 100, 3);
 }
 
 void usercontrol(void) 
@@ -62,9 +63,9 @@ void usercontrol(void)
     // initalizes boolean objects for the blocker
     toggleBoolObject blockerToggle(false);
 
+
     while (true) 
     {
-        printf("%f\n", leftMotor3.power(vex::powerUnits::watt));
         // define states of sensors
         // each loop determine if the line sensor dectects a light level greater than the edge case 
         // indecates weather pto gear is engaged or disengaged from the drivetrain
