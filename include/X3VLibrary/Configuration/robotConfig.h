@@ -16,10 +16,12 @@ extern vex::pneumatics wingsSolenoid;
 extern vex::pneumatics PTOSolenoid;
 extern vex::line leftPTO;
 extern vex::line rightPTO;
-extern vex::rotation cataRot;
-extern vex::inertial Inert;
+extern vex::rotation catapultRotationSensor;
+extern vex::inertial inertialSensor;
 extern vex::pneumatics intakeSolenoid;
 extern vex::pneumatics blockerSolenoid;
+
+extern double wheelDiameter;
 
 /**
  * @brief controls the state machine for usercontrol

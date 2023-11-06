@@ -9,7 +9,7 @@ int cataFireNumberOfLoops = 2;
 double prevCataPos = 0;
 void shoot() {
 
-        printf("%f\n", cataRot.position(deg));
+        printf("%f\n", catapultRotationSensor.position(deg));
 
         // When in shoot state controls should be as follow:
         // Left Joystick         => controls 2 drive motors on the left side of the drivetrain
@@ -43,7 +43,7 @@ void shoot() {
         } 
         else if (con.ButtonL1.pressing()) 
         {
-                if (cataRot.velocity(rpm) >0) 
+                if (catapultRotationSensor.velocity(rpm) >0) 
                 {
                         leftMotor3.stop(brake);
                         leftMotor4.stop(brake);
@@ -59,14 +59,14 @@ void shoot() {
         }
         else
         {
-                  if (cataRot.velocity(rpm) >0) 
+                  if (catapultRotationSensor.velocity(rpm) >0) 
                 {
                         leftMotor3.stop(brake);
                         leftMotor4.stop(brake);
                         rightMotor3.stop(brake);
                         rightMotor4.stop(brake);
                 }
-                else if (!con.ButtonRight.pressing() && (cataRot.position(deg) >= cataLoadedPostition)) 
+                else if (!con.ButtonRight.pressing() && (catapultRotationSensor.position(deg) >= cataLoadedPostition)) 
                 {
                         // sets the pto motors to run the extake
                         lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);

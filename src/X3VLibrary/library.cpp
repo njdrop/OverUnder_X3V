@@ -4,6 +4,13 @@ using namespace vex;
 
 namespace lib {
         
+        /**
+         * @brief Send an input to two motors with one command as a voltage command. Also rounds the input to the nearest integer to stop the motors from bugging out
+         * 
+         * @param motor1 one of the motors the input will be sent to
+         * @param motor2 the other motor the input will be sent to
+         * @param input mV to be sent to both motors (min: -12000, max:+12000)
+         */
         void sendInputToMotors (vex::motor motor1, vex::motor motor2, double input) 
         {
                 /*
@@ -16,6 +23,12 @@ namespace lib {
                 motor2.spin(fwd, nearbyint(input), vex::voltageUnits::mV);
         }
 
+        /**
+         * @brief If bool is true open a solinoid, otherwise close it
+         * 
+         * @param solenoid the solenoid that should be controlled
+         * @param toggleValue the bool that should be used to evaluate if it should be toggled 
+         */
         void toggleSolenoid(vex::pneumatics solenoid, bool toggleValue) 
         {
                 //if the toggleValue is true
@@ -28,6 +41,16 @@ namespace lib {
                         //otherwise close the solenoid
                         solenoid.close();
                 }
+        }
+
+        /**
+         * @brief converts angular distance to linear distance
+         * 
+         * @param angularDistance (deg)
+         * @return double (inches)
+         */
+        double angularDistanceToLinearDistance(double angularDistance) {
+                return angularDistance * 3.14159 / 180 * wheelDiameter;
         }
 }
 
