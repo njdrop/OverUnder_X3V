@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       2024noahdropsey                                           */
+/*    Author:       Noah Dropsey                                              */
 /*    Created:      10/24/2023, 2:43:16 PM                                    */
 /*    Description:  V5 project                                                */
 /*                                                                            */
@@ -10,43 +10,15 @@
 using namespace vex;
 competition Competition;
 
-////////////////////  Const Values (DO NOT CHANGE)    ///////////////////////
-bool f1 = true;
-bool f2 = true;
-bool f3 = true;
-////////////////////////  Tuning Values   ///////////////////////////////////
-double lineSensorEdgeValue = 57; // the percent at which the line sensor should read the the pto gear has engaged with the drivetrain
-////////////////////////   State Values    //////////////////////////////////
-int state = 0; // state control => changes what configuration the bot is in depending on the state
-bool leftDriveEngaged = true; // a boolean value that determines weather the light sensor reads that the pto gear is moved to engae with the left side of the drivetrain
-bool rightDriveEngaged = true; // a boolean value that determines weather the light sensor reads that the pto gear is moved to engae with the right side of the drivetrain
-/////////////////////////////////////////////////////////////////////////////
 
 void pre_auton(void)
 {
-    PTOSolenoid.open();
+    
 }
 
 void autonomous(void)
 {
-    wingsSolenoid.open();
-    double startTime = vex::timer::system();
-    while (vex::timer::system() - startTime <= 60000) {
-        if (cataRot.velocity(rpm) > 0) 
-        {
-            leftMotor3.stop(brake);
-            leftMotor4.stop(brake);
-            rightMotor3.stop(brake);
-            rightMotor4.stop(brake);
-        }
-        else
-        {
-            // sets the pto motors to run the extake
-            lib::sendInputToMotors(leftMotor3, leftMotor4, -10000);
-            lib::sendInputToMotors(rightMotor3, rightMotor4, -10000);
-        }
-    }
-
+    
 }
 
 void usercontrol(void) 

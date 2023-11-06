@@ -19,3 +19,9 @@ vex::line leftPTO = line(Brain.ThreeWirePort.B);
 vex::line rightPTO = line(Brain.ThreeWirePort.C);
 vex::rotation cataRot = rotation(PORT12, false);
 vex::inertial Inert = inertial(PORT19);
+
+
+int state = 0;
+bool leftDriveEngaged = true;
+bool rightDriveEngaged = true;
+double lineSensorEdgeValue = 57;

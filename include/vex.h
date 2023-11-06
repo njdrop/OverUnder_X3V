@@ -7,14 +7,11 @@
 #include "v5_vcs.h"
 
 
-#include "MiniPID.h"
-#include "X3VLibrary/driveControl.h"
+#include "X3VLibrary/MiniPID.h"
+#include "X3VLibrary/drivetrainControl.h"
 #include "X3VLibrary/library.h"
-#include "X3VLibrary/robotConfig.h"
+#include "X3VLibrary/Configuration/robotConfig.h"
 
-extern int state;
-extern bool leftDriveEngaged;
-extern bool rightDriveEngaged;
 void drive();
 void shoot();
 void ptoDriveToCata();
