@@ -51,7 +51,8 @@ void pre_auton(void)
 void autonomous(void)
 {
     wingsSolenoid.open();
-    while (true) {
+    double startTime = vex::timer::system();
+    while (vex::timer::system() - startTime <= 60000) {
         if (cataRot.velocity(rpm) > 0) 
         {
             leftMotor3.stop(brake);
@@ -62,10 +63,11 @@ void autonomous(void)
         else
         {
             // sets the pto motors to run the extake
-            lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
-            lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
+            lib::sendInputToMotors(leftMotor3, leftMotor4, -10000);
+            lib::sendInputToMotors(rightMotor3, rightMotor4, -10000);
         }
     }
+
 }
 
 void usercontrol(void) 
