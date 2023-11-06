@@ -18,7 +18,26 @@ void pre_auton(void)
 
 void autonomous(void)
 {
-    
+        // Drive.moveDistance(30, 100, 5, true);
+        // Drive.moveDistance(-30, 100, 5, true);
+        // Drive.turn(50, 100, 5, true);
+        // Drive.turn(0, 100, 5, true);
+
+        PTOSolenoid.open();
+        wait(3,sec);
+        leftMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
+        leftMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
+        rightMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
+        rightMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
+        while (vex::timer::system() < 20000)
+        {
+            printf("%d\n", leftMotor3.torque(vex::torqueUnits::Nm));
+        }
+        leftMotor3.stop(brake);
+        leftMotor4.stop(brake);
+        rightMotor3.stop(brake);
+        rightMotor4.stop(brake);
+        
 }
 
 void usercontrol(void) 

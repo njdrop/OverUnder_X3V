@@ -47,10 +47,11 @@ namespace lib {
          * @brief converts angular distance to linear distance
          * 
          * @param angularDistance (deg)
+         * @param diameter the diameter of angular object
          * @return double (inches)
          */
-        double angularDistanceToLinearDistance(double angularDistance) {
-                return angularDistance * 3.14159 / 180 * wheelDiameter;
+        double angularDistanceToLinearDistance(double angularDistance, double diameter) {
+                return (angularDistance * 3.14159 / 180) * (diameter / 2);
         }
 }
 

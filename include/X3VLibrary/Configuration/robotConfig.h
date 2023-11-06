@@ -21,8 +21,6 @@ extern vex::inertial inertialSensor;
 extern vex::pneumatics intakeSolenoid;
 extern vex::pneumatics blockerSolenoid;
 
-extern double wheelDiameter;
-
 /**
  * @brief controls the state machine for usercontrol
  * @see main.cpp

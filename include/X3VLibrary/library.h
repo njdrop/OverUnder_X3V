@@ -7,11 +7,11 @@ namespace lib {
         
         void sendInputToMotors(vex::motor motor1, vex::motor motor2, double input);
         void toggleSolenoid(vex::pneumatics solenoid, bool toggleValue);
-        double angularDistanceToLinearDistance(double);
+        double angularDistanceToLinearDistance(double angularDistance, double diameter);
 }       
 
- class toggleBoolObject 
- {
+class toggleBoolObject 
+{
         public:
                 toggleBoolObject(bool);
                 void setValue (bool);
