@@ -1,8 +1,5 @@
 #include "vex.h"
-#include "MiniPID.cpp"
 using namespace vex;
-
-
 
 void runAllMotors (double speed) 
 {
