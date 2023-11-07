@@ -14,13 +14,75 @@ driveControl::driveControl(double wheelDiam)
         driveTask = vex::task();
 }
 
+void driveControl::startAutoStateMachineTask()
+{
+        driveTask = vex::task(driveStateMachineTask);
+}
+void driveControl::stopAutoStateMachineTask()
+{
+        driveTask.stop();
+}
+
+/**
+ * @brief returns the average value of the motor encoders on the left side of the drive
+ * 
+ * @param withPTO weather to include the pto motors in the average
+ * @return double average motor encoder value (deg)
+ */
+double driveControl::getLeftDriveEncoderValue(bool withPTO) {
+        double total = 0;
+        total += leftMotor1.position(deg);
+        total += leftMotor2.position(deg);
+        if (withPTO) 
+        {
+                total += leftMotor3.position(deg);
+                total += leftMotor4.position(deg);
+                return total/4;
+        }       
+        else
+        {
+                return total/2;
+        }
+}
+  
+/**
+ * @brief returns the average value of the motor encoders on the right side of the drive
+ * 
+ * @param withPTO weather to include the pto motors in the average
+ * @return double average motor encoder value (deg)
+ */
+double driveControl::getRightDriveEncoderValue(bool withPTO) {
+        double total = 0;
+        total += rightMotor1.position(deg);
+        total += rightMotor2.position(deg);
+        if (withPTO) 
+        {
+                total += rightMotor3.position(deg);
+                total += rightMotor4.position(deg);
+                return total/4;
+        }       
+        else
+        {
+                return total/2;
+        }
+}
+
+/**
+ * @brief returns the average value of the motor encoders of the drive
+ * 
+ * @param withPTO weather to include the pto motors in the average
+ * @return double average motor encoder value (deg)
+ */
+double driveControl::getDriveEncoderValue(bool withPTO) {
+        return (getLeftDriveEncoderValue(withPTO)+getRightDriveEncoderValue(withPTO))/2;
+}
+
 /**
  * @brief state machine task that handels the state operations during autonomous
  * 
  * @param drive 
  * @return int 
  */
-
 int driveStateMachineTask()
 {
         while (true)
@@ -121,70 +183,6 @@ int driveStateMachineTask()
                 wait(10,msec);
         }
         return 1;
-}
-
-
-void driveControl::startAutoStateMachineTask()
-{
-        driveTask = vex::task(driveStateMachineTask);
-}
-void driveControl::stopAutoStateMachineTask()
-{
-        driveTask.stop();
-}
-
-/**
- * @brief returns the average value of the motor encoders on the left side of the drive
- * 
- * @param withPTO weather to include the pto motors in the average
- * @return double average motor encoder value (deg)
- */
-double driveControl::getLeftDriveEncoderValue(bool withPTO) {
-        double total = 0;
-        total += leftMotor1.position(deg);
-        total += leftMotor2.position(deg);
-        if (withPTO) 
-        {
-                total += leftMotor3.position(deg);
-                total += leftMotor4.position(deg);
-                return total/4;
-        }       
-        else
-        {
-                return total/2;
-        }
-}
-  
-/**
- * @brief returns the average value of the motor encoders on the right side of the drive
- * 
- * @param withPTO weather to include the pto motors in the average
- * @return double average motor encoder value (deg)
- */
-double driveControl::getRightDriveEncoderValue(bool withPTO) {
-        double total = 0;
-        total += rightMotor1.position(deg);
-        total += rightMotor2.position(deg);
-        if (withPTO) 
-        {
-                total += rightMotor3.position(deg);
-                total += rightMotor4.position(deg);
-                return total/4;
-        }       
-        else
-        {
-                return total/2;
-        }
-}
-
-/**
- * @brief returns the average value of the motor encoders of the drive
- * 
- * @param withPTO weather to include the pto motors in the average
- * @return double average motor encoder value (deg)
- */
-double driveControl::getDriveEncoderValue(bool withPTO) {
-        return (getLeftDriveEncoderValue(withPTO)+getRightDriveEncoderValue(withPTO))/2;
 }
 
 /**

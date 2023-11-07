@@ -2,14 +2,12 @@
 using namespace vex;
 
 int firstLoop = 0;
-double cataTopPosition = 297;
-double cataLoadedPostition = 225;
+double cataTopPosition = 207; //297
+double cataLoadedPostition = 142; //225
 int cataIsFiring = 0;
 int cataFireNumberOfLoops = 2;
 double prevCataPos = 0;
 void shoot() {
-
-        printf("%f\n", catapultRotationSensor.position(deg));
 
         // When in shoot state controls should be as follow:
         // Left Joystick         => controls 2 drive motors on the left side of the drivetrain

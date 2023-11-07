@@ -18,15 +18,32 @@ void pre_auton(void)
 
 void autonomous(void)
 {
-    Drive.state=0;
+    // wait(2000, msec);
+    // Drive.state=1;
+    // while (Drive.state == 1)
+    // {
+    //     wait(10, msec);
+    // }
+    // Drive.turn(90, 100, 5, Drive.PTO_DriveEngaged);
+    // Drive.moveDistance(30, 100, 5, Drive.PTO_DriveEngaged);
     Drive.startAutoStateMachineTask();
-    wait(2000, msec);
-    Drive.state=1;
-    while (Drive.state == 1)
+    Drive.state = 1;
+    wait(3, sec);
+    Drive.stopAutoStateMachineTask();
+    wait(2, sec);
+    leftMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
+    leftMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
+    rightMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
+    rightMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
+    while(vex::timer::system() <= 20000)
     {
-        wait(10, msec);
+        printf("%i\t", Drive.state);
+        printf("%f\t", catapultRotationSensor.position(deg));
+        printf("%f\t", leftMotor3.torque(vex::torqueUnits::Nm));
+        printf("%f\t", leftMotor4.torque(vex::torqueUnits::Nm));
+        printf("%f\t", rightMotor3.torque(vex::torqueUnits::Nm));
+        printf("%f\n", rightMotor4.torque(vex::torqueUnits::Nm));
     }
-    Drive.turn(90, 100, 5, Drive.PTO_DriveEngaged);
 }
 
 void usercontrol(void) 

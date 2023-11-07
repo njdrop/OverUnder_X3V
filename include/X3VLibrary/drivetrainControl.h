@@ -3,6 +3,8 @@
 
 using namespace vex;
 
+int driveStateMachineTask();
+
 class driveControl {
         public:
                 driveControl(double wheelDiam);
