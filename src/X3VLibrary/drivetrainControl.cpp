@@ -1,9 +1,136 @@
 #include "vex.h"
 using namespace vex;
 
+/**
+ * @brief Constructs a new drivetrain object
+ * 
+ * @param wheelDiam diameter of wheels on the drive
+ */
 driveControl::driveControl(double wheelDiam) 
 {
         wheelDiameter = wheelDiam;
+        PTO_DriveEngaged = (state == 1); 
+        state = 0;
+        driveTask = vex::task();
+}
+
+/**
+ * @brief state machine task that handels the state operations during autonomous
+ * 
+ * @param drive 
+ * @return int 
+ */
+
+int driveStateMachineTask()
+{
+        while (true)
+        {
+                // define states of sensors
+                // each loop determine if the line sensor dectects a light level greater than the edge case 
+                // indecates weather pto gear is engaged or disengaged from the drivetrain
+                leftDriveEngaged = (leftPTO.value(pct) > lineSensorEdgeValue); 
+                rightDriveEngaged = (rightPTO.value(pct) > lineSensorEdgeValue);
+
+                switch (Drive.state) 
+                {
+                        case 0:
+                                PTOSolenoid.close();
+                                Drive.PTO_DriveEngaged = true;
+                                break;    
+                        case 1:
+                                PTOSolenoid.open();
+                                if (!leftDriveEngaged && !rightDriveEngaged) 
+                                {
+                                        // if both gears have disengaged with the drive then we are good so switch to the shooting state
+                                        Drive.state = 3;
+                                }
+                                // if left side is still engaed with the drive
+                                if (leftDriveEngaged) 
+                                {
+                                        //then spin the left motors to get them to disengage
+                                        leftMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
+                                        leftMotor4.spin(fwd, 12000, vex::voltageUnits::mV);  
+                                }
+                                else
+                                {
+                                        // otherwise just wait untill the state swtiches
+                                        leftMotor3.stop(coast);
+                                        leftMotor4.stop(coast);
+                                }
+
+                                // if right side is still engaed with the drive
+                                if (rightDriveEngaged) 
+                                {
+                                        //then spin the right motors to get them to disengage
+                                        rightMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
+                                        rightMotor4.spin(fwd, 12000, vex::voltageUnits::mV);  
+                                }
+                                else
+                                {
+                                        // otherwise just wait untill the state swtiches
+                                        rightMotor3.stop(coast);
+                                        rightMotor4.stop(coast);
+                                }
+                                break;
+                        case 2:
+                                PTOSolenoid.close();
+                                if (leftDriveEngaged && rightDriveEngaged) 
+                                {
+                                        // if both gears have engaged with the drive then we are good so switch to the drive state
+                                        Drive.state = 0;
+                                }
+
+                                // if left side is still disengaed with the drive
+                                if (!leftDriveEngaged) 
+                                {
+                                        //then spin the left motors to get them to engage
+                                        leftMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
+                                        leftMotor4.spin(fwd, 12000, vex::voltageUnits::mV);  
+                                }
+                                else
+                                {
+                                        // otherwise just wait untill the state swtiches
+                                        leftMotor3.stop(coast);
+                                        leftMotor4.stop(coast);
+                                }
+
+                                // if right side is still disengaed with the drive
+                                if (!rightDriveEngaged) 
+                                {
+                                        //then spin the right motors to get them to engage
+                                        rightMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
+                                        rightMotor4.spin(fwd, 12000, vex::voltageUnits::mV);  
+                                }
+                                else
+                                {
+                                        // otherwise just wait untill the state swtiches
+                                        rightMotor3.stop(coast);
+                                        rightMotor4.stop(coast);
+                                }
+                                break;
+
+                        case 3:
+                                PTOSolenoid.open();
+                                Drive.PTO_DriveEngaged = false; 
+                                break;   
+                              
+                        default:
+                                printf("%d\n", 404); // if we reach this point, then no we did not
+                                break;
+                } // end of switch (state)
+                wait(10,msec);
+        }
+        return 1;
+}
+
+
+void driveControl::startAutoStateMachineTask()
+{
+        driveTask = vex::task(driveStateMachineTask);
+}
+void driveControl::stopAutoStateMachineTask()
+{
+        driveTask.stop();
 }
 
 /**
@@ -128,6 +255,18 @@ void driveControl::stopRightSide(vex::brakeType brakeType, bool withPTO)
         }
 }
 
+void driveControl::setBrakeType(vex::brakeType brakeType)
+{
+        leftMotor1.setBrake(brakeType);
+        leftMotor2.setBrake(brakeType);
+        leftMotor3.setBrake(brakeType);
+        leftMotor4.setBrake(brakeType);
+        rightMotor1.setBrake(brakeType);
+        rightMotor2.setBrake(brakeType);
+        rightMotor3.setBrake(brakeType);
+        rightMotor4.setBrake(brakeType);
+}
+
 /**
  * @brief runs the drivetrain to run a set distance
  * 
@@ -162,15 +301,14 @@ void driveControl::moveDistance(double targetDistance, double maxSpeed, double t
  */
 void driveControl::turn(double targetAngle, double maxSpeed, double timeout, bool withPTO)
 {
-        MiniPID angleControl(2000, 5, 1200);
+        MiniPID angleControl(800, 0, 2500);
         angleControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
-        double startRotation = inertialSensor.rotation(deg);
         double startTime = vex::timer::system();
         while (vex::timer::system() - startTime <= timeout * 1000)
         {
-                double speed = angleControl.getOutput(inertialSensor.rotation(deg) - startRotation, targetAngle);
-                runLeftSide(-speed, withPTO);
-                runRightSide(speed, withPTO);
+                double speed = angleControl.getOutput(inertialSensor.rotation(deg), targetAngle);
+                runLeftSide(speed, withPTO);
+                runRightSide(-speed, withPTO);
                 wait(20, msec);
         }
         stopLeftSide(vex::brakeType::coast, withPTO);

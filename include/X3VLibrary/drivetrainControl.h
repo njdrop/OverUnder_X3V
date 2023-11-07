@@ -12,6 +12,12 @@ class driveControl {
                 void stopRightSide(vex::brakeType brakeType = brake, bool withPTO = false);
                 void moveDistance(double distance, double maxSpeed, double timeout, bool withPTO = false);
                 void turn(double targetAngle, double maxSpeed, double timeout, bool withPTO = false);
+                void setBrakeType(vex::brakeType brakeType);
+                void startAutoStateMachineTask();
+                void stopAutoStateMachineTask();
+                bool PTO_DriveEngaged;
+                int state;
+                vex::task driveTask;
         private:
                 double getLeftDriveEncoderValue(bool withPTO = false);
                 double getRightDriveEncoderValue(bool withPTO = false);

@@ -13,35 +13,25 @@ competition Competition;
 
 void pre_auton(void)
 {
-    
+    inertialSensor.calibrate();
 }
 
 void autonomous(void)
 {
-        // Drive.moveDistance(30, 100, 5, true);
-        // Drive.moveDistance(-30, 100, 5, true);
-        // Drive.turn(50, 100, 5, true);
-        // Drive.turn(0, 100, 5, true);
-
-        PTOSolenoid.open();
-        wait(3,sec);
-        leftMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
-        leftMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
-        rightMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
-        rightMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
-        while (vex::timer::system() < 20000)
-        {
-            printf("%d\n", leftMotor3.torque(vex::torqueUnits::Nm));
-        }
-        leftMotor3.stop(brake);
-        leftMotor4.stop(brake);
-        rightMotor3.stop(brake);
-        rightMotor4.stop(brake);
-        
+    Drive.state=0;
+    Drive.startAutoStateMachineTask();
+    wait(2000, msec);
+    Drive.state=1;
+    while (Drive.state == 1)
+    {
+        wait(10, msec);
+    }
+    Drive.turn(90, 100, 5, Drive.PTO_DriveEngaged);
 }
 
 void usercontrol(void) 
 {
+    Drive.stopAutoStateMachineTask();
     // initalizes boolean objects for the intake lift
     toggleBoolObject intakeToggle(false);
     // initalizes boolean objects for the wings
@@ -75,13 +65,11 @@ void usercontrol(void)
 
         double leftStickY = con.Axis3.value() * 100; 
         // runs the 2 left side drive motors at right stick value
-        leftMotor1.spin(fwd, nearbyint(leftStickY), vex::voltageUnits::mV);
-        leftMotor2.spin(fwd, nearbyint(leftStickY), vex::voltageUnits::mV);
+        Drive.runLeftSide(nearbyint(leftStickY));
 
         double rightStickY = con.Axis2.value() * 100; 
         // runs the 2 right side drive motors at right stick value
-        rightMotor1.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
-        rightMotor2.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
+        Drive.runRightSide(nearbyint(rightStickY));
   
         //////////////////////////// State Control ////////////////////////////
         switch (state) 

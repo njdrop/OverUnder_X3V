@@ -15,5 +15,9 @@
 void drive();
 void shoot();
 void ptoDriveToCata();
+void autoPTODriveToCata();
 void ptoCataToDrive();
+extern void autoPTOCataToDrive();
+extern bool stateSwitchButtonReleased;
+
 

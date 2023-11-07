@@ -18,7 +18,7 @@ vex::pneumatics blockerSolenoid = pneumatics(Brain.ThreeWirePort.E);
 vex::line leftPTO = line(Brain.ThreeWirePort.B);
 vex::line rightPTO = line(Brain.ThreeWirePort.C);
 vex::rotation catapultRotationSensor = rotation(PORT12, false);
-vex::inertial inertialSensor = inertial(PORT19);
+vex::inertial inertialSensor = inertial(PORT20);
 
 double wheelDiameter = 2.75;
 
@@ -26,3 +26,4 @@ int state = 0;
 bool leftDriveEngaged = true;
 bool rightDriveEngaged = true;
 double lineSensorEdgeValue = 57;
+bool stateSwitchButtonReleased = true;

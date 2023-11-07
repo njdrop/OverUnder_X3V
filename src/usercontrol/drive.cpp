@@ -20,8 +20,16 @@ void drive() {
 
         // if switch state button pressed
         if (con.ButtonR2.pressing()) {
-                // switch to pto state
-                state = 1;
+                if (stateSwitchButtonReleased)
+                {
+                        stateSwitchButtonReleased = false;
+                        // switch to pto state
+                        state = 1;     
+                }
+        } 
+        else
+        {
+                stateSwitchButtonReleased = true;
         }
 
         // gets value of the y axis on the left stick of the controller
@@ -36,4 +44,5 @@ void drive() {
         rightMotor3.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
         rightMotor4.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
 
+        Drive.setBrakeType(coast);
 }

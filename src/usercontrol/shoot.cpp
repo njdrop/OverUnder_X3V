@@ -23,10 +23,17 @@ void shoot() {
         // ButtonB               => Toggles the blocker up or down
 
         //is switch state button pressed
-        if (con.ButtonR2.pressing()) 
+       if (con.ButtonR2.pressing()) {
+                if (stateSwitchButtonReleased)
+                {
+                        stateSwitchButtonReleased = false;
+                        // switch to pto state
+                        state = 2;
+                }
+        }
+        else
         {
-                // switch to pto state
-                state = 2;
+                stateSwitchButtonReleased = true;
         }
 
         if (con.ButtonR1.pressing())
