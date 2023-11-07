@@ -26,23 +26,21 @@ void autonomous(void)
     // }
     // Drive.turn(90, 100, 5, Drive.PTO_DriveEngaged);
     // Drive.moveDistance(30, 100, 5, Drive.PTO_DriveEngaged);
-    Drive.startAutoStateMachineTask();
-    Drive.state = 1;
-    wait(3, sec);
     Drive.stopAutoStateMachineTask();
-    wait(2, sec);
-    leftMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
-    leftMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
-    rightMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
-    rightMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
+    PTOSolenoid.open();
+
     while(vex::timer::system() <= 20000)
     {
-        printf("%i\t", Drive.state);
+        leftMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
+        leftMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
+        rightMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
+        rightMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
         printf("%f\t", catapultRotationSensor.position(deg));
         printf("%f\t", leftMotor3.torque(vex::torqueUnits::Nm));
         printf("%f\t", leftMotor4.torque(vex::torqueUnits::Nm));
         printf("%f\t", rightMotor3.torque(vex::torqueUnits::Nm));
         printf("%f\n", rightMotor4.torque(vex::torqueUnits::Nm));
+        wait(10, msec);
     }
 }
 
