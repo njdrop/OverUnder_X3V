@@ -271,8 +271,9 @@ void driveControl::setBrakeType(vex::brakeType brakeType)
  * @param distance distance to travel (inches)
  * @param maxSpeed max speed to run the motors (pct) (min:0 max:100)
  * @param timeout time to completion (second)
+ * @param debug prints debug info to the terminal (default: false)
  */
-void driveControl::moveDistance(double targetDistance, double maxSpeed, double timeout, bool withPTO)
+void driveControl::moveDistance(double targetDistance, double maxSpeed, double timeout, bool withPTO, bool debug)
 {
         MiniPID distanceControl(2000, 5, 1200);
         distanceControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
@@ -280,8 +281,12 @@ void driveControl::moveDistance(double targetDistance, double maxSpeed, double t
         double startTime = vex::timer::system();
         while (vex::timer::system() - startTime <= timeout * 1000)
         {
-                double actualDistance = lib::angularDistanceToLinearDistance(getDriveEncoderValue(withPTO) - startPos, wheelDiameter);
+                double actualDistance = lib::angularDistanceToLinearDistance((getDriveEncoderValue(withPTO) - startPos), wheelDiameter);
                 double speed = distanceControl.getOutput(actualDistance, targetDistance);
+                if (debug)
+                {
+                        printf("%f\t", actualDistance-targetDistance);
+                }
                 runLeftSide(speed, withPTO);
                 runRightSide(speed, withPTO);
                 wait(20, msec);
@@ -297,14 +302,19 @@ void driveControl::moveDistance(double targetDistance, double maxSpeed, double t
  * @param maxSpeed max speed to run the motors (pct) (min: 0 max: 100)
  * @param timeout time to completion (seconds) 
  */
-void driveControl::turn(double targetAngle, double maxSpeed, double timeout, bool withPTO)
+void driveControl::turn(double targetAngle, double maxSpeed, double timeout, bool withPTO, bool debug)
 {
         MiniPID angleControl(800, 0, 2500);
         angleControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
         double startTime = vex::timer::system();
         while (vex::timer::system() - startTime <= timeout * 1000)
         {
-                double speed = angleControl.getOutput(inertialSensor.rotation(deg), targetAngle);
+                double actualAngle = inertialSensor.rotation(deg);
+                double speed = angleControl.getOutput(actualAngle, targetAngle);
+                 if (debug)
+                {
+                        printf("%f\t", actualAngle-targetAngle);
+                }
                 runLeftSide(speed, withPTO);
                 runRightSide(-speed, withPTO);
                 wait(20, msec);

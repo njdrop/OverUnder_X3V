@@ -13,35 +13,29 @@ competition Competition;
 
 void pre_auton(void)
 {
-    inertialSensor.calibrate();
+    // inertialSensor.calibrate();
 }
 
 void autonomous(void)
 {
-    // wait(2000, msec);
+    // Drive.startAutoStateMachineTask();
     // Drive.state=1;
     // while (Drive.state == 1)
     // {
     //     wait(10, msec);
     // }
-    // Drive.turn(90, 100, 5, Drive.PTO_DriveEngaged);
-    // Drive.moveDistance(30, 100, 5, Drive.PTO_DriveEngaged);
-    Drive.stopAutoStateMachineTask();
-    PTOSolenoid.open();
+    // wait(100, msec);
+    // // Drive.turn(90, 100, 5, Drive.PTO_DriveEngaged);
+    Drive.moveDistance(20, 100, 5, true, true);
 
-    while(vex::timer::system() <= 20000)
-    {
-        leftMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
-        leftMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
-        rightMotor3.spin(fwd, -12000, vex::voltageUnits::mV);
-        rightMotor4.spin(fwd, -12000, vex::voltageUnits::mV);
-        printf("%f\t", catapultRotationSensor.position(deg));
-        printf("%f\t", leftMotor3.torque(vex::torqueUnits::Nm));
-        printf("%f\t", leftMotor4.torque(vex::torqueUnits::Nm));
-        printf("%f\t", rightMotor3.torque(vex::torqueUnits::Nm));
-        printf("%f\n", rightMotor4.torque(vex::torqueUnits::Nm));
-        wait(10, msec);
-    }
+    // Drive.state=2;
+    // while (Drive.state == 2)
+    // {
+    //     wait(10, msec);
+    // }
+    // wait(100, msec);
+    // Drive.turn(0, 100, 5, Drive.PTO_DriveEngaged);
+    // Drive.moveDistance(30, 100, 5, Drive.PTO_DriveEngaged);
 }
 
 void usercontrol(void) 

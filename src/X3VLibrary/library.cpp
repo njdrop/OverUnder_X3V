@@ -51,7 +51,7 @@ namespace lib {
          * @return double (inches)
          */
         double angularDistanceToLinearDistance(double angularDistance, double diameter) {
-                return (angularDistance * 3.14159 / 180) * (diameter / 2);
+                return (angularDistance * 3.14159 / 180) * (diameter);
         }
 }
 
