@@ -13,29 +13,12 @@ competition Competition;
 
 void pre_auton(void)
 {
-    // inertialSensor.calibrate();
+    inertialSensor.calibrate();
 }
 
 void autonomous(void)
 {
-    // Drive.startAutoStateMachineTask();
-    // Drive.state=1;
-    // while (Drive.state == 1)
-    // {
-    //     wait(10, msec);
-    // }
-    // wait(100, msec);
-    // // Drive.turn(90, 100, 5, Drive.PTO_DriveEngaged);
-    Drive.moveDistance(20, 100, 5, true, true);
-
-    // Drive.state=2;
-    // while (Drive.state == 2)
-    // {
-    //     wait(10, msec);
-    // }
-    // wait(100, msec);
-    // Drive.turn(0, 100, 5, Drive.PTO_DriveEngaged);
-    // Drive.moveDistance(30, 100, 5, Drive.PTO_DriveEngaged);
+    autonSkills1();
 }
 
 void usercontrol(void) 

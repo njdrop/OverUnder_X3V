@@ -18,7 +18,7 @@ class driveControl {
                 void startAutoStateMachineTask();
                 void stopAutoStateMachineTask();
                 bool PTO_DriveEngaged;
-                int state;
+                int driveState;
                 vex::task driveTask;
         private:
                 double getLeftDriveEncoderValue(bool withPTO = false);

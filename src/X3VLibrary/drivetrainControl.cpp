@@ -9,8 +9,8 @@ using namespace vex;
 driveControl::driveControl(double wheelDiam) 
 {
         wheelDiameter = wheelDiam;
-        PTO_DriveEngaged = (state == 1); 
-        state = 0;
+        PTO_DriveEngaged = (state == 0); 
+        driveState = state;
         driveTask = vex::task();
 }
 
@@ -93,7 +93,7 @@ int driveStateMachineTask()
                 leftDriveEngaged = (leftPTO.value(pct) > lineSensorEdgeValue); 
                 rightDriveEngaged = (rightPTO.value(pct) > lineSensorEdgeValue);
 
-                switch (Drive.state) 
+                switch (Drive.driveState) 
                 {
                         case 0:
                                 PTOSolenoid.close();
@@ -104,7 +104,7 @@ int driveStateMachineTask()
                                 if (!leftDriveEngaged && !rightDriveEngaged) 
                                 {
                                         // if both gears have disengaged with the drive then we are good so switch to the shooting state
-                                        Drive.state = 3;
+                                        Drive.driveState = 3;
                                 }
                                 // if left side is still engaed with the drive
                                 if (leftDriveEngaged) 
@@ -139,7 +139,7 @@ int driveStateMachineTask()
                                 if (leftDriveEngaged && rightDriveEngaged) 
                                 {
                                         // if both gears have engaged with the drive then we are good so switch to the drive state
-                                        Drive.state = 0;
+                                        Drive.driveState = 0;
                                 }
 
                                 // if left side is still disengaed with the drive

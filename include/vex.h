@@ -12,6 +12,7 @@
 #include "X3VLibrary/library.h"
 #include "X3VLibrary/Configuration/robotConfig.h"
 
+void autonSkills1();
 void drive();
 void shoot();
 void ptoDriveToCata();
