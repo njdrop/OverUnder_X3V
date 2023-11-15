@@ -16,8 +16,7 @@ void pre_auton(void)
     inertialSensor.calibrate();
     bool firstButtonPress = true;
     while (true) {
-
-        if (con.ButtonA.pressing())
+        if (Brain.Screen.pressing())
         {
             // ensure autonSelect is only incremented once per button press
             if(firstButtonPress)
@@ -41,11 +40,9 @@ void pre_auton(void)
             // record the the button has been released so that a new button press is allowed to increment the autonSelect
             firstButtonPress = true;
         }
-
         con.Screen.clearScreen();
         con.Screen.setCursor(1, 1);
         con.Screen.print(autonSelect);
-
         wait(50, msec);
     }
 }
@@ -115,7 +112,6 @@ void usercontrol(void)
     // initalizes boolean objects for the blocker
     toggleBoolObject blockerToggle(false);
 
- //hi
     while (true) 
     {
         // define states of sensors
@@ -123,7 +119,6 @@ void usercontrol(void)
         // indecates weather pto gear is engaged or disengaged from the drivetrain
         leftDriveEngaged = (leftPTO.value(pct) > lineSensorEdgeValue); 
         rightDriveEngaged = (rightPTO.value(pct) > lineSensorEdgeValue);
-
 
         //////////////////////////// Universal Controls ////////////////////////////
         
