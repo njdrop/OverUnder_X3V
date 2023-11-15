@@ -69,31 +69,31 @@ void autonSkills2 () {
         blockerSolenoid.open();
         intakeSolenoid.open();
         wingsSolenoid.open();
+        int counter = 0;
         while (true) 
         {
                 // wait for the matchloads to be loaded
-                wait(3500, msec);
+                wait(2900 + 1000 * counter, msec);
                 // close the blocker so we fit under the bar
                 blockerSolenoid.close();
                 // drive under the hang bar
                 Drive.turn(-10, 100, 0.5, true);
                 Drive.moveDistance(25, 100, 0.75, true, true);
                 Drive.turn(-23, 100, 0.5, true);
-                Drive.moveDistance(50, 90, 1.75, true, true);
+                Drive.moveDistance(45, 90, 1.75, true, true);
 
 
                 // turn to the goal
                 Drive.turn(-55, 100, 0.5, true);
                 // push the triballs near the goal
-                Drive.moveDistance(25, 100, 0.75, true, true);
+                Drive.moveDistance(30, 100, 0.75, true, true);
                 // use the wings to kick a few of them that are stuck on the wall closer to the goal
                 Drive.turn(-80, 100, 0.75, true);
                 wingsSolenoid.close();
-                Drive.turn(-50, 100, 0.75, true);
                 // back up away from triballs
                 Drive.moveDistance(-7, 100, 0.5, true, true);
-                
-                
+
+
                 // turn back end closer to the outer corner of the goal
                 Drive.turn(90, 100, 1, true);
                 // push triablls ino the goal
@@ -114,24 +114,36 @@ void autonSkills2 () {
                 Drive.turn(90, 100, 0.5, true);
                 // push a second time
                 Drive.moveDistance(-40, 100, 0.75, true, false);
-                // insure robot has not tunred while pushing
-                Drive.turn(95, 100, 0.25, true);
+                
+                if (counter == 2) 
+                {
+                        // back it up
+                        Drive.moveDistance(10, 100, .5, true, true);
+                        // yolo
+                        Drive.moveDistance(-10, 100, .5, true, true);
+                }
+                else
+                {
+                        // insure robot has not tunred while pushing
+                        Drive.turn(95, 100, 0.25, true);
 
 
-                // drive back to algin with alley way
-                Drive.moveDistance(30, 75, 1.25, true, true);
-                // turn back side towards alley way
-                Drive.turn(-23, 100, 1, true);
+                        // drive back to algin with alley way
+                        Drive.moveDistance(30, 75, 1.25, true, true);
+                        // turn back side towards alley way
+                        Drive.turn(-23, 100, 1, true);
 
 
-                //drive to the matchload bar
-                Drive.moveDistance(-68, 80, 2, true, true);
-                Drive.turn(0, 100, 0.4, true);
-                Drive.moveDistance(-12, 80, 0.75, true, true);
+                        //drive to the matchload bar
+                        Drive.moveDistance(-68, 80, 2, true, true);
+                        Drive.turn(0, 100, 0.4, true);
+                        Drive.moveDistance(-12, 80, 0.75, true, true);
 
 
-                // set robot to be ready for matchl loadding
-                blockerSolenoid.open();
-                wingsSolenoid.open();
+                        // set robot to be ready for matchl loadding
+                        blockerSolenoid.open();
+                        wingsSolenoid.open();
+                        counter++;
+                }
         }
 }
