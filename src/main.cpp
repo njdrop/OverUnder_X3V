@@ -10,16 +10,100 @@
 using namespace vex;
 competition Competition;
 
-
+int autonSelect = 0;
 void pre_auton(void)
 {
     inertialSensor.calibrate();
+    bool firstButtonPress = true;
+    while (true) {
+
+        if (con.ButtonA.pressing())
+        {
+            // ensure autonSelect is only incremented once per button press
+            if(firstButtonPress)
+            {
+                // record the the first loop has now happened
+                firstButtonPress = false;
+                if(autonSelect == 10)
+                {
+                    // if autonSelect has reached the end then cycle it
+                    autonSelect = 0;
+                }
+                else
+                {
+                    // increment autonSelect
+                    autonSelect++;
+                }
+            }
+        }
+        else
+        {
+            // record the the button has been released so that a new button press is allowed to increment the autonSelect
+            firstButtonPress = true;
+        }
+
+        con.Screen.clearScreen();
+        con.Screen.setCursor(1, 1);
+        con.Screen.print(autonSelect);
+
+        wait(50, msec);
+    }
 }
 
 void autonomous(void)
 {
-    autonSkills2();
+    // autonomous selector
+    switch (autonSelect)
+    {
+        case 0:
+            // do nothing
+            break;
+        case 1:
+            // skills
+            autonSkills2();
+            break;
+        case 2:
+            // Qualification Offensive
+            qualificationOffensive();
+            break;
+        case 3:
+            // Qualification Offensive Risky
+            qualificationOffensiveRisky();
+            break;
+        case 4:
+            // Qualification Defensive
+            qualificationDefensive();
+            break;
+        case 5:
+            // Qualification Defensive Risky
+            qualificationDefensiveRisky();
+            break;
+        case 6:
+            // Elimination Offensive
+            eliminationOffensive();
+            break;
+        case 7:
+            // Elimination Defensive
+            eliminationOffensiveRisky();
+            break;
+        case 8:
+            // Elimination Offensive Risky
+            eliminationDefensive();
+            break;
+        case 9:
+            // Elimination Defensive Risky
+            eliminationDefensiveRisky();
+            break;
+         case 10:
+            // Solo Autonomous Win Point            
+            soloAutonomousWinPoint();
+            break;
+        default:
+            break;
+    }
 }
+
+
 
 void usercontrol(void) 
 {
@@ -30,7 +114,6 @@ void usercontrol(void)
     toggleBoolObject wingsToggle(false);
     // initalizes boolean objects for the blocker
     toggleBoolObject blockerToggle(false);
-
 
     while (true) 
     {

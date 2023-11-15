@@ -21,5 +21,14 @@ void autoPTODriveToCata();
 void ptoCataToDrive();
 extern void autoPTOCataToDrive();
 extern bool stateSwitchButtonReleased;
+void soloAutonomousWinPoint();
+void qualificationOffensive();
+void qualificationOffensiveRisky();
+void qualificationDefensive();
+void qualificationDefensiveRisky();
+void eliminationOffensive();
+void eliminationOffensiveRisky();
+void eliminationDefensive();
+void eliminationDefensiveRisky();
 
 
