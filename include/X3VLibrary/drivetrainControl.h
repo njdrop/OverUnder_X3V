@@ -12,8 +12,8 @@ class driveControl {
                 void runRightSide(double voltage, bool withPTO = false);
                 void stopLeftSide(vex::brakeType brakeType = brake, bool withPTO = false);
                 void stopRightSide(vex::brakeType brakeType = brake, bool withPTO = false);
-                void moveDistance(double distance, double maxSpeed, double timeout, bool withPTO = false, bool debug = false);
-                void turn(double targetAngle, double maxSpeed, double timeout, bool withPTO = false, bool debug = false);
+                void moveDistance(double distance, double maxSpeed, double timeout, bool withPTO = false, bool correctHeading = false);
+                void turn(double targetAngle, double maxSpeed, double timeout, bool withPTO = false);
                 void setBrakeType(vex::brakeType brakeType);
                 void startAutoStateMachineTask();
                 void stopAutoStateMachineTask();

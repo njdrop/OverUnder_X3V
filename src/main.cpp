@@ -18,7 +18,7 @@ void pre_auton(void)
 
 void autonomous(void)
 {
-    autonSkills1();
+    autonSkills2();
 }
 
 void usercontrol(void) 

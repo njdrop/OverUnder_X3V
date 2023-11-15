@@ -273,22 +273,31 @@ void driveControl::setBrakeType(vex::brakeType brakeType)
  * @param timeout time to completion (second)
  * @param debug prints debug info to the terminal (default: false)
  */
-void driveControl::moveDistance(double targetDistance, double maxSpeed, double timeout, bool withPTO, bool debug)
+void driveControl::moveDistance(double targetDistance, double maxSpeed, double timeout, bool withPTO, bool correctHeading)
 {
         MiniPID distanceControl(2000, 5, 1200);
+        MiniPID headingControl(800, 0, 2500);
         distanceControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
+        headingControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
         double startPos = getDriveEncoderValue(withPTO);
+        double startAngle = inertialSensor.rotation(deg);
         double startTime = vex::timer::system();
         while (vex::timer::system() - startTime <= timeout * 1000)
         {
                 double actualDistance = lib::angularDistanceToLinearDistance((getDriveEncoderValue(withPTO) - startPos), wheelDiameter);
+                double actualAngle = inertialSensor.rotation(deg);
                 double speed = distanceControl.getOutput(actualDistance, targetDistance);
-                if (debug)
+                double correctionFactor = 0.5 * headingControl.getOutput(actualAngle, startAngle);
+                if (correctHeading)
                 {
-                        printf("%f\t", actualDistance-targetDistance);
+                        runLeftSide(speed + correctionFactor, withPTO);
+                        runRightSide(speed - correctionFactor, withPTO);
                 }
-                runLeftSide(speed, withPTO);
-                runRightSide(speed, withPTO);
+                else
+                {
+                        runLeftSide(speed, withPTO);
+                        runRightSide(speed, withPTO);
+                }
                 wait(20, msec);
         }
         stopLeftSide(vex::brakeType::coast, withPTO);
@@ -302,7 +311,7 @@ void driveControl::moveDistance(double targetDistance, double maxSpeed, double t
  * @param maxSpeed max speed to run the motors (pct) (min: 0 max: 100)
  * @param timeout time to completion (seconds) 
  */
-void driveControl::turn(double targetAngle, double maxSpeed, double timeout, bool withPTO, bool debug)
+void driveControl::turn(double targetAngle, double maxSpeed, double timeout, bool withPTO)
 {
         MiniPID angleControl(800, 0, 2500);
         angleControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
@@ -311,10 +320,6 @@ void driveControl::turn(double targetAngle, double maxSpeed, double timeout, boo
         {
                 double actualAngle = inertialSensor.rotation(deg);
                 double speed = angleControl.getOutput(actualAngle, targetAngle);
-                 if (debug)
-                {
-                        printf("%f\t", actualAngle-targetAngle);
-                }
                 runLeftSide(speed, withPTO);
                 runRightSide(-speed, withPTO);
                 wait(20, msec);
