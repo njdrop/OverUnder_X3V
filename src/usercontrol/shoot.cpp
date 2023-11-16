@@ -58,8 +58,8 @@ void shoot() {
                 else
                 {
                         // sets the pto motors to run the extake
-                        lib::sendInputToMotors(leftMotor3, leftMotor4, -10000);
-                        lib::sendInputToMotors(rightMotor3, rightMotor4, -10000);
+                        lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
+                        lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
                 }
         }
         else

@@ -54,4 +54,6 @@ extern bool rightDriveEngaged;
  */
 extern double lineSensorEdgeValue;
 
+extern const char * autoNames[11];
+
 #endif

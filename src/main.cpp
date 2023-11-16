@@ -23,7 +23,7 @@ void pre_auton(void)
             {
                 // record the the first loop has now happened
                 firstButtonPress = false;
-                if(autonSelect == 10)
+                if(autonSelect == 3)
                 {
                     // if autonSelect has reached the end then cycle it
                     autonSelect = 0;
@@ -40,10 +40,13 @@ void pre_auton(void)
             // record the the button has been released so that a new button press is allowed to increment the autonSelect
             firstButtonPress = true;
         }
+
         con.Screen.clearScreen();
         con.Screen.setCursor(1, 1);
         con.Screen.print(autonSelect);
-        wait(50, msec);
+        con.Screen.print(" - ");
+        con.Screen.print(autoNames[autonSelect]);
+        wait(100, msec);
     }
 }
 
@@ -57,7 +60,9 @@ void autonomous(void)
             break;
         case 1:
             // skills
-            autonSkills2();
+            // autonSkills2();
+            Drive.moveDistance(-40, 100, 3, true, true);
+            Drive.moveDistance(15, 100, 3, true, true);
             break;
         case 2:
             // Qualification Offensive
@@ -65,35 +70,35 @@ void autonomous(void)
             break;
         case 3:
             // Qualification Offensive Risky
-            qualificationOffensiveRisky();
+            // qualificationOffensiveRisky();
             break;
         case 4:
             // Qualification Defensive
-            qualificationDefensive();
+            // qualificationDefensive();
             break;
         case 5:
             // Qualification Defensive Risky
-            qualificationDefensiveRisky();
+            // qualificationDefensiveRisky();
             break;
         case 6:
             // Elimination Offensive
-            eliminationOffensive();
+            // eliminationOffensive();
             break;
         case 7:
             // Elimination Defensive
-            eliminationOffensiveRisky();
+            // eliminationOffensiveRisky();
             break;
         case 8:
             // Elimination Offensive Risky
-            eliminationDefensive();
+            // eliminationDefensive();
             break;
         case 9:
             // Elimination Defensive Risky
-            eliminationDefensiveRisky();
+            // eliminationDefensiveRisky();
             break;
          case 10:
             // Solo Autonomous Win Point            
-            soloAutonomousWinPoint();
+            // soloAutonomousWinPoint();
             break;
         default:
             break;
@@ -104,6 +109,7 @@ void autonomous(void)
 
 void usercontrol(void) 
 {
+   
     Drive.stopAutoStateMachineTask();
     // initalizes boolean objects for the intake lift
     toggleBoolObject intakeToggle(false);
@@ -114,6 +120,10 @@ void usercontrol(void)
 
     while (true) 
     {
+         printf("%f\t",leftMotor3.temperature(fahrenheit));
+        printf("%f\t",leftMotor4.temperature(fahrenheit));
+        printf("%f\t",rightMotor3.temperature(fahrenheit));
+        printf("%f\n",rightMotor4.temperature(fahrenheit));
         // define states of sensors
         // each loop determine if the line sensor dectects a light level greater than the edge case 
         // indecates weather pto gear is engaged or disengaged from the drivetrain

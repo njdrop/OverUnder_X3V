@@ -27,3 +27,21 @@ bool leftDriveEngaged = true;
 bool rightDriveEngaged = true;
 double lineSensorEdgeValue = 57;
 bool stateSwitchButtonReleased = true;
+
+extern const char * autoNames[11] = 
+{
+        "Do Nothing",
+        "Backwards Forwards \n (use backside) \n (point straight at goal)",
+        "Offensive \n (use backside)",
+        "Defensive \n (use backside)",
+        "Skills",
+        "Qualification Offensive",
+        "Qualification Offensive Risky",
+        "Qualification Defensive",
+        "Qualification Defensive Risky",
+        "Elimination Offensive",
+        "Elimination Defensive"//,
+        // "Elimination Offensive Risky",
+        // "Elimination Defensive Risky",
+        // "Solo Autonomous Win Point"
+};
