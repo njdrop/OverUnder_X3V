@@ -1,14 +1,3 @@
-/**
-* Small, easy to use PID implementation with advanced controller capability.<br> 
-* Minimal usage:<br>
-* setPID(p,i,d); <br>
-* ...looping code...{ <br>
-* output=getOutput(sensorvalue,target); <br>
-* }
-* 
-* @see http://brettbeauregard.com/blog/2011/04/improving-the-beginners-pid-direction/improving-the-beginners-pid-introduction
-*/
-
 #include "vex.h"
 
 //**********************************

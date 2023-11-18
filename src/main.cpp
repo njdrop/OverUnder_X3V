@@ -13,6 +13,7 @@ competition Competition;
 int autonSelect = 0;
 void pre_auton(void)
 {
+    // calibrate the inertial sensor
     inertialSensor.calibrate();
     bool firstButtonPress = true;
     while (true) {
@@ -23,7 +24,7 @@ void pre_auton(void)
             {
                 // record the the first loop has now happened
                 firstButtonPress = false;
-                if(autonSelect == 3)
+                if(autonSelect == 10) //3
                 {
                     // if autonSelect has reached the end then cycle it
                     autonSelect = 0;
@@ -52,78 +53,76 @@ void pre_auton(void)
 
 void autonomous(void)
 {
-    // autonomous selector
-    switch (autonSelect)
-    {
-        case 0:
-            // do nothing
-            break;
-        case 1:
-            // skills
-            // autonSkills2();
-            Drive.moveDistance(-40, 100, 3, true, true);
-            Drive.moveDistance(15, 100, 3, true, true);
-            break;
-        case 2:
-            // Qualification Offensive
-            qualificationOffensive();
-            break;
-        case 3:
-            // Qualification Offensive Risky
-            // qualificationOffensiveRisky();
-            break;
-        case 4:
-            // Qualification Defensive
-            // qualificationDefensive();
-            break;
-        case 5:
-            // Qualification Defensive Risky
-            // qualificationDefensiveRisky();
-            break;
-        case 6:
-            // Elimination Offensive
-            // eliminationOffensive();
-            break;
-        case 7:
-            // Elimination Defensive
-            // eliminationOffensiveRisky();
-            break;
-        case 8:
-            // Elimination Offensive Risky
-            // eliminationDefensive();
-            break;
-        case 9:
-            // Elimination Defensive Risky
-            // eliminationDefensiveRisky();
-            break;
-         case 10:
-            // Solo Autonomous Win Point            
-            // soloAutonomousWinPoint();
-            break;
-        default:
-            break;
-    }
+    qualificationOffensive();
+    // // autonomous selector
+    // switch (autonSelect)
+    // {
+    //     case 0:
+    //         // do nothing
+    //         break;
+    //     case 1:
+    //         // skills
+    //         // autonSkills2();
+    //         Drive.moveDistance(-40, 100, 3, true, true);
+    //         Drive.moveDistance(15, 100, 3, true, true);
+    //         break;
+    //     case 2:
+    //         // Qualification Offensive
+    //         qualificationOffensive();
+    //         break;
+    //     case 3:
+    //         qualificationOffensive();
+    //         // Qualification Offensive Risky
+    //         // qualificationOffensiveRisky();
+    //         break;
+    //     case 4:
+    //         // Qualification Defensive
+    //         qualificationDefensive();
+    //         break;
+    //     case 5:
+    //         // Qualification Defensive Risky
+    //         // qualificationDefensiveRisky();
+    //         break;
+    //     case 6:
+    //         // Elimination Offensive
+    //         // eliminationOffensive();
+    //         break;
+    //     case 7:
+    //         // Elimination Defensive
+    //         // eliminationOffensiveRisky();
+    //         break;
+    //     case 8:
+    //         // Elimination Offensive Risky
+    //         // eliminationDefensive();
+    //         break;
+    //     case 9:
+    //         // Elimination Defensive Risky
+    //         // eliminationDefensiveRisky();
+    //         break;
+    //      case 10:
+    //         // Solo Autonomous Win Point            
+    //         // soloAutonomousWinPoint();
+    //         break;
+    //     default:
+    //         break;
+    // }
 }
 
 
 
 void usercontrol(void) 
 {
-   
+   // ensures the auton program will not interfere with the state machine
     Drive.stopAutoStateMachineTask();
-    // initalizes boolean objects for the intake lift
+    // contructs boolean objects for the intake lift
     toggleBoolObject intakeToggle(false);
-    // initalizes boolean objects for the wings
+    // contructs boolean objects for the wings
     toggleBoolObject wingsToggle(false);
-    // initalizes boolean objects for the blocker
+    // contructs boolean objects for the blocker
     toggleBoolObject blockerToggle(false);
 
     while (true) 
     {
-         printf("%f\t",leftMotor3.temperature(fahrenheit));
-        printf("%f\t",leftMotor4.temperature(fahrenheit));
-        printf("%f\t",rightMotor3.temperature(fahrenheit));
-        printf("%f\n",rightMotor4.temperature(fahrenheit));
         // define states of sensors
         // each loop determine if the line sensor dectects a light level greater than the edge case 
         // indecates weather pto gear is engaged or disengaged from the drivetrain
@@ -144,10 +143,12 @@ void usercontrol(void)
         intakeToggle.changeValueFromInput(con.ButtonX.pressing());
         lib::toggleSolenoid(intakeSolenoid, intakeToggle.getValue());
 
+        // records the value of the left stick
         double leftStickY = con.Axis3.value() * 100; 
         // runs the 2 left side drive motors at right stick value
         Drive.runLeftSide(nearbyint(leftStickY));
 
+        // records the value of the right stick
         double rightStickY = con.Axis2.value() * 100; 
         // runs the 2 right side drive motors at right stick value
         Drive.runRightSide(nearbyint(rightStickY));
@@ -155,18 +156,18 @@ void usercontrol(void)
         //////////////////////////// State Control ////////////////////////////
         switch (state) 
         {
-            case 0:
+            case driveState:
                 drive(); // run drive state code (see "drive.cpp")
                 break;
-            case 1:
+            case ptoDriveToCataState:
                 con.rumble("-");
                 ptoDriveToCata(); // ptoToShoot State
                 break;
-            case 2:
+            case ptoCataToDriveState:
                 con.rumble(".");
                 ptoCataToDrive(); // ptoToDrive State
                 break;
-            case 3:
+            case shootState:
                 shoot(); // shoot State
                 break;
             default:

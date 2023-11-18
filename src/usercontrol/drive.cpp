@@ -24,7 +24,7 @@ void drive() {
                 {
                         stateSwitchButtonReleased = false;
                         // switch to pto state
-                        state = 1;     
+                        state = ptoDriveToCataState;     
                 }
         } 
         else

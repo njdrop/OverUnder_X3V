@@ -8,11 +8,12 @@ void ptoDriveToCata () {
         if (!leftDriveEngaged && !rightDriveEngaged) 
         {
                 // if both gears have disengaged with the drive then we are good so switch to the shooting state
-                state = 3;
+                state = shootState;
         }
 
         if (con.ButtonDown.pressing()) {
-                state = 2;
+                // fail safe if driv
+                state = driveState;
         }
 
         // if left side is still engaed with the drive
@@ -52,11 +53,11 @@ void ptoCataToDrive () {
         if (leftDriveEngaged && rightDriveEngaged) 
         {
                 // if both gears have engaged with the drive then we are good so switch to the drive state
-                state = 0;
+                state = driveState;
         }
 
-         if (con.ButtonDown.pressing()) {
-                state = 1;
+        if (con.ButtonDown.pressing()) {
+                state = shootState;
         }
 
         // if left side is still disengaed with the drive

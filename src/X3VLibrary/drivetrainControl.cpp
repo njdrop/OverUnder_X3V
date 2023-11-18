@@ -1,6 +1,11 @@
 #include "vex.h"
 using namespace vex;
 
+
+//**********************************
+//Constructor function
+//**********************************
+
 /**
  * @brief Constructs a new drivetrain object
  * 
@@ -13,6 +18,10 @@ driveControl::driveControl(double wheelDiam)
         driveState = state;
         driveTask = vex::task();
 }
+
+//**********************************
+//Configuration functions
+//**********************************
 
 void driveControl::startAutoStateMachineTask()
 {

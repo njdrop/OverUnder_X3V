@@ -22,13 +22,13 @@ vex::inertial inertialSensor = inertial(PORT20);
 
 double wheelDiameter = 2.75;
 
-int state = 0;
+possibleState state = driveState;
 bool leftDriveEngaged = true;
 bool rightDriveEngaged = true;
 double lineSensorEdgeValue = 57;
 bool stateSwitchButtonReleased = true;
 
-extern const char * autoNames[11] = 
+const char * autoNames[11] = 
 {
         "Do Nothing",
         "Backwards Forwards \n (use backside) \n (point straight at goal)",

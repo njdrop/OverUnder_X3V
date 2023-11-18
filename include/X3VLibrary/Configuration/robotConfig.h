@@ -23,14 +23,21 @@ extern vex::pneumatics intakeSolenoid;
 extern vex::pneumatics blockerSolenoid;
 
 /**
+ * @brief defines the possible states the robot can be in
+ * 
+ */
+enum possibleState {
+        driveState,
+        ptoCataToDriveState,
+        ptoDriveToCataState,
+        shootState
+};
+
+/**
  * @brief controls the state machine for usercontrol
  * @see main.cpp
- * @note 0 => drive state
- * @note 1 => pto from drive to cata state
- * @note 2 => pto from cata to drive state
- * @note 3 => cata state
  */
-extern int state;
+extern possibleState state;
 
 /**
  * @brief defines if the left pto motors are engaged with the drive or the catapult
