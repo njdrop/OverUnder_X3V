@@ -78,7 +78,7 @@ void qualificationOffensiveRisky ()
         // point front towards triball barrier
         Drive.turn(-101.3, 100, 2, true);
         // pto to catapult
-        Drive.driveState = 1;
+        Drive.driveState = state::ptoDriveToCata;
         wait(3000, msec);
         // start intake
         leftMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
@@ -93,7 +93,7 @@ void qualificationOffensiveRisky ()
         rightMotor3.stop(hold);
         rightMotor4.stop(hold);
         // switch pto back to drive
-        Drive.driveState = 2;
+        Drive.driveState = state::ptoCataToDrive;
         wait(3000, msec);
         // back up
         Drive.moveDistance(-10, 100, 2, true, true);

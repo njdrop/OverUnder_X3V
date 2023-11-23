@@ -26,7 +26,7 @@ void shoot() {
                 {
                         stateSwitchButtonReleased = false;
                         // switch to pto state
-                        state = 2;
+                        currentState = ptoCataToDriveState;
                 }
         }
         else

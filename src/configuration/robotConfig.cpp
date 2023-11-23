@@ -22,7 +22,7 @@ vex::inertial inertialSensor = inertial(PORT20);
 
 double wheelDiameter = 2.75;
 
-possibleState state = driveState;
+state currentState = driveState;
 bool leftDriveEngaged = true;
 bool rightDriveEngaged = true;
 double lineSensorEdgeValue = 57;

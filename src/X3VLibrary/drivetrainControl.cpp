@@ -14,8 +14,8 @@ using namespace vex;
 driveControl::driveControl(double wheelDiam) 
 {
         wheelDiameter = wheelDiam;
-        PTO_DriveEngaged = (state == 0); 
-        driveState = state;
+        PTO_DriveEngaged = (currentState == driveState); 
+        driveState = currentState;
         driveTask = vex::task();
 }
 
@@ -104,89 +104,13 @@ int driveStateMachineTask()
 
                 switch (Drive.driveState) 
                 {
-                        case 0:
-                                PTOSolenoid.close();
-                                Drive.PTO_DriveEngaged = true;
-                                break;    
-                        case 1:
-                                PTOSolenoid.open();
-                                if (!leftDriveEngaged && !rightDriveEngaged) 
-                                {
-                                        // if both gears have disengaged with the drive then we are good so switch to the shooting state
-                                        Drive.driveState = 3;
-                                }
-                                // if left side is still engaed with the drive
-                                if (leftDriveEngaged) 
-                                {
-                                        //then spin the left motors to get them to disengage
-                                        leftMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-                                        leftMotor4.spin(fwd, 12000, vex::voltageUnits::mV);  
-                                }
-                                else
-                                {
-                                        // otherwise just wait untill the state swtiches
-                                        leftMotor3.stop(coast);
-                                        leftMotor4.stop(coast);
-                                }
-
-                                // if right side is still engaed with the drive
-                                if (rightDriveEngaged) 
-                                {
-                                        //then spin the right motors to get them to disengage
-                                        rightMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-                                        rightMotor4.spin(fwd, 12000, vex::voltageUnits::mV);  
-                                }
-                                else
-                                {
-                                        // otherwise just wait untill the state swtiches
-                                        rightMotor3.stop(coast);
-                                        rightMotor4.stop(coast);
-                                }
+                        case state::drive:
                                 break;
-                        case 2:
-                                PTOSolenoid.close();
-                                if (leftDriveEngaged && rightDriveEngaged) 
-                                {
-                                        // if both gears have engaged with the drive then we are good so switch to the drive state
-                                        Drive.driveState = 0;
-                                }
-
-                                // if left side is still disengaed with the drive
-                                if (!leftDriveEngaged) 
-                                {
-                                        //then spin the left motors to get them to engage
-                                        leftMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-                                        leftMotor4.spin(fwd, 12000, vex::voltageUnits::mV);  
-                                }
-                                else
-                                {
-                                        // otherwise just wait untill the state swtiches
-                                        leftMotor3.stop(coast);
-                                        leftMotor4.stop(coast);
-                                }
-
-                                // if right side is still disengaed with the drive
-                                if (!rightDriveEngaged) 
-                                {
-                                        //then spin the right motors to get them to engage
-                                        rightMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-                                        rightMotor4.spin(fwd, 12000, vex::voltageUnits::mV);  
-                                }
-                                else
-                                {
-                                        // otherwise just wait untill the state swtiches
-                                        rightMotor3.stop(coast);
-                                        rightMotor4.stop(coast);
-                                }
+                        case state::ptoDriveToCata:
                                 break;
-
-                        case 3:
-                                PTOSolenoid.open();
-                                Drive.PTO_DriveEngaged = false; 
-                                break;   
-                              
-                        default:
-                                printf("%d\n", 404); // if we reach this point, then no we did not
+                        case state::ptoCataToDrive:
+                                break;
+                        case state::shoot:
                                 break;
                 } // end of switch (state)
                 wait(10,msec);

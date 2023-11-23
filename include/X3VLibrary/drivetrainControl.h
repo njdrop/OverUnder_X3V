@@ -2,6 +2,7 @@
 #define DRIVECONTROL_H
 
 using namespace vex;
+#include "vex.h"
 
 int driveStateMachineTask();
 
@@ -18,7 +19,7 @@ class driveControl {
                 void startAutoStateMachineTask();
                 void stopAutoStateMachineTask();
                 bool PTO_DriveEngaged;
-                int driveState;
+                state driveState;
                 vex::task driveTask;
         private:
                 double getLeftDriveEncoderValue(bool withPTO = false);

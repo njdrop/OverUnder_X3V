@@ -6,6 +6,7 @@
 /*    Description:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
+
 #include "vex.h"
 using namespace vex;
 competition Competition;
@@ -16,7 +17,8 @@ void pre_auton(void)
     // calibrate the inertial sensor
     inertialSensor.calibrate();
     bool firstButtonPress = true;
-    while (true) {
+    while (true) 
+    {
         if (Brain.Screen.pressing())
         {
             // ensure autonSelect is only incremented once per button press
@@ -53,59 +55,55 @@ void pre_auton(void)
 
 void autonomous(void)
 {
-    qualificationOffensive();
-    // // autonomous selector
-    // switch (autonSelect)
-    // {
-    //     case 0:
-    //         // do nothing
-    //         break;
-    //     case 1:
-    //         // skills
-    //         // autonSkills2();
-    //         Drive.moveDistance(-40, 100, 3, true, true);
-    //         Drive.moveDistance(15, 100, 3, true, true);
-    //         break;
-    //     case 2:
-    //         // Qualification Offensive
-    //         qualificationOffensive();
-    //         break;
-    //     case 3:
-    //         qualificationOffensive();
-    //         // Qualification Offensive Risky
-    //         // qualificationOffensiveRisky();
-    //         break;
-    //     case 4:
-    //         // Qualification Defensive
-    //         qualificationDefensive();
-    //         break;
-    //     case 5:
-    //         // Qualification Defensive Risky
-    //         // qualificationDefensiveRisky();
-    //         break;
-    //     case 6:
-    //         // Elimination Offensive
-    //         // eliminationOffensive();
-    //         break;
-    //     case 7:
-    //         // Elimination Defensive
-    //         // eliminationOffensiveRisky();
-    //         break;
-    //     case 8:
-    //         // Elimination Offensive Risky
-    //         // eliminationDefensive();
-    //         break;
-    //     case 9:
-    //         // Elimination Defensive Risky
-    //         // eliminationDefensiveRisky();
-    //         break;
-    //      case 10:
-    //         // Solo Autonomous Win Point            
-    //         // soloAutonomousWinPoint();
-    //         break;
-    //     default:
-    //         break;
-    // }
+    // autonomous selector
+    switch (autonSelect)
+    {
+        case 0:
+            // do nothing
+            break;
+        case 1:
+            // skills
+            autonSkills2();
+            break;
+        case 2:
+            // Qualification Offensive
+            qualificationOffensive();
+            break;
+        case 3:
+            // Qualification Offensive Risky
+            qualificationOffensiveRisky();
+            break;
+        case 4:
+            // Qualification Defensive
+            qualificationDefensive();
+            break;
+        case 5:
+            // Qualification Defensive Risky
+            qualificationDefensiveRisky();
+            break;
+        case 6:
+            // Elimination Offensive
+            eliminationOffensive();
+            break;
+        case 7:
+            // Elimination Defensive
+            eliminationOffensiveRisky();
+            break;
+        case 8:
+            // Elimination Offensive Risky
+            eliminationDefensive();
+            break;
+        case 9:
+            // Elimination Defensive Risky
+            eliminationDefensiveRisky();
+            break;
+         case 10:
+            // Solo Autonomous Win Point            
+            soloAutonomousWinPoint();
+            break;
+        default:
+            break;
+    }
 }
 
 
@@ -154,28 +152,28 @@ void usercontrol(void)
         Drive.runRightSide(nearbyint(rightStickY));
   
         //////////////////////////// State Control ////////////////////////////
-        switch (state) 
+        switch (currentState) 
         {
-            case driveState:
-                drive(); // run drive state code (see "drive.cpp")
+            case state::drive:
+                drive();
                 break;
-            case ptoDriveToCataState:
+            case state::ptoDriveToCata:
                 con.rumble("-");
-                ptoDriveToCata(); // ptoToShoot State
+                ptoDriveToCata();
                 break;
-            case ptoCataToDriveState:
+            case state::ptoCataToDrive:
                 con.rumble(".");
-                ptoCataToDrive(); // ptoToDrive State
+                ptoCataToDrive();
                 break;
-            case shootState:
-                shoot(); // shoot State
+            case state::shoot:
+                shoot();
                 break;
             default:
                 printf("%d\n", 404); // if we reach this point, then no we did not
                 break;
-        } // end of switch (state)
-    } // end of while (true)
-} // end of void usercontrol (void)
+        }
+    }
+}
 
 int main() {
 

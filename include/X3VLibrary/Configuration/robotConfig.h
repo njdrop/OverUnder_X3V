@@ -23,21 +23,30 @@ extern vex::pneumatics intakeSolenoid;
 extern vex::pneumatics blockerSolenoid;
 
 /**
- * @brief defines the possible states the robot can be in
- * 
+ * @brief Enum representing possible states for the robot.
+ *
+ * This enumeration defines the various states that the system can be in. Each state
+ * represents a specific operational mode.
+ *
+ * The possible states are:
+ *   - #driveState: The system is in the regular drive state.
+ *   - #ptoCataToDriveState: The system is transitioning from power take-off (PTO) to drive state.
+ *   - #ptoDriveToCataState: The system is transitioning from drive to power take-off (PTO) state.
+ *   - #shootState: The system is in the shoot state.
  */
-enum possibleState {
-        driveState,
-        ptoCataToDriveState,
-        ptoDriveToCataState,
-        shootState
+enum class state {
+        drive,
+        ptoCataToDrive,
+        ptoDriveToCata,
+        shoot
 };
 
 /**
  * @brief controls the state machine for usercontrol
- * @see main.cpp
  */
-extern possibleState state;
+extern state currentState;
+
+
 
 /**
  * @brief defines if the left pto motors are engaged with the drive or the catapult
