@@ -1,16 +1,16 @@
 #include "vex.h"
 using namespace vex;
 
-vex::brain  Brain;
+vex::brain Brain;
 vex::controller con;
-vex::motor  leftMotor1 = motor(PORT1, ratio18_1, true);
-vex::motor  leftMotor2 = motor(PORT4, ratio18_1, true);
-vex::motor  leftMotor3 = motor(PORT8, ratio18_1, true);
-vex::motor  leftMotor4 = motor(PORT7, ratio18_1, false);
-vex::motor  rightMotor1 = motor(PORT6, ratio18_1, false);
-vex::motor  rightMotor2 = motor(PORT5, ratio18_1, false);
-vex::motor  rightMotor3 = motor(PORT10, ratio18_1, false);
-vex::motor  rightMotor4 = motor(PORT9, ratio18_1, true);
+vex::motor leftMotor1 = motor(PORT1, ratio18_1, true);
+vex::motor leftMotor2 = motor(PORT4, ratio18_1, true);
+vex::motor leftMotor3 = motor(PORT8, ratio18_1, true);
+vex::motor leftMotor4 = motor(PORT7, ratio18_1, false);
+vex::motor rightMotor1 = motor(PORT6, ratio18_1, false);
+vex::motor rightMotor2 = motor(PORT5, ratio18_1, false);
+vex::motor rightMotor3 = motor(PORT10, ratio18_1, false);
+vex::motor rightMotor4 = motor(PORT9, ratio18_1, true);
 vex::pneumatics wingsSolenoid = pneumatics(Brain.ThreeWirePort.H);
 vex::pneumatics PTOSolenoid = pneumatics(Brain.ThreeWirePort.F);
 vex::pneumatics intakeSolenoid = pneumatics(Brain.ThreeWirePort.D);
@@ -22,26 +22,25 @@ vex::inertial inertialSensor = inertial(PORT20);
 
 double wheelDiameter = 2.75;
 
-state currentState = driveState;
+state currentState = state::drive;
+
 bool leftDriveEngaged = true;
+
 bool rightDriveEngaged = true;
+
 double lineSensorEdgeValue = 57;
+
 bool stateSwitchButtonReleased = true;
 
-const char * autoNames[11] = 
-{
-        "Do Nothing",
-        "Backwards Forwards \n (use backside) \n (point straight at goal)",
-        "Offensive \n (use backside)",
-        "Defensive \n (use backside)",
-        "Skills",
-        "Qualification Offensive",
-        "Qualification Offensive Risky",
-        "Qualification Defensive",
-        "Qualification Defensive Risky",
-        "Elimination Offensive",
-        "Elimination Defensive"//,
-        // "Elimination Offensive Risky",
-        // "Elimination Defensive Risky",
-        // "Solo Autonomous Win Point"
-};
+const char *autoNames[11] = {
+	"Do Nothing",
+	"Skills",
+	"Qualification Offensive",
+	"Qualification Offensive Risky",
+	"Qualification Defensive",
+	"Qualification Defensive Risky",
+	"Elimination Offensive",
+	"Elimination Defensive",
+	"Elimination Offensive Risky",
+	"Elimination Defensive Risky",
+	"Solo Autonomous Win Point"};

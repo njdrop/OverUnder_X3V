@@ -1,7 +1,8 @@
 #ifndef MINIPID_H
 #define MINIPID_H
 
-class MiniPID{
+class MiniPID
+{
 public:
 	MiniPID(double, double, double);
 	MiniPID(double, double, double, double);
@@ -13,7 +14,7 @@ public:
 	void setPID(double, double, double, double);
 	void setMaxIOutput(double);
 	void setOutputLimits(double);
-	void setOutputLimits(double,double);
+	void setOutputLimits(double, double);
 	void setDirection(bool);
 	void setSetpoint(double);
 	void reset();
@@ -24,7 +25,6 @@ public:
 	double getOutput(double);
 	double getOutput(double, double);
 	double getOutput2(double, double);
-
 
 private:
 	double clamp(double, double, double);
@@ -40,7 +40,7 @@ private:
 	double maxError;
 	double errorSum;
 
-	double maxOutput; 
+	double maxOutput;
 	double minOutput;
 
 	double setpoint;

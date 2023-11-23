@@ -1,22 +1,18 @@
 #include "vex.h"
 using namespace vex;
 
-void eliminationOffensive () 
+void eliminationOffensive()
 {
-
 }
 
-void eliminationOffensiveRisky () 
+void eliminationOffensiveRisky()
 {
-        
 }
 
-void eliminationDefensive () 
+void eliminationDefensive()
 {
-        
 }
 
-void eliminationDefensiveRisky () 
+void eliminationDefensiveRisky()
 {
-        
 }
