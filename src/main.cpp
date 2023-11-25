@@ -39,7 +39,7 @@ void pre_auton(void)
             firstButtonPress = true;
         }
         
-        
+        con.Screen.smartPrint(autoNames[autonSelect]);
         wait(100, msec);
     }
 }

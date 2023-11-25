@@ -21,14 +21,11 @@ vex::rotation catapultRotationSensor = rotation(PORT12, false);
 vex::inertial inertialSensor = inertial(PORT20);
 
 double wheelDiameter = 2.75;
+bool leftDriveEngaged = true;
+bool rightDriveEngaged = true;
+double lineSensorEdgeValue = 57;
 
 state currentState = state::drive;
-
-bool leftDriveEngaged = true;
-
-bool rightDriveEngaged = true;
-
-double lineSensorEdgeValue = 57;
 
 bool stateSwitchButtonReleased = true;
 

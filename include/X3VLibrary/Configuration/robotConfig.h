@@ -1,6 +1,7 @@
 #ifndef ROBOTCONFIG_H
 #define ROBOTCONFIG_H
 
+#include "vex.h"
 using namespace vex;
 
 extern vex::brain Brain;

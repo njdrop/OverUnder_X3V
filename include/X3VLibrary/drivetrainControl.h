@@ -1,8 +1,8 @@
 #ifndef DRIVECONTROL_H
 #define DRIVECONTROL_H
 
-using namespace vex;
 #include "vex.h"
+using namespace vex;
 
 int driveStateMachineTask();
 

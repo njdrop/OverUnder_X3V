@@ -1,6 +1,8 @@
 #ifndef MINIPID_H
 #define MINIPID_H
 
+#include "vex.h"
+
 class MiniPID
 {
 public:

@@ -39,8 +39,8 @@ void shoot()
     if (con.ButtonR1.pressing())
     {
         // sets the pto motors to run the intake
-        lib::sendInputToMotors(leftMotor3, leftMotor4, 12000);
-        lib::sendInputToMotors(rightMotor3, rightMotor4, 12000);
+        lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
+        lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
     }
     else if (con.ButtonUp.pressing())
     {
