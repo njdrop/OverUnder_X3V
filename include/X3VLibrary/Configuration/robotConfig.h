@@ -68,6 +68,14 @@ extern bool rightDriveEngaged;
  */
 extern double lineSensorEdgeValue;
 
-extern const char *autoNames[11];
+/**
+ * @brief an string array with the names of all the atonomous routes
+ */
+extern const char *autoNames[];
+
+/**
+ * @brief an array with the declaration of all the autonomous routes
+ */
+extern void (*autonRoutes[])();
 
 #endif

@@ -1,9 +1,13 @@
 #include "vex.h"
 using namespace vex;
 
+/**
+ * @brief a short personal library of function I write that will be repeated multiple times
+ * The purpose of this library is mostly just to abstract some functions
+ * so they can be called more than once, and it decreases the complexity slightly
+ */
 namespace lib
 {
-
     /**
      * @brief Send an input to two motors with one command as a voltage command. Also rounds the input to the nearest integer to stop the motors from bugging out
      *
@@ -54,6 +58,18 @@ namespace lib
     double angularDistanceToLinearDistance(double angularDistance, double diameter)
     {
         return (angularDistance * 3.14159 / 180) * (diameter);
+    }
+
+    /**
+     * @brief prints text to controller
+     * This uses a simpler, more intuitive approach to displaying
+     * information on the controller than the defult vex::controller
+     * object fuctions allows for
+     * @param controllerName the name of the controller that the text will be dispayed on
+     * @param textToWrite the text that will be displayed
+     */
+    void printToController(vex::controller controllerName, char textToWrite) {
+        
     }
 }
 

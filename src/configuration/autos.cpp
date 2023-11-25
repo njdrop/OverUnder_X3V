@@ -1,7 +1,11 @@
 #include "vex.h"
 using namespace vex;
 
-void autonSkills1()
+void doNothing() {
+    // do nothing
+}
+
+void skills1()
 {
     // set robot in match load configuration
     blockerSolenoid.open();
@@ -64,7 +68,7 @@ void autonSkills1()
     }
 }
 
-void autonSkills2()
+void skills2()
 {
     // set robot in match load configuration
     blockerSolenoid.open();

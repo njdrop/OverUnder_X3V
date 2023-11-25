@@ -22,8 +22,9 @@ extern void autoPTOCataToDrive();
 
 extern bool stateSwitchButtonReleased;
 
-void autonSkills1();
-void autonSkills2();
+void doNothing();
+void skills1();
+void skills2();
 void soloAutonomousWinPoint();
 void qualificationOffensive();
 void qualificationOffensiveRisky();

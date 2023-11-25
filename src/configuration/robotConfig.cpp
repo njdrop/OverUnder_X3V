@@ -32,15 +32,30 @@ double lineSensorEdgeValue = 57;
 
 bool stateSwitchButtonReleased = true;
 
-const char *autoNames[11] = {
+const char *autoNames[] = {
 	"Do Nothing",
 	"Skills",
-	"Qualification Offensive",
-	"Qualification Offensive Risky",
-	"Qualification Defensive",
-	"Qualification Defensive Risky",
-	"Elimination Offensive",
-	"Elimination Defensive",
-	"Elimination Offensive Risky",
-	"Elimination Defensive Risky",
-	"Solo Autonomous Win Point"};
+	"Q-Offensive",
+	"Q-Defensive",
+	"Q-Offensive Risky",
+	"Q-Defensive Risky",
+	"E-Offensive",
+	"E-Defensive",
+	"E-Offensive Risky",
+	"E-Defensive Risky",
+	"Solo-AWP"
+};
+
+void (*autonRoutes[])() {
+	doNothing,
+	skills2,
+	qualificationOffensive,
+	qualificationOffensiveRisky,
+	qualificationDefensive,
+	qualificationDefensiveRisky,
+	eliminationOffensive,
+	eliminationOffensiveRisky,
+	eliminationDefensive,
+	eliminationDefensiveRisky,
+	soloAutonomousWinPoint
+};
