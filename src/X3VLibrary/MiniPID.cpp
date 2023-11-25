@@ -356,14 +356,6 @@ double MiniPID::getOutput2(double actual, double setpoint)
 	output = Foutput + Poutput + Ioutput + Doutput;
 
 	// Figure out what we're doing with the error.
-	//  if(minOutput!=maxOutput && !bounded(output, minOutput,maxOutput) ) {
-	//  	errorSum=error;
-	//  	// reset the error sum to a sane level
-	//  	// Setting to current error ensures a smooth transition when the P term
-	//  	// decreases enough for the I term to start acting upon the controller
-	//  	// From that point the I term will build up as would be expected
-	//  }
-
 	if (signbit(error) != signbit(lastError))
 	{
 		lastError = error;
