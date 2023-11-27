@@ -6,7 +6,7 @@
 /*    Description:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
-//hi
+
 #include "vex.h"
 using namespace vex;
 competition Competition;
