@@ -32,9 +32,12 @@ namespace lib
      *
      * @param angularDistance (deg)
      * @param diameter the diameter of angular object
+     * @param gearRatio the mechanical advantage from the input angle to the output angle
      * @return double (inches)
      */
     double angularDistanceToLinearDistance(double angularDistance, double diameter);
+    double angularDistanceToLinearDistance(double angularDistance, double diameter, double gearRatio);
+
 }
 
 class toggleBoolObject

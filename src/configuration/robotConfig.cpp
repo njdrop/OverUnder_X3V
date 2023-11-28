@@ -20,10 +20,11 @@ vex::line rightPTO = line(Brain.ThreeWirePort.C);
 vex::rotation catapultRotationSensor = rotation(PORT12, false);
 vex::inertial inertialSensor = inertial(PORT20);
 
-double wheelDiameter = 2.75;
+double DRIVE_WHEEL_DIAMETER = 2.75;
+double DRIVE_GEAR_RATIO = 3/4;
 bool leftDriveEngaged = true;
 bool rightDriveEngaged = true;
-double lineSensorEdgeValue = 57;
+double LINE_SENOR_EDGE_VALUE = 57;
 
 state currentState = state::drive;
 

@@ -10,9 +10,10 @@ using namespace vex;
  *
  * @param wheelDiam diameter of wheels on the drive
  */
-driveControl::driveControl(double wheelDiam)
+driveControl::driveControl(double wheelDiam, double gR)
 {
     wheelDiameter = wheelDiam;
+    gearRatio = gR;
     PTO_DriveEngaged = (currentState == driveState);
     driveState = currentState;
     driveTask = vex::task();
@@ -101,8 +102,8 @@ int driveStateMachineTask()
         // define states of sensors
         // each loop determine if the line sensor dectects a light level greater than the edge case
         // indecates weather pto gear is engaged or disengaged from the drivetrain
-        leftDriveEngaged = (leftPTO.value(pct) > lineSensorEdgeValue);
-        rightDriveEngaged = (rightPTO.value(pct) > lineSensorEdgeValue);
+        leftDriveEngaged = (leftPTO.value(pct) > LINE_SENOR_EDGE_VALUE);
+        rightDriveEngaged = (rightPTO.value(pct) > LINE_SENOR_EDGE_VALUE);
 
         switch (Drive.driveState)
         {
@@ -219,7 +220,7 @@ void driveControl::moveDistance(double targetDistance, double maxSpeed, double t
     double startTime = vex::timer::system();
     while (vex::timer::system() - startTime <= timeout * 1000)
     {
-        double actualDistance = lib::angularDistanceToLinearDistance((getDriveEncoderValue(withPTO) - startPos), wheelDiameter);
+        double actualDistance = lib::angularDistanceToLinearDistance((getDriveEncoderValue(withPTO) - startPos), wheelDiameter, gearRatio);
         double actualAngle = inertialSensor.rotation(deg);
         double speed = distanceControl.getOutput(actualDistance, targetDistance);
         double correctionFactor = 0.5 * headingControl.getOutput(actualAngle, startAngle);
@@ -266,4 +267,5 @@ void driveControl::turn(double targetAngle, double maxSpeed, double timeout, boo
 /**
  * @brief definition of drivetrain
  */
-driveControl Drive(2.75);
+
+driveControl Drive(DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO);

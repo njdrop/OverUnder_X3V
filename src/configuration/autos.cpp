@@ -1,7 +1,8 @@
 #include "vex.h"
 using namespace vex;
 
-void doNothing() {
+void doNothing()
+{
     // do nothing
 }
 

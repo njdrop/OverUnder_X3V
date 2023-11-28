@@ -33,7 +33,16 @@ namespace lib
 
     double angularDistanceToLinearDistance(double angularDistance, double diameter)
     {
-        return (angularDistance * 3.14159 / 180) * (diameter);
+        return (angularDistance * 3.14159 / 180) * (diameter / 2);
+    }
+
+    double angularDistanceToLinearDistance(double angularDistance, double diameter, double gearRatio)
+    {
+        double radius = diameter / 2;
+        double angularDitstanceinRadians = angularDistance * 3.14159 / 180;
+        double angularDIstanceofOutput = angularDitstanceinRadians * gearRatio;
+        double linearDistance = angularDIstanceofOutput * radius;
+        return linearDistance;
     }
 }
 

@@ -9,7 +9,7 @@ int driveStateMachineTask();
 class driveControl
 {
 public:
-    driveControl(double wheelDiam);
+    driveControl(double wheelDiam, double gR);
     void runLeftSide(double voltage, bool withPTO = false);
     void runRightSide(double voltage, bool withPTO = false);
     void stopLeftSide(vex::brakeType brakeType = brake, bool withPTO = false);
@@ -28,6 +28,7 @@ private:
     double getRightDriveEncoderValue(bool withPTO = false);
     double getDriveEncoderValue(bool withPTO = false);
     double wheelDiameter;
+    double gearRatio;
 };
 
 extern driveControl Drive;

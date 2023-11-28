@@ -67,7 +67,7 @@ extern bool rightDriveEngaged;
 /**
  * @brief the value (pct) at which the line sensor should read that the pto gear has engaged with the drivetrain
  */
-extern double lineSensorEdgeValue;
+extern double LINE_SENOR_EDGE_VALUE;
 
 /**
  * @brief an string array with the names of all the atonomous routes
@@ -78,5 +78,17 @@ extern const char *autoNames[];
  * @brief an array with the declaration of all the autonomous routes
  */
 extern void (*autonRoutes[])();
+
+/**
+ * @brief The diameter of the wheels on the drivetrain
+ */
+extern double DRIVE_WHEEL_DIAMETER;
+
+/**
+ * @brief the gear ratio of the drivetrain
+ * This is calculated by taking the number of teeth on the powered gear divided by the number of teeth on the gears attatched to the wheels
+ * GR = # teeth on powered gear / # teeth on drive gear
+ */
+extern double DRIVE_GEAR_RATIO;
 
 #endif
