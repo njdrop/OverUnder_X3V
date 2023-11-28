@@ -66,8 +66,8 @@ void usercontrol(void)
         // define states of sensors
         // each loop determine if the line sensor dectects a light level greater than the edge case
         // indecates weather pto gear is engaged or disengaged from the drivetrain
-        leftDriveEngaged = (leftPTO.value(pct) > LINE_SENOR_EDGE_VALUE);
-        rightDriveEngaged = (rightPTO.value(pct) > LINE_SENOR_EDGE_VALUE);
+        leftDriveEngaged = (leftPTO_Sensor.value(pct) > LINE_SENOR_EDGE_VALUE);
+        rightDriveEngaged = (rightPTO_Sensor.value(pct) > LINE_SENOR_EDGE_VALUE);
 
         //////////////////////////// Universal Controls ////////////////////////////
 

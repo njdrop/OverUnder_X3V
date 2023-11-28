@@ -40,19 +40,11 @@ void driveControl::stopAutoStateMachineTask()
  */
 double driveControl::getLeftDriveEncoderValue(bool withPTO)
 {
-    double total = 0;
-    total += leftMotor1.position(deg);
-    total += leftMotor2.position(deg);
     if (withPTO)
     {
-        total += leftMotor3.position(deg);
-        total += leftMotor4.position(deg);
-        return total / 4;
+        return (leftDrive_Group.position(deg) + leftPTO_Group.position(deg)) / 2;
     }
-    else
-    {
-        return total / 2;
-    }
+    return leftDrive_Group.position(deg);
 }
 
 /**
@@ -63,19 +55,11 @@ double driveControl::getLeftDriveEncoderValue(bool withPTO)
  */
 double driveControl::getRightDriveEncoderValue(bool withPTO)
 {
-    double total = 0;
-    total += rightMotor1.position(deg);
-    total += rightMotor2.position(deg);
     if (withPTO)
     {
-        total += rightMotor3.position(deg);
-        total += rightMotor4.position(deg);
-        return total / 4;
+        return (rightDrive_Group.position(deg) + rightPTO_Group.position(deg)) / 2;
     }
-    else
-    {
-        return total / 2;
-    }
+    return rightDrive_Group.position(deg);
 }
 
 /**
@@ -102,8 +86,8 @@ int driveStateMachineTask()
         // define states of sensors
         // each loop determine if the line sensor dectects a light level greater than the edge case
         // indecates weather pto gear is engaged or disengaged from the drivetrain
-        leftDriveEngaged = (leftPTO.value(pct) > LINE_SENOR_EDGE_VALUE);
-        rightDriveEngaged = (rightPTO.value(pct) > LINE_SENOR_EDGE_VALUE);
+        leftDriveEngaged = (leftPTO_Sensor.value(pct) > LINE_SENOR_EDGE_VALUE);
+        rightDriveEngaged = (rightPTO_Sensor.value(pct) > LINE_SENOR_EDGE_VALUE);
 
         switch (Drive.driveState)
         {
@@ -129,12 +113,10 @@ int driveStateMachineTask()
  */
 void driveControl::runLeftSide(double voltage, bool withPTO)
 {
-    leftMotor1.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
-    leftMotor2.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
+    leftDrive_Group.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
     if (withPTO)
     {
-        leftMotor3.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
-        leftMotor4.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
+        leftPTO_Group.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
     }
 }
 
@@ -146,12 +128,10 @@ void driveControl::runLeftSide(double voltage, bool withPTO)
  */
 void driveControl::runRightSide(double voltage, bool withPTO)
 {
-    rightMotor1.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
-    rightMotor2.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
+    rightDrive_Group.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
     if (withPTO)
     {
-        rightMotor3.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
-        rightMotor4.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
+        rightPTO_Group.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
     }
 }
 
@@ -163,12 +143,10 @@ void driveControl::runRightSide(double voltage, bool withPTO)
  */
 void driveControl::stopLeftSide(vex::brakeType brakeType, bool withPTO)
 {
-    leftMotor1.stop(brakeType);
-    leftMotor2.stop(brakeType);
+    leftDrive_Group.stop(brakeType);
     if (withPTO)
     {
-        leftMotor3.stop(brakeType);
-        leftMotor4.stop(brakeType);
+        leftPTO_Group.stop(brakeType);
     }
 }
 
@@ -180,25 +158,19 @@ void driveControl::stopLeftSide(vex::brakeType brakeType, bool withPTO)
  */
 void driveControl::stopRightSide(vex::brakeType brakeType, bool withPTO)
 {
-    rightMotor1.stop(brakeType);
-    rightMotor2.stop(brakeType);
+    rightDrive_Group.stop(brakeType);
     if (withPTO)
     {
-        rightMotor3.stop(brakeType);
-        rightMotor4.stop(brakeType);
+        rightPTO_Group.stop(brakeType);
     }
 }
 
 void driveControl::setBrakeType(vex::brakeType brakeType)
 {
-    leftMotor1.setBrake(brakeType);
-    leftMotor2.setBrake(brakeType);
-    leftMotor3.setBrake(brakeType);
-    leftMotor4.setBrake(brakeType);
-    rightMotor1.setBrake(brakeType);
-    rightMotor2.setBrake(brakeType);
-    rightMotor3.setBrake(brakeType);
-    rightMotor4.setBrake(brakeType);
+    leftDrive_Group.setStopping(brakeType);
+    leftPTO_Group.setStopping(brakeType);
+    rightDrive_Group.setStopping(brakeType);
+    rightPTO_Group.setStopping(brakeType);
 }
 
 /**
@@ -267,5 +239,4 @@ void driveControl::turn(double targetAngle, double maxSpeed, double timeout, boo
 /**
  * @brief definition of drivetrain
  */
-
 driveControl Drive(DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO);
