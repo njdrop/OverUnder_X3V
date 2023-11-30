@@ -11,6 +11,9 @@ void ptoDriveToCata()
         currentState = state::shoot;
     }
 
+    // fail safe button
+    // to be used if the robot does not have pneumatic pressure
+    // or can't get the pto to swtich for some other reason
     if (con.ButtonDown.pressing())
     {
         // fail safe if driv
@@ -21,28 +24,24 @@ void ptoDriveToCata()
     if (leftDriveEngaged)
     {
         // then spin the left motors to get them to disengage
-        leftMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-        leftMotor4.spin(fwd, 12000, vex::voltageUnits::mV);
+        leftPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     }
     else
     {
         // otherwise just wait untill the state swtiches
-        leftMotor3.stop(coast);
-        leftMotor4.stop(coast);
+        leftPTO_Group.stop(coast);
     }
 
     // if right side is still engaed with the drive
     if (rightDriveEngaged)
     {
         // then spin the right motors to get them to disengage
-        rightMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-        rightMotor4.spin(fwd, 12000, vex::voltageUnits::mV);
+        rightPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     }
     else
     {
         // otherwise just wait untill the state swtiches
-        rightMotor3.stop(coast);
-        rightMotor4.stop(coast);
+        rightPTO_Group.stop(coast);
     }
 }
 
@@ -56,6 +55,9 @@ void ptoCataToDrive()
         currentState = state::drive;
     }
 
+    // fail safe button
+    // to be used if the robot does not have pneumatic pressure
+    // or can't get the pto to swtich for some other reason
     if (con.ButtonDown.pressing())
     {
         currentState = state::shoot;
@@ -65,27 +67,23 @@ void ptoCataToDrive()
     if (!leftDriveEngaged)
     {
         // then spin the left motors to get them to engage
-        leftMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-        leftMotor4.spin(fwd, 12000, vex::voltageUnits::mV);
+        leftPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     }
     else
     {
         // otherwise just wait untill the state swtiches
-        leftMotor3.stop(coast);
-        leftMotor4.stop(coast);
+        leftPTO_Group.stop(coast);
     }
 
     // if right side is still disengaed with the drive
     if (!rightDriveEngaged)
     {
         // then spin the right motors to get them to engage
-        rightMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-        rightMotor4.spin(fwd, 12000, vex::voltageUnits::mV);
+        rightPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     }
     else
     {
         // otherwise just wait untill the state swtiches
-        rightMotor3.stop(coast);
-        rightMotor4.stop(coast);
+        rightPTO_Group.stop(coast);
     }
 }

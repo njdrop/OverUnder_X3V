@@ -35,14 +35,12 @@ void drive()
     // gets value of the y axis on the left stick of the controller
     double leftStickY = con.Axis3.value() * 100;
     // runs the 2 left side pto motors at left stick value
-    leftMotor3.spin(fwd, nearbyint(leftStickY), vex::voltageUnits::mV);
-    leftMotor4.spin(fwd, nearbyint(leftStickY), vex::voltageUnits::mV);
-
+    leftPTO_Group.spin(fwd, nearbyint(leftStickY), vex::voltageUnits::mV);
     // gets value of the y axis on the right stick of the controller
     double rightStickY = con.Axis2.value() * 100;
     // runs the 2 right side pto motors at right stick value
-    rightMotor3.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
-    rightMotor4.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
+    rightPTO_Group.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
 
-    Drive.setBrakeType(coast);
+    leftPTO_Group.setStopping(coast);
+    rightPTO_Group.setStopping(coast);
 }

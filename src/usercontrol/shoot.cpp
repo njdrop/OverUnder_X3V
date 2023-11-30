@@ -39,52 +39,46 @@ void shoot()
     if (con.ButtonR1.pressing())
     {
         // sets the pto motors to run the intake
-        lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
-        lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
+        leftPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+        rightPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     }
     else if (con.ButtonUp.pressing())
     {
         // sets the pto motors to run the extake
-        lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
-        lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
+        leftPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+        rightPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     }
     else if (con.ButtonL1.pressing())
     {
         if (catapultRotationSensor.velocity(rpm) > 0)
         {
-            leftMotor3.stop(brake);
-            leftMotor4.stop(brake);
-            rightMotor3.stop(brake);
-            rightMotor4.stop(brake);
+            leftPTO_Group.stop(brake);
+            rightPTO_Group.stop(brake);
         }
         else
         {
             // sets the pto motors to run the extake
-            lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
-            lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
+            leftPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+            rightPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
         }
     }
     else
     {
         if (catapultRotationSensor.velocity(rpm) > 0)
         {
-            leftMotor3.stop(brake);
-            leftMotor4.stop(brake);
-            rightMotor3.stop(brake);
-            rightMotor4.stop(brake);
+            leftPTO_Group.stop(brake);
+            rightPTO_Group.stop(brake);
         }
         else if (!con.ButtonRight.pressing() && (catapultRotationSensor.position(deg) >= cataLoadedPostition))
         {
             // sets the pto motors to run the extake
-            lib::sendInputToMotors(leftMotor3, leftMotor4, -12000);
-            lib::sendInputToMotors(rightMotor3, rightMotor4, -12000);
+            leftPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+            rightPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
         }
         else
         {
-            leftMotor3.stop(coast);
-            leftMotor4.stop(coast);
-            rightMotor3.stop(coast);
-            rightMotor4.stop(coast);
+            leftPTO_Group.stop(coast);
+            rightPTO_Group.stop(coast);
         }
     }
 }
