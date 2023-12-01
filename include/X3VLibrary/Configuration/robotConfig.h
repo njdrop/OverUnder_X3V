@@ -66,6 +66,10 @@ extern double DRIVE_GEAR_RATIO;
  */
 extern double LINE_SENOR_EDGE_VALUE;
 
+/**
+ * @brief BRADON ADD COMMENT HERE
+ * 
+ */
 extern double CATA_LOADED_POSITION;
 
 /**
