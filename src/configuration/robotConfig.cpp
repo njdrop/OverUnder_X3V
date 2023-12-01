@@ -48,6 +48,7 @@ vex::motor_group intake_Group = motor_group(leftMotor3,leftMotor4, rightMotor3, 
 double DRIVE_WHEEL_DIAMETER = 2.75;
 double DRIVE_GEAR_RATIO = 3/4;
 double LINE_SENOR_EDGE_VALUE = 57;
+double CATA_LOADED_POSITION = 142;
 
 bool leftDriveEngaged = true;
 bool rightDriveEngaged = true;

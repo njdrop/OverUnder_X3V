@@ -1,12 +1,6 @@
 #include "vex.h"
 using namespace vex;
 
-int firstLoop = 0;
-double cataTopPosition = 207;     // 297
-double cataLoadedPostition = 142; // 225
-int cataIsFiring = 0;
-int cataFireNumberOfLoops = 2;
-double prevCataPos = 0;
 void shoot()
 {
 
@@ -69,7 +63,7 @@ void shoot()
             leftPTO_Group.stop(brake);
             rightPTO_Group.stop(brake);
         }
-        else if (!con.ButtonRight.pressing() && (catapultRotationSensor.position(deg) >= cataLoadedPostition))
+        else if (!con.ButtonRight.pressing() && (catapultRotationSensor.position(deg) >= CATA_LOADED_POSITION))
         {
             // sets the pto motors to run the extake
             leftPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);

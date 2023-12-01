@@ -66,6 +66,8 @@ extern double DRIVE_GEAR_RATIO;
  */
 extern double LINE_SENOR_EDGE_VALUE;
 
+extern double CATA_LOADED_POSITION;
+
 /**
  * @brief Enum representing possible states for the robot.
  *
