@@ -149,6 +149,7 @@ void skills2()
 
 void soloAutonomousWinPoint()
 {
+   
 }
 
 void qualificationOffensive()
@@ -296,20 +297,25 @@ void qualificationDefensive()
 
 void qualificationDefensiveRisky()
 {
+    qualificationDefensive();
 }
 
 void eliminationOffensive()
 {
+    qualificationOffensive();
 }
 
 void eliminationOffensiveRisky()
 {
+    qualificationOffensive();
 }
 
 void eliminationDefensive()
 {
+    qualificationDefensive();
 }
 
 void eliminationDefensiveRisky()
 {
+    qualificationDefensiveRisky();
 }

@@ -77,12 +77,12 @@ void (*autonRoutes[])() {
 	doNothing,
 	skills2,
 	qualificationOffensive,
-	qualificationOffensiveRisky,
 	qualificationDefensive,
+	qualificationOffensiveRisky,
 	qualificationDefensiveRisky,
 	eliminationOffensive,
-	eliminationOffensiveRisky,
 	eliminationDefensive,
+	eliminationOffensiveRisky,
 	eliminationDefensiveRisky,
 	soloAutonomousWinPoint
 };

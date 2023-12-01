@@ -20,7 +20,18 @@ public:
     void startAutoStateMachineTask();
     void stopAutoStateMachineTask();
     bool PTO_DriveEngaged;
+
+    /**
+     * @brief this controls the state of the drive (you must have run startAutoStateMachineTask() for this to work)
+     * 
+     * Possible Values to Assign
+     * state::drive
+     * state::ptoDrivetoCata
+     * state::ptoCatatoDrive
+     * state::shoot
+     */
     state driveState;
+    
     vex::task driveTask;
 
 private:

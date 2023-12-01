@@ -73,10 +73,10 @@ extern double LINE_SENOR_EDGE_VALUE;
  * represents a specific operational mode.
  *
  * The possible states are:
- *   - #driveState: The system is in the regular drive state.
- *   - #ptoCataToDriveState: The system is transitioning from power take-off (PTO) to drive state.
- *   - #ptoDriveToCataState: The system is transitioning from drive to power take-off (PTO) state.
- *   - #shootState: The system is in the shoot state.
+ *   - #drive: The system is in the regular drive state.
+ *   - #ptoCataToDrive: The system is transitioning from power take-off (PTO) to drive state.
+ *   - #ptoDriveToCata: The system is transitioning from drive to power take-off (PTO) state.
+ *   - #shoot: The system is in the shoot state.
  */
 enum class state
 {
