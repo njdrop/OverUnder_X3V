@@ -94,8 +94,70 @@ int driveStateMachineTask()
         case state::drive:
             break;
         case state::ptoDriveToCata:
+            // makes pto begin to switch
+            PTOSolenoid.open();
+            if (!leftDriveEngaged && !rightDriveEngaged)
+            {
+                // if both gears have disengaged with the drive then we are good so switch to the shooting state
+                currentState = state::shoot;
+            }
+            
+            // if left side is still engaed with the drive
+            if (leftDriveEngaged)
+            {
+                // then spin the left motors to get them to disengage
+                leftPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+            }
+            else
+            {
+                // otherwise just wait untill the state swtiches
+                leftPTO_Group.stop(coast);
+            }
+
+            // if right side is still engaed with the drive
+            if (rightDriveEngaged)
+            {
+                // then spin the right motors to get them to disengage
+                rightPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+            }
+            else
+            {
+                // otherwise just wait untill the state swtiches
+                rightPTO_Group.stop(coast);
+            }
             break;
         case state::ptoCataToDrive:
+            // makes pto begin to switch
+            PTOSolenoid.close();
+            if (leftDriveEngaged && rightDriveEngaged)
+            {
+                // if both gears have engaged with the drive then we are good so switch to the drive state
+                currentState = state::drive;
+            }
+
+            // if left side is still disengaed with the drive
+            if (!leftDriveEngaged)
+            {
+                // then spin the left motors to get them to engage
+                leftPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+            }
+            else
+            {
+                // otherwise just wait untill the state swtiches
+                leftPTO_Group.stop(coast);
+            }
+
+            // if right side is still disengaed with the drive
+            if (!rightDriveEngaged)
+            {
+                // then spin the right motors to get them to engage
+                rightPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+            }
+            else
+            {
+                // otherwise just wait untill the state swtiches
+                rightPTO_Group.stop(coast);
+            }
             break;
         case state::shoot:
             break;
