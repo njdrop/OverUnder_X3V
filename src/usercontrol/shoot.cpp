@@ -33,14 +33,14 @@ void shoot()
     if (con.ButtonR1.pressing())
     {
         // sets the pto motors to run the intake
-        leftPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-        rightPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+        leftPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+        rightPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
     }
     else if (con.ButtonUp.pressing())
     {
         // sets the pto motors to run the extake
-        leftPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-        rightPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+        leftPTO_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+        rightPTO_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
     }
     else if (con.ButtonL1.pressing())
     {
@@ -52,8 +52,8 @@ void shoot()
         else
         {
             // sets the pto motors to run the extake
-            leftPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-            rightPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+            leftPTO_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+            rightPTO_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
         }
     }
     else
@@ -66,8 +66,8 @@ void shoot()
         else if (!con.ButtonRight.pressing() && (catapultRotationSensor.position(deg) >= CATA_LOADED_POSITION))
         {
             // sets the pto motors to run the extake
-            leftPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-            rightPTO_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+            leftPTO_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+            rightPTO_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
         }
         else
         {

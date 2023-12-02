@@ -49,6 +49,8 @@ double DRIVE_WHEEL_DIAMETER = 2.75;
 double DRIVE_GEAR_RATIO = 3/4;
 double LINE_SENOR_EDGE_VALUE = 57;
 double CATA_LOADED_POSITION = 233;
+double MAX_MOTOR_VOLTAGE = 12000;
+
 
 bool leftDriveEngaged = true;
 bool rightDriveEngaged = true;
@@ -60,7 +62,7 @@ bool stateSwitchButtonReleased = true;
 //**************************//
 // Auton Routes Definitions //
 //**************************//
-const char *autoNames[] = {
+const char *autonNames[] = {
 	"Do Nothing",
 	"Skills",
 	"Q-Offensive",
@@ -87,3 +89,5 @@ void (*autonRoutes[])() {
 	eliminationDefensiveRisky,
 	soloAutonomousWinPoint
 };
+
+int NUMBER_OF_AUTONS = 11;

@@ -73,6 +73,12 @@ extern double LINE_SENOR_EDGE_VALUE;
 extern double CATA_LOADED_POSITION;
 
 /**
+ * @brief this is the maximum voltage the motor can be run at in mV's
+ * In theroy this value could be 12700 but to protect the motors and increase their lifespan we are using 12000
+ */
+extern double MAX_MOTOR_VOLTAGE;
+
+/**
  * @brief Enum representing possible states for the robot.
  *
  * This enumeration defines the various states that the system can be in. Each state
@@ -119,12 +125,17 @@ extern bool rightDriveEngaged;
 /**
  * @brief an string array with the names of all the atonomous routes
  */
-extern const char *autoNames[];
+extern const char *autonNames[];
 
 /**
  * @brief an array with the declaration of all the autonomous routes
  */
 extern void (*autonRoutes[])();
+
+/**
+ * @brief this is the number of autons that are used in the auton selector
+ */
+extern int NUMBER_OF_AUTONS;
 
 
 #endif
