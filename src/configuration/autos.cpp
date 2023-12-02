@@ -302,7 +302,22 @@ void qualificationDefensiveRisky()
 
 void eliminationOffensive()
 {
-    qualificationOffensive();
+    Drive.startAutoStateMachineTask();
+    intakeSolenoid.open();
+    blockerSolenoid.open();
+    // pto to catapult
+    Drive.driveState = state::ptoDriveToCata;
+    wait(10000, msec);
+    // start intake
+    leftPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    rightPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // drive forward
+    Drive.moveDistance(16, 100, 2, false, true);
+    // drive forward
+    // Drive.moveDistance(3, 25, 2, false, true);
+    // stop intake
+    leftPTO_Group.stop();
+    rightPTO_Group.stop(); 
 }
 
 void eliminationOffensiveRisky()
