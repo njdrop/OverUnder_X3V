@@ -298,22 +298,37 @@ void qualificationDefensiveRisky()
 
 void eliminationOffensive()
 {
-    Drive.startAutoStateMachineTask();
     intakeSolenoid.open();
     blockerSolenoid.open();
     // pto to catapult
-    Drive.driveState = state::ptoDriveToCata;
-    wait(10000, msec);
+    PTOSolenoid.open();
     // start intake
     leftPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     rightPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     // drive forward
-    Drive.moveDistance(16, 100, 2, false, true);
-    // drive forward
-    // Drive.moveDistance(3, 25, 2, false, true);
+    Drive.moveDistance(20, 100, 1.3, false, true);
     // stop intake
     leftPTO_Group.stop();
     rightPTO_Group.stop(); 
+    PTOSolenoid.close();
+    // drive backward
+    Drive.moveDistance(-23, 100, 2.5, true, true);
+    //Turn
+    Drive.turn(135, 100, 2);
+    wingsSolenoid.open();
+    // Knock out match load
+    Drive.moveDistance(16, 100, 2.5, true, true);
+    Drive.turn(110, 100, 1);
+    wingsSolenoid.close();
+    intakeSolenoid.close();
+    Drive.moveDistance(18, 100, 2, true, false);
+    Drive.moveDistance(-10, 100, 2, true, false);
+    Drive.moveDistance(16, 100, 2, true, false);
+    Drive.moveDistance(-10, 100, 2, true, false);
+    Drive.turn(180, 100, 1, true);
+    Drive.moveDistance(-40, 4, true, true);
+
+
 }
 
 void eliminationOffensiveRisky()
