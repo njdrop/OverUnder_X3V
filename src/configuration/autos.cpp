@@ -175,10 +175,8 @@ void qualificationOffensive()
     Drive.turn(63, 100, 1, true);
     PTOSolenoid.open();
     wait(500, msec);
-    leftMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-    leftMotor4.spin(fwd, 12000, vex::voltageUnits::mV);
-    rightMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-    rightMotor4.spin(fwd, 12000, vex::voltageUnits::mV);
+    leftPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+    rightPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
     // move towards triball
     Drive.moveDistance(48, 100, 1.45, false, true);
     // stop the intake
@@ -226,10 +224,8 @@ void qualificationOffensiveRisky()
     Drive.driveState = state::ptoDriveToCata;
     wait(3000, msec);
     // start intake
-    leftMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-    leftMotor4.spin(fwd, 12000, vex::voltageUnits::mV);
-    rightMotor3.spin(fwd, 12000, vex::voltageUnits::mV);
-    rightMotor4.spin(fwd, 12000, vex::voltageUnits::mV);
+    leftPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+    rightPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
     // move towards triball
     Drive.moveDistance(43.25, 100, 2, false, true);
     // stop the intake

@@ -24,7 +24,7 @@ void ptoDriveToCata()
     if (leftDriveEngaged)
     {
         // then spin the left motors to get them to disengage
-        leftPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+        leftPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
     }
     else
     {
@@ -36,7 +36,7 @@ void ptoDriveToCata()
     if (rightDriveEngaged)
     {
         // then spin the right motors to get them to disengage
-        rightPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+        rightPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
     }
     else
     {
@@ -67,7 +67,7 @@ void ptoCataToDrive()
     if (!leftDriveEngaged)
     {
         // then spin the left motors to get them to engage
-        leftPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+        leftPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
     }
     else
     {
@@ -79,7 +79,7 @@ void ptoCataToDrive()
     if (!rightDriveEngaged)
     {
         // then spin the right motors to get them to engage
-        rightPTO_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+        rightPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
     }
     else
     {

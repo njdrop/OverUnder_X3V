@@ -27,7 +27,7 @@ void pre_auton(void)
             if (firstButtonPress)
             {
                 // increment the value wrapping at 10
-                autonSelect = (autonSelect + 1) % 11;
+                autonSelect = (autonSelect + 1) % NUMBER_OF_AUTONS;
                 // record that the first loop has now happened
                 firstButtonPress = false;
             }
@@ -39,7 +39,7 @@ void pre_auton(void)
             firstButtonPress = true;
         }
         
-        con.Screen.smartPrint(autoNames[autonSelect]);
+        con.Screen.smartPrint(autonNames[autonSelect]);
         wait(100, msec);
     }
 }
