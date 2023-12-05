@@ -147,6 +147,11 @@ void skills2()
     }
 }
 
+void skills3() 
+{
+    
+}
+
 void soloAutonomousWinPoint()
 {
    
