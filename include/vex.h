@@ -13,7 +13,7 @@
 #include "X3VLibrary/library.h"
 #include "Configuration/robotConfig.h"
 #include "X3VLibrary/drivetrainControl.h"
-
+#include "X3VLibrary/shooterControl.h"
 
 void drive();
 void shoot();

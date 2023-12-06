@@ -39,7 +39,7 @@ void pre_auton(void)
 			firstButtonPress = true;
 		}
 		
-		// prints the name of the selected auton on the controller screen
+		// prints the name of the selected auton on the controller
 		con.Screen.smartPrint(autonRoutesList[autonSelect].name);
 		wait(100, msec);
 	}
