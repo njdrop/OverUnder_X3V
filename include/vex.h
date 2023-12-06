@@ -1,3 +1,6 @@
+#ifndef VEX_H
+#define VEX_H
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,33 +10,45 @@
 #include "v5_vcs.h"
 
 #include "X3VLibrary/MiniPID.h"
-#include "X3VLibrary/drivetrainControl.h"
 #include "X3VLibrary/library.h"
-#include "X3VLibrary/Configuration/robotConfig.h"
+#include "Configuration/robotConfig.h"
+#include "X3VLibrary/drivetrainControl.h"
 
 
 void drive();
 void shoot();
 void ptoDriveToCata();
 void ptoCataToDrive();
-
 void autoPTODriveToCata();
-extern void autoPTOCataToDrive();
+void autoPTOCataToDrive();
 
 extern bool stateSwitchButtonReleased;
 
-void doNothing();
-void skills1();
-void skills2();
-void skills3();
-void soloAutonomousWinPoint();
-void qualificationOffensive();
-void qualificationOffensiveRisky();
-void qualificationDefensive();
-void qualificationDefensiveRisky();
-void eliminationOffensive();
-void eliminationOffensiveRisky();
-void eliminationDefensive();
-void eliminationDefensiveRisky();
+void	doNothingRoute();
+void	skills1Route();
+void	skills2Route();
+void	skills3Route();
+void	soloAutonomousWinPointRoute();
+void	qualificationOffensiveRoute();
+void	qualificationOffensiveRiskyRoute();
+void	qualificationDefensiveRoute();
+void	qualificationDefensiveRiskyRoute();
+void	eliminationOffensiveRoute();
+void	eliminationOffensiveRiskyRoute();
+void	eliminationDefensiveRoute();
+void	eliminationDefensiveRiskyRoute();
+extern	autonRoute	doNothing;
+extern	autonRoute	skills1;
+extern	autonRoute	skills2;
+extern	autonRoute	skills3;
+extern	autonRoute	soloAutonomousWinPoint;
+extern	autonRoute	qualificationOffensive;
+extern	autonRoute	qualificationOffensiveRisky;
+extern	autonRoute	qualificationDefensive;
+extern	autonRoute	qualificationDefensiveRisky;
+extern	autonRoute	eliminationOffensive;
+extern	autonRoute	eliminationOffensiveRisky;
+extern	autonRoute	eliminationDefensive;
+extern	autonRoute	eliminationDefensiveRisky;
 
-
+#endif

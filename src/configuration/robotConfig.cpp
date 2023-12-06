@@ -22,6 +22,7 @@ vex::line leftPTO_Sensor = line(Brain.ThreeWirePort.B);
 vex::line rightPTO_Sensor = line(Brain.ThreeWirePort.C);
 vex::rotation catapultRotationSensor = rotation(PORT12, false);
 vex::inertial inertialSensor = inertial(PORT20);
+vex::limit autonSelectorSwitch = limit(Brain.ThreeWirePort.A);
 
 //*************************//
 // Drive Group Definitions //
@@ -50,45 +51,30 @@ double DRIVE_GEAR_RATIO = 3/4;
 double LINE_SENOR_EDGE_VALUE = 57;
 double CATA_LOADED_POSITION = 233;
 double MAX_MOTOR_VOLTAGE = 12000;
+state currentState = state::drive;
 
 
 bool leftDriveEngaged = true;
 bool rightDriveEngaged = true;
-
-state currentState = state::drive;
-
 bool stateSwitchButtonReleased = true;
 
 //**************************//
 // Auton Routes Definitions //
 //**************************//
-const char *autonNames[] = {
-	"Do Nothing",
-	"Skills",
-	"Q-Offensive",
-	"Q-Defensive",
-	"Q-Offensive Risky",
-	"Q-Defensive Risky",
-	"E-Offensive",
-	"E-Defensive",
-	"E-Offensive Risky",
-	"E-Defensive Risky",
-	"Solo-AWP"
-};
-
-void (*autonRoutes[])() {
+autonRoute autonRoutesList[] {
 	doNothing,
+	skills1,
 	skills2,
+	skills3,
+	soloAutonomousWinPoint,
 	qualificationOffensive,
-	qualificationDefensive,
 	qualificationOffensiveRisky,
+	qualificationDefensive,
 	qualificationDefensiveRisky,
 	eliminationOffensive,
-	eliminationDefensive,
 	eliminationOffensiveRisky,
-	eliminationDefensiveRisky,
-	soloAutonomousWinPoint
+	eliminationDefensive,
+	eliminationDefensiveRisky
 };
-//hi
 
 int NUMBER_OF_AUTONS = 11;

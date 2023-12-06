@@ -25,7 +25,7 @@ extern vex::rotation catapultRotationSensor;
 extern vex::inertial inertialSensor;
 extern vex::pneumatics intakeSolenoid;
 extern vex::pneumatics blockerSolenoid;
-
+extern vex::limit autonSelectorSwitch;
 
 //**************************//
 // Drive Group Declarations //
@@ -123,14 +123,20 @@ extern bool rightDriveEngaged;
 // Auton Routes Declarations //
 //***************************//
 /**
- * @brief an string array with the names of all the atonomous routes
+ * @brief a structure for the autonomous selector
  */
-extern const char *autonNames[];
+typedef struct 
+{ 
+	const char *name;
+	state initalState;
+	void (*routeFunction)();
+}autonRoute;
 
 /**
- * @brief an array with the declaration of all the autonomous routes
+ * @brief add comment pls
+ * 
  */
-extern void (*autonRoutes[])();
+extern autonRoute autonRoutesList[];
 
 /**
  * @brief this is the number of autons that are used in the auton selector

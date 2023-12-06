@@ -1,12 +1,13 @@
 #include "vex.h"
 using namespace vex;
 
-void doNothing()
+void doNothingRoute()
 {
     // do nothing
 }
+autonRoute doNothing = {"Do Nothing", state::drive, doNothingRoute};
 
-void skills1()
+void skills1Route()
 {
     // set robot in match load configuration
     blockerSolenoid.open();
@@ -68,8 +69,9 @@ void skills1()
         cycle++;
     }
 }
+autonRoute skills1 = {"Skills", state::drive, skills1Route};
 
-void skills2()
+void skills2Route()
 {
     // set robot in match load configuration
     blockerSolenoid.open();
@@ -146,18 +148,22 @@ void skills2()
         }
     }
 }
+autonRoute skills2 = {"Skills", state::drive, skills2Route};
 
-void skills3() 
+void skills3Route() 
 {
-    
-}
+    Drive.startAutoStateMachineTask();
 
-void soloAutonomousWinPoint()
+}
+autonRoute skills3 = {"Skills", state::ptoDriveToCata, skills3Route};
+
+void soloAutonomousWinPointRoute()
 {
    
 }
+autonRoute soloAutonomousWinPoint = {"Solo AWP", state::drive, soloAutonomousWinPointRoute};
 
-void qualificationOffensive()
+void qualificationOffensiveRoute()
 {
     intakeSolenoid.open();
     // back up
@@ -199,8 +205,9 @@ void qualificationOffensive()
     Drive.moveDistance(100, 100, 1.75, false, true);
     Drive.moveDistance(-15, 100, 1, false, true);
 }
+autonRoute qualificationOffensive = {"Q - Offensive", state::drive, qualificationOffensiveRoute};
 
-void qualificationOffensiveRisky()
+void qualificationOffensiveRiskyRoute()
 {
     intakeSolenoid.open();
     // back up
@@ -262,8 +269,9 @@ void qualificationOffensiveRisky()
     // push blocker into hang bar
     Drive.turn(-20, 100, 2, true);
 }
+autonRoute qualificationOffensiveRisky = {"RISKY Q - Offensive", state::drive, qualificationOffensiveRiskyRoute};
 
-void qualificationDefensive()
+void qualificationDefensiveRoute()
 {
     // lower intake
     intakeSolenoid.open();
@@ -295,13 +303,15 @@ void qualificationDefensive()
     Drive.moveDistance(-4, 100, 1, true, true);
     Drive.turn(173, 100, 1, true);
 }
+autonRoute qualificationDefensive = {"Q - Defensive", state::drive, qualificationDefensiveRoute};
 
-void qualificationDefensiveRisky()
+void qualificationDefensiveRiskyRoute()
 {
-    qualificationDefensive();
+    qualificationDefensiveRoute();
 }
+autonRoute qualificationDefensiveRisky = {"RISKY Q - Defensive", state::drive, qualificationDefensiveRiskyRoute};
 
-void eliminationOffensive()
+void eliminationOffensiveRoute()
 {
     intakeSolenoid.open();
     blockerSolenoid.open();
@@ -335,18 +345,23 @@ void eliminationOffensive()
 
 
 }
+autonRoute eliminationOffensive = {"E - Offensive", state::drive, eliminationOffensiveRoute};
 
-void eliminationOffensiveRisky()
+void eliminationOffensiveRiskyRoute()
 {
-    qualificationOffensive();
+    qualificationOffensiveRoute();
 }
+autonRoute eliminationOffensiveRisky = {"RISKY E - Offensive", state::drive, eliminationOffensiveRiskyRoute};
 
-void eliminationDefensive()
+void eliminationDefensiveRoute()
 {
-    qualificationDefensive();
+    qualificationDefensiveRoute();
 }
+autonRoute eliminationDefensive = {"E - Defensive", state::drive, eliminationDefensiveRoute};
 
-void eliminationDefensiveRisky()
+void eliminationDefensiveRiskyRoute()
 {
-    qualificationDefensiveRisky();
+    qualificationDefensiveRiskyRoute();
 }
+autonRoute eliminationDefensiveRisky = {"RISKY E - Defensive", state::drive, eliminationDefensiveRiskyRoute};
+
