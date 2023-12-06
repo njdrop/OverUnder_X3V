@@ -63,7 +63,7 @@ void shoot()
             leftPTO_Group.stop(brake);
             rightPTO_Group.stop(brake);
         }
-        else if (!con.ButtonRight.pressing() && (catapultRotationSensor.position(deg) >= CATA_LOADED_POSITION))
+        else if (!con.ButtonRight.pressing() && (catapultRotationSensor.position(deg) >= SHOOTER_LOADED_POSITION))
         {
             // sets the pto motors to run the extake
             leftPTO_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);

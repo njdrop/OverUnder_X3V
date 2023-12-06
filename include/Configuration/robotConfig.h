@@ -5,10 +5,11 @@
 using namespace vex;
 
 //********************//
-// Motor Declarations //
+// Robot Declarations //
 //********************//
 extern vex::brain Brain;
 extern vex::controller con;
+// motors
 extern vex::motor leftMotor1;
 extern vex::motor leftMotor2;
 extern vex::motor leftMotor3;
@@ -17,15 +18,18 @@ extern vex::motor rightMotor1;
 extern vex::motor rightMotor2;
 extern vex::motor rightMotor3;
 extern vex::motor rightMotor4;
+// pneumatics
 extern vex::pneumatics wingsSolenoid;
 extern vex::pneumatics PTOSolenoid;
+extern vex::pneumatics intakeSolenoid;
+extern vex::pneumatics blockerSolenoid;
+// sensors
+extern vex::inertial inertialSensor;
+extern vex::limit autonSelectorSwitch;
 extern vex::line leftPTO_Sensor;
 extern vex::line rightPTO_Sensor;
 extern vex::rotation catapultRotationSensor;
-extern vex::inertial inertialSensor;
-extern vex::pneumatics intakeSolenoid;
-extern vex::pneumatics blockerSolenoid;
-extern vex::limit autonSelectorSwitch;
+
 
 //**************************//
 // Drive Group Declarations //
@@ -35,10 +39,13 @@ extern vex::motor_group rightDrive_Group;
 extern vex::motor_group leftPTO_Group;
 extern vex::motor_group rightPTO_Group;
 
+
 //****************************//
 // Shooter Group Declarations //
 //****************************//
 extern vex::motor_group shooter_Group;
+extern vex::rotation *shooterRotationSensor;
+
 
 //****************************//
 // Intake Group Declarations  //
@@ -67,10 +74,14 @@ extern double DRIVE_GEAR_RATIO;
 extern double LINE_SENOR_EDGE_VALUE;
 
 /**
- * @brief BRADON ADD COMMENT HERE
- * 
+ * @brief This is the bottom position of the shooter in deg
  */
-extern double CATA_LOADED_POSITION;
+extern double SHOOTER_LOADED_POSITION;
+
+/**
+ * @brief This is the top position of the shooter in deg
+ */
+extern double SHOOTER_UNLOADED_POSITION; //needs changed
 
 /**
  * @brief this is the maximum voltage the motor can be run at in mV's
@@ -119,6 +130,7 @@ extern bool leftDriveEngaged;
  */
 extern bool rightDriveEngaged;
 
+
 //***************************//
 // Auton Routes Declarations //
 //***************************//
@@ -130,7 +142,7 @@ typedef struct
 	const char *name;
 	state initalState;
 	void (*routeFunction)();
-}autonRoute;
+} autonRoute;
 
 /**
  * @brief add comment pls
@@ -142,6 +154,5 @@ extern autonRoute autonRoutesList[];
  * @brief this is the number of autons that are used in the auton selector
  */
 extern int NUMBER_OF_AUTONS;
-
 
 #endif

@@ -10,7 +10,7 @@ using namespace vex;
  *
  * @param wheelDiam diameter of wheels on the drive
  */
-driveControl::driveControl(double wheelDiam, double gR)
+drivetrainObj::drivetrainObj(double wheelDiam, double gR)
 {
     wheelDiameter = wheelDiam;
     gearRatio = gR;
@@ -23,11 +23,11 @@ driveControl::driveControl(double wheelDiam, double gR)
 // Configuration functions
 //**********************************
 
-void driveControl::startAutoStateMachineTask()
+void drivetrainObj::startAutoStateMachineTask()
 {
-    driveTask = vex::task(driveStateMachineTask);
+    driveTask = vex::task(driveStateMachineFunction);
 }
-void driveControl::stopAutoStateMachineTask()
+void drivetrainObj::stopAutoStateMachineTask()
 {
     driveTask.stop();
 }
@@ -38,7 +38,7 @@ void driveControl::stopAutoStateMachineTask()
  * @param withPTO weather to include the pto motors in the average
  * @return double average motor encoder value (deg)
  */
-double driveControl::getLeftDriveEncoderValue(bool withPTO)
+double drivetrainObj::getLeftDriveEncoderValue(bool withPTO)
 {
     if (withPTO)
     {
@@ -53,7 +53,7 @@ double driveControl::getLeftDriveEncoderValue(bool withPTO)
  * @param withPTO weather to include the pto motors in the average
  * @return double average motor encoder value (deg)
  */
-double driveControl::getRightDriveEncoderValue(bool withPTO)
+double drivetrainObj::getRightDriveEncoderValue(bool withPTO)
 {
     if (withPTO)
     {
@@ -68,7 +68,7 @@ double driveControl::getRightDriveEncoderValue(bool withPTO)
  * @param withPTO weather to include the pto motors in the average
  * @return double average motor encoder value (deg)
  */
-double driveControl::getDriveEncoderValue(bool withPTO)
+double drivetrainObj::getDriveEncoderValue(bool withPTO)
 {
     return (getLeftDriveEncoderValue(withPTO) + getRightDriveEncoderValue(withPTO)) / 2;
 }
@@ -79,7 +79,7 @@ double driveControl::getDriveEncoderValue(bool withPTO)
  * @param drive
  * @return int
  */
-int driveStateMachineTask()
+int driveStateMachineFunction()
 {
     while (true)
     {
@@ -173,7 +173,7 @@ int driveStateMachineTask()
  * @param voltage the voltage applied to the motors (messured in mV)
  * @param withPTO true => runs all four motors false => runs just the two direct motors (defult is set to false)
  */
-void driveControl::runLeftSide(double voltage, bool withPTO)
+void drivetrainObj::runLeftSide(double voltage, bool withPTO)
 {
     leftDrive_Group.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
     if (withPTO)
@@ -188,7 +188,7 @@ void driveControl::runLeftSide(double voltage, bool withPTO)
  * @param voltage the voltage applied to the motors (messured in mV)
  * @param withPTO true => runs all four motors false => runs just the two direct motors (defult is set to false)
  */
-void driveControl::runRightSide(double voltage, bool withPTO)
+void drivetrainObj::runRightSide(double voltage, bool withPTO)
 {
     rightDrive_Group.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
     if (withPTO)
@@ -203,7 +203,7 @@ void driveControl::runRightSide(double voltage, bool withPTO)
  * @param brakeType the brakeType applied
  * @param withPTO true => runs all four motors false => runs just the two direct motors (defult is set to false)
  */
-void driveControl::stopLeftSide(vex::brakeType brakeType, bool withPTO)
+void drivetrainObj::stopLeftSide(vex::brakeType brakeType, bool withPTO)
 {
     leftDrive_Group.stop(brakeType);
     if (withPTO)
@@ -218,7 +218,7 @@ void driveControl::stopLeftSide(vex::brakeType brakeType, bool withPTO)
  * @param brakeType the brakeType applied
  * @param withPTO true => runs all four motors false => runs just the two direct motors (defult is set to false)
  */
-void driveControl::stopRightSide(vex::brakeType brakeType, bool withPTO)
+void drivetrainObj::stopRightSide(vex::brakeType brakeType, bool withPTO)
 {
     rightDrive_Group.stop(brakeType);
     if (withPTO)
@@ -227,7 +227,7 @@ void driveControl::stopRightSide(vex::brakeType brakeType, bool withPTO)
     }
 }
 
-void driveControl::setBrakeType(vex::brakeType brakeType)
+void drivetrainObj::setBrakeType(vex::brakeType brakeType)
 {
     leftDrive_Group.setStopping(brakeType);
     leftPTO_Group.setStopping(brakeType);
@@ -243,7 +243,7 @@ void driveControl::setBrakeType(vex::brakeType brakeType)
  * @param timeout time to completion (second)
  * @param debug prints debug info to the terminal (default: false)
  */
-void driveControl::moveDistance(double targetDistance, double maxSpeed, double timeout, bool withPTO, bool correctHeading)
+void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double timeout, bool withPTO, bool correctHeading)
 {
     MiniPID distanceControl(2000, 5, 1200);
     MiniPID headingControl(800, 0, 2500);
@@ -281,7 +281,7 @@ void driveControl::moveDistance(double targetDistance, double maxSpeed, double t
  * @param maxSpeed max speed to run the motors (pct) (min: 0 max: 100)
  * @param timeout time to completion (seconds)
  */
-void driveControl::turn(double targetAngle, double maxSpeed, double timeout, bool withPTO)
+void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout, bool withPTO)
 {
     MiniPID angleControl(800, 0, 2500);
     angleControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
@@ -301,4 +301,4 @@ void driveControl::turn(double targetAngle, double maxSpeed, double timeout, boo
 /**
  * @brief definition of drivetrain
  */
-driveControl Drive(DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO);
+drivetrainObj Drive(DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO);

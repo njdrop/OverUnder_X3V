@@ -4,12 +4,12 @@
 #include "vex.h"
 using namespace vex;
 
-int driveStateMachineTask();
+int driveStateMachineFunction();
 
-class driveControl
+class drivetrainObj
 {
 public:
-    driveControl(double wheelDiam, double gR);
+    drivetrainObj(double wheelDiam, double gR);
     void runLeftSide(double voltage, bool withPTO = false);
     void runRightSide(double voltage, bool withPTO = false);
     void stopLeftSide(vex::brakeType brakeType = brake, bool withPTO = false);
@@ -32,7 +32,6 @@ public:
      */
     state driveState;
     
-    vex::task driveTask;
 
 private:
     double getLeftDriveEncoderValue(bool withPTO = false);
@@ -40,8 +39,13 @@ private:
     double getDriveEncoderValue(bool withPTO = false);
     double wheelDiameter;
     double gearRatio;
+    vex::task driveTask;
+
 };
 
-extern driveControl Drive;
+/**
+ * @brief This is the drivetrain for the current robot
+ */
+extern drivetrainObj Drive;
 
 #endif

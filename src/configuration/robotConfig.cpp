@@ -36,6 +36,7 @@ vex::motor_group rightPTO_Group = motor_group(rightMotor3, rightMotor4);
 // Shooter Group Definitions //
 //***************************//
 vex::motor_group shooter_Group = motor_group(leftMotor3,leftMotor4, rightMotor3, rightMotor4);
+vex::rotation *shooterRotationSensor = &catapultRotationSensor;
 
 //***************************//
 // Intake Group Definitions  //
@@ -46,12 +47,16 @@ vex::motor_group intake_Group = motor_group(leftMotor3,leftMotor4, rightMotor3, 
 //*****************************//
 // Robot Parameter Definitions //
 //*****************************//
+// drivetrain
 double DRIVE_WHEEL_DIAMETER = 2.75;
 double DRIVE_GEAR_RATIO = 3/4;
 double LINE_SENOR_EDGE_VALUE = 57;
-double CATA_LOADED_POSITION = 233;
-double MAX_MOTOR_VOLTAGE = 12000;
 state currentState = state::drive;
+// shooter
+double SHOOTER_LOADED_POSITION = 233;
+double SHOOTER_UNLOADED_POSITION = 0; //needs changed
+// other
+double MAX_MOTOR_VOLTAGE = 12000;
 
 
 bool leftDriveEngaged = true;

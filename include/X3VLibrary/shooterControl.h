@@ -5,41 +5,66 @@
 using namespace vex;
 
 
+int shooterDrawFunction();
 
-/*
+class shooterObj {
+    public:
+        /**
+         * @brief Construct a new shooter Obj object
+         */
+        shooterObj(double loaded_position, double unloaded_position);
 
-int driveStateMachineTask();
+        /**
+         * @brief maximum amount of time the shooter will spend trying to complete a function
+         */
+        double timeout;
 
-class driveControl
-{
-public:
-    driveControl(double wheelDiam, double gR);
-    void runLeftSide(double voltage, bool withPTO = false);
-    void runRightSide(double voltage, bool withPTO = false);
-    void stopLeftSide(vex::brakeType brakeType = brake, bool withPTO = false);
-    void stopRightSide(vex::brakeType brakeType = brake, bool withPTO = false);
-    void moveDistance(double distance, double maxSpeed, double timeout, bool withPTO = false, bool correctHeading = false);
-    void turn(double targetAngle, double maxSpeed, double timeout, bool withPTO = false);
-    void setBrakeType(vex::brakeType brakeType);
-    void startAutoStateMachineTask();
-    void stopAutoStateMachineTask();
-    bool PTO_DriveEngaged;
-    state driveState;
-    vex::task driveTask;
+        /**
+         * @brief enables the task to automatically draw the shooter back
+         */
+        void startAutoDrawTask();
 
-        private:
-    double getLeftDriveEncoderValue(bool withPTO = false);
-    double getRightDriveEncoderValue(bool withPTO = false);
-    double getDriveEncoderValue(bool withPTO = false);
-    double wheelDiameter;
-    double gearRatio;
-};
+        /**
+         * @brief disables the task to automatically draw the shooter back
+         */
+        void stopAutoDrawTask();
 
-extern driveControl Drive;
-*/
+        /**
+         * @brief draws the shooter to is back most position one time
+         * 
+         * @param aSync when true, the function will happen asyncronously rather than waiting for completion
+         */
+        void manualDraw(bool aSync = false);
+        
+        /**
+         * @brief fires the shooter 
+         * 
+         * @param aSync when true, the function will happen asyncronously rather than waiting for completion
+         */
+        void shoot(bool aSync = true);
 
-class shooter {
+        /**
+         * @brief returns the current possition of the shooter
+         * 
+         * @returns the percentage between the loaded and unloaded position (loaded = 1 - Unloaded = 0)
+         */
+        double position ();
 
+        /**
+         * @brief returns the current velocity of the shooter
+         */
+        double velocity (vex::velocityUnits units);
+
+        /**
+         * @brief return the value of isLoaded
+         */
+        bool getIsLoaded();
+
+    private:
+        vex::task shooterDrawTask;
+        double LOADED_POSITION;
+        double UNLOADED_POSITION;
+        bool isLoaded;
 };
 
 #endif
