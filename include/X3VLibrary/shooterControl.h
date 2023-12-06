@@ -42,11 +42,16 @@ class shooterObj {
         void shoot(bool aSync = true);
 
         /**
-         * @brief returns the current possition of the shooter
+         * @brief returns the current possition of the shooter in percent of total range
          * 
          * @returns the percentage between the loaded and unloaded position (loaded = 1 - Unloaded = 0)
          */
-        double position ();
+        double position (vex::percentUnits units);
+
+        /**
+         * @brief returns the current possition of the shooter in degree
+         */
+        double position (vex::rotationUnits units);
 
         /**
          * @brief returns the current velocity of the shooter
@@ -54,9 +59,14 @@ class shooterObj {
         double velocity (vex::velocityUnits units);
 
         /**
-         * @brief return the value of isLoaded
+         * @brief returns true if the shooter position is past the loaded position
          */
-        bool getIsLoaded();
+        bool isLoaded();
+        
+        /**
+         * @brief returns true if the shooters velocity is not 0
+         */
+        bool isMoving();
 
     private:
         /**
@@ -87,11 +97,6 @@ class shooterObj {
          * @brief Unloaded position of the shooter
          */
         double UNLOADED_POSITION;
-
-        /**
-         * @brief Flag indicating if the shooter is loaded
-         */
-        bool isLoaded;
 };
 
 #endif

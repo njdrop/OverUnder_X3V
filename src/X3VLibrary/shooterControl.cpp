@@ -13,13 +13,13 @@ int shooterObj::shooterDrawFunction(void*) {
         while (true)
         {
                 // Check if the shooter is currently firing (velocity greater than 0).
-                if ((*shooterRotationSensor).velocity(rpm) > 0) 
+                if (velocity(rpm) > 0) 
                 {
                         // If the shooter is moving, stop it using brake mode.
                         shooter_Group.stop(vex::brakeType::brake);
                 }
                 // Check if the shooter is at or below the loaded position.
-                else if ((*shooterRotationSensor).position(deg) >= LOADED_POSITION)
+                else if (position(pct) >= 1)
                 {
                         // If the shooter is at or below the loaded position, stop it using brake mode.
                         shooter_Group.stop(vex::brakeType::brake);
@@ -64,9 +64,9 @@ void shooterObj::manualDraw(bool aSync) {
 	{
 		int startTime = vex::timer::system();
 		// Loop until the shooter is drawn back past the loaded position or the timeout is reached
-		while ((*shooterRotationSensor).position(deg) >= LOADED_POSITION && vex::timer::system() - startTime < 1000 * timeout) {
+		while (!isLoaded() && vex::timer::system() - startTime < 1000 * timeout) {
 			// Check if the shooter is currently moving (velocity greater than 0).
-			if ((*shooterRotationSensor).velocity(rpm) > 0) {
+			if (velocity(rpm) > 0) {
 				// If the shooter is moving, stop it using brake mode.
 				shooter_Group.stop(vex::brakeType::brake);
 			} else {
@@ -95,9 +95,9 @@ void shooterObj::shoot (bool aSync)
 		
 		int startTime = vex::timer::system();
 		// Loop until the shooter has reached the top position and is not moving or the timeout is reached
-		while ((*shooterRotationSensor).position(deg) <= UNLOADED_POSITION && (*shooterRotationSensor).velocity(rpm) == 0 && vex::timer::system() - startTime < 1000 * timeout) {
+		while (position(pct) <= 0 && velocity(rpm) == 0 && vex::timer::system() - startTime < 1000 * timeout) {
 			// Check if the shooter is currently moving (velocity greater than 0).
-			if ((*shooterRotationSensor).velocity(rpm) > 0) {
+			if (velocity(rpm) > 0) {
 				// If the shooter is moving, stop it using brake mode.
 				shooter_Group.stop(vex::brakeType::brake);
 			} else {
@@ -115,7 +115,7 @@ void shooterObj::shoot (bool aSync)
 	}
 }
 
-double shooterObj::position () {
+double shooterObj::position (vex::percentUnits units) {
         // find the range of the shooter
         double maximumAngle = LOADED_POSITION - UNLOADED_POSITION;
         // find the relative position of the shooter within in the range
@@ -126,12 +126,21 @@ double shooterObj::position () {
         return percentAngle;
 }
 
+double shooterObj::position (vex::rotationUnits units) {
+        return (*shooterRotationSensor).position(units);
+;
+}
+
 double shooterObj::velocity (vex::velocityUnits units) {
         return (*shooterRotationSensor).velocity(units);
 }
 
-bool shooterObj::getIsLoaded () {
-        return isLoaded;
+bool shooterObj::isLoaded () {
+        return position(pct) >= 1;
+}
+
+bool shooterObj::isMoving () {
+        return velocity(rpm) != 0;
 }
 
 shooterObj Catapult = shooterObj(SHOOTER_LOADED_POSITION, SHOOTER_UNLOADED_POSITION);
