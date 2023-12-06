@@ -8,9 +8,29 @@ shooterObj::shooterObj (double loaded_position, double unloaded_position)
         UNLOADED_POSITION = unloaded_position;
 };
 
-void shooterObj::startAutoDrawTask ()
+int shooterObj::shooterDrawFunction (void*) 
 {
-        shooterDrawTask = task(shooterDrawFunction);
+        while (true)
+        {
+                if ((*shooterRotationSensor).velocity(rpm) > 0) 
+                {
+                        shooter_Group.stop(vex::brakeType::brake);
+                }
+                else if ((*shooterRotationSensor).position(deg) >= 1)
+                {
+
+                }
+                wait(10, msec);
+        }
+        return 0;
+}
+
+int shooterObj::shooterDrawFunctionStatic(void* instance) {
+        return static_cast<shooterObj*>(instance)->shooterDrawFunction(nullptr);
+}
+
+void shooterObj::startAutoDrawTask() {
+        shooterDrawTask = vex::task(shooterDrawFunctionStatic, this);
 }
 
 void shooterObj::stopAutoDrawTask ()
@@ -25,7 +45,7 @@ void shooterObj::manualDraw (bool aSync)
 
 void shooterObj::shoot (bool aSync)
 {
-
+        
 }
 
 double shooterObj::position () {

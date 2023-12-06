@@ -5,15 +5,15 @@ void shoot()
 {
 
     // When in shoot state controls should be as follow:
-    // Left Joystick         => controls 2 drive motors on the left side of the drivetrain
-    // Right Joystick        => controls 2 drive motors on the right side of the drivetrain
-    // ButtonR1              => Intake
-    // ButtonR2              => toggles the pto and switches to the next state
-    // ButtonL1              => extake
-    // ButtonL2              => fires the catapult
-    // ButtonUp              => Toggles the wings open or close
-    // ButtonX               => Toggles lifting the intake up or down
-    // ButtonB               => Toggles the blocker up or down
+    // Left Joystick         => control 2 drive motors on the left side of the drivetrain
+    // Right Joystick        => control 2 drive motors on the right side of the drivetrain
+    // ButtonR1              => intake
+    // ButtonR2              => toggle the pto and switches to the next state
+    // ButtonL1              => fires the catapult
+    // ButtonL2              => toggle the wings open or close
+    // ButtonUp              => extake
+    // ButtonX               => toggle lifting the intake up or down
+    // ButtonB               => toggle the blocker up or down
 
     // is switch state button pressed
     if (con.ButtonR2.pressing())

@@ -5,8 +5,6 @@
 using namespace vex;
 
 
-int shooterDrawFunction();
-
 class shooterObj {
     public:
         /**
@@ -61,9 +59,36 @@ class shooterObj {
         bool getIsLoaded();
 
     private:
+        /**
+         * @brief static cast function to use the member function as static function 
+         */
+        static int shooterDrawFunctionStatic(void* instance);
+
+        /**
+         * @brief function that automaticly draws the shooter into the loaded position
+         * @return the function will not reach the return
+         */
+        int shooterDrawFunction(void*);
+
+        /**
+         * @brief this is the task that the shooterDrawFunction runs inside of
+         */
         vex::task shooterDrawTask;
+
+        /**
+         * @brief the loaded position of the shooter in degrees
+         */
         double LOADED_POSITION;
+
+        /**
+         * @brief the unloaded position of the shooter in degrees
+         */
         double UNLOADED_POSITION;
+
+        /**
+         * @brief a boolean value that represent is the shooter is in a loaded state
+         * 
+         */
         bool isLoaded;
 };
 
