@@ -60,34 +60,36 @@ class shooterObj {
 
     private:
         /**
-         * @brief static cast function to use the member function as static function 
-         */
-        static int shooterDrawFunctionStatic(void* instance);
-
-        /**
-         * @brief function that automaticly draws the shooter into the loaded position
-         * @return the function will not reach the return
-         */
-        int shooterDrawFunction(void*);
-
-        /**
-         * @brief this is the task that the shooterDrawFunction runs inside of
+         * @brief Task for automatically drawing the shooter back
          */
         vex::task shooterDrawTask;
 
         /**
-         * @brief the loaded position of the shooter in degrees
+         * @brief Static function for task constructor
+         * @param instance Pointer to the instance of the shooterObj
+         * @return Result of calling shooterDrawFunction
+         */
+        static int shooterDrawFunctionStatic(void* instance);
+    
+        /**
+         * @brief Member function for the shooter task
+         * @param Unused parameter
+         * @return Result of the shooter task
+         */
+        int shooterDrawFunction(void*);
+        
+        /**
+         * @brief Loaded position of the shooter
          */
         double LOADED_POSITION;
-
+        
         /**
-         * @brief the unloaded position of the shooter in degrees
+         * @brief Unloaded position of the shooter
          */
         double UNLOADED_POSITION;
 
         /**
-         * @brief a boolean value that represent is the shooter is in a loaded state
-         * 
+         * @brief Flag indicating if the shooter is loaded
          */
         bool isLoaded;
 };
