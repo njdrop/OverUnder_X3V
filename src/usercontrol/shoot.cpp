@@ -1,7 +1,7 @@
 #include "vex.h"
 using namespace vex;
 
-void shoot()
+void shootState()
 {
 
     // When in shoot state controls should be as follow:
@@ -22,7 +22,7 @@ void shoot()
         {
             stateSwitchButtonReleased = false;
             // switch to pto state
-            currentState = state::ptoCataToDrive;
+            Drive.driveState = state::ptoCataToDrive;
         }
     }
     else

@@ -14,8 +14,8 @@ drivetrainObj::drivetrainObj(double wheelDiam, double gR)
 {
     wheelDiameter = wheelDiam;
     gearRatio = gR;
-    PTO_DriveEngaged = (currentState == driveState);
-    driveState = currentState;
+    PTO_DriveEngaged = (driveState == state::drive);
+    driveState = INITIAL_STATE;
     driveTask = vex::task();
 }
 
@@ -99,7 +99,7 @@ int driveStateMachineFunction()
             if (!leftDriveEngaged && !rightDriveEngaged)
             {
                 // if both gears have disengaged with the drive then we are good so switch to the shooting state
-                currentState = state::shoot;
+                Drive.driveState = state::shoot;
             }
             
             // if left side is still engaed with the drive
@@ -132,7 +132,7 @@ int driveStateMachineFunction()
             if (leftDriveEngaged && rightDriveEngaged)
             {
                 // if both gears have engaged with the drive then we are good so switch to the drive state
-                currentState = state::drive;
+                Drive.driveState = state::drive;
             }
 
             // if left side is still disengaed with the drive

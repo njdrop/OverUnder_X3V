@@ -74,14 +74,16 @@ extern double DRIVE_GEAR_RATIO;
 extern double LINE_SENOR_EDGE_VALUE;
 
 /**
- * @brief This is the bottom position of the shooter in deg
+ * @brief This is the bottom position of the shooter (degrees)
  */
 extern double SHOOTER_LOADED_POSITION;
 
 /**
- * @brief This is the top position of the shooter in deg
+ * @brief This is the top position of the shooter (degrees)
+ * This value should in theory be larger than SHOOTER_LOADED_POSITION 
+ * otherwise the member function will not work properly
  */
-extern double SHOOTER_UNLOADED_POSITION; //needs changed
+extern double SHOOTER_UNLOADED_POSITION; 
 
 /**
  * @brief this is the maximum voltage the motor can be run at in mV's
@@ -110,9 +112,9 @@ enum class state
 };
 
 /**
- * @brief controls the state machine for usercontrol
+ * @brief the inital state of the drivetrain
  */
-extern state currentState;
+extern state INITIAL_STATE;
 
 /**
  * @brief defines if the left pto motors are engaged with the drive or the catapult

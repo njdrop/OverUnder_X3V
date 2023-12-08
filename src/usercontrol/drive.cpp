@@ -1,7 +1,7 @@
 #include "vex.h"
 using namespace vex;
 
-void drive()
+void driveState()
 {
 
     /*
@@ -24,7 +24,7 @@ void drive()
         {
             stateSwitchButtonReleased = false;
             // switch to pto state
-            currentState = state::ptoDriveToCata;
+            Drive.driveState = state::ptoDriveToCata;
         }
     }
     else

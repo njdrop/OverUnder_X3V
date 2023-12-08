@@ -51,10 +51,10 @@ vex::motor_group intake_Group = motor_group(leftMotor3,leftMotor4, rightMotor3, 
 double DRIVE_WHEEL_DIAMETER = 2.75;
 double DRIVE_GEAR_RATIO = 3/4;
 double LINE_SENOR_EDGE_VALUE = 57;
-state currentState = state::drive;
+state INITIAL_STATE = state::drive;
 // shooter
 double SHOOTER_LOADED_POSITION = 233;
-double SHOOTER_UNLOADED_POSITION = 0; //needs changed
+double SHOOTER_UNLOADED_POSITION = 291;
 // other
 double MAX_MOTOR_VOLTAGE = 12000;
 
@@ -68,8 +68,6 @@ bool stateSwitchButtonReleased = true;
 //**************************//
 autonRoute autonRoutesList[] {
 	doNothing,
-	skills1,
-	skills2,
 	skills3,
 	soloAutonomousWinPoint,
 	qualificationOffensive,

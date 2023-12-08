@@ -99,21 +99,21 @@ void usercontrol(void)
 		Drive.runRightSide(nearbyint(rightStickY));
 
 		//////////////////////////// State Control ////////////////////////////
-		switch (currentState)
+		switch (Drive.driveState)
 		{
 		case state::drive:
-			drive();
+			driveState();
 			break;
 		case state::ptoDriveToCata:
 			con.rumble("-");
-			ptoDriveToCata();
+			ptoDriveToCataState();
 			break;
 		case state::ptoCataToDrive:
 			con.rumble(".");
-			ptoCataToDrive();
+			ptoCataToDriveState();
 			break;
 		case state::shoot:
-			shoot();
+			shootState();
 			break;
 		default:
 			printf("%d\n", 404); // if we reach this point, then no we did not

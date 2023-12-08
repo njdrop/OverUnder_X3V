@@ -154,7 +154,15 @@ autonRoute skills2 = {"Skills", state::drive, skills2Route};
 void skills3Route() 
 {
     Drive.startAutoStateMachineTask();
-
+    Catapult.startAutoDrawTask();
+    intakeSolenoid.open();
+    for (int i = 0; i < 44; i++) {
+        while(!Catapult.isLoaded()) {
+            wait(10, msec);
+        }
+        wait(250, msec);
+        Catapult.shoot();
+    }
 }
 autonRoute skills3 = {"Skills", state::ptoDriveToCata, skills3Route};
 

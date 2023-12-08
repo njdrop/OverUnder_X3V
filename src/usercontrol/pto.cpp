@@ -1,14 +1,14 @@
 #include "vex.h"
 using namespace vex;
 
-void ptoDriveToCata()
+void ptoDriveToCataState()
 {
     // makes pto begin to switch
     PTOSolenoid.open();
     if (!leftDriveEngaged && !rightDriveEngaged)
     {
         // if both gears have disengaged with the drive then we are good so switch to the shooting state
-        currentState = state::shoot;
+        Drive.driveState = state::shoot;
     }
 
     // fail safe button
@@ -17,7 +17,7 @@ void ptoDriveToCata()
     if (con.ButtonDown.pressing())
     {
         // fail safe if driv
-        currentState = state::drive;
+        Drive.driveState = state::drive;
     }
 
     // if left side is still engaed with the drive
@@ -45,14 +45,14 @@ void ptoDriveToCata()
     }
 }
 
-void ptoCataToDrive()
+void ptoCataToDriveState()
 {
     // makes pto begin to switch
     PTOSolenoid.close();
     if (leftDriveEngaged && rightDriveEngaged)
     {
         // if both gears have engaged with the drive then we are good so switch to the drive state
-        currentState = state::drive;
+        Drive.driveState = state::drive;
     }
 
     // fail safe button
@@ -60,7 +60,7 @@ void ptoCataToDrive()
     // or can't get the pto to swtich for some other reason
     if (con.ButtonDown.pressing())
     {
-        currentState = state::shoot;
+        Drive.driveState = state::shoot;
     }
 
     // if left side is still disengaed with the drive

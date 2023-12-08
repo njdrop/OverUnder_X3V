@@ -45,7 +45,6 @@ class toggleBoolObject
 public:
     /**
      * @brief Construct a new toggle Boolean object
-     *
      * @param initialValue the value the boolean will be set to initaly
      */
     toggleBoolObject(bool);

@@ -10,7 +10,7 @@ class shooterObj {
         /**
          * @brief Construct a new shooter Obj object
          */
-        shooterObj(double loaded_position, double unloaded_position);
+        shooterObj (double loaded_position, double unloaded_position);
 
         /**
          * @brief maximum amount of time the shooter will spend trying to complete a function
@@ -20,26 +20,28 @@ class shooterObj {
         /**
          * @brief enables the task to automatically draw the shooter back
          */
-        void startAutoDrawTask();
+        void startAutoDrawTask ();
 
         /**
          * @brief disables the task to automatically draw the shooter back
          */
-        void stopAutoDrawTask();
+        void stopAutoDrawTask ();
 
         /**
          * @brief draws the shooter to is back most position one time
          * 
          * @param aSync when true, the function will happen asyncronously rather than waiting for completion
          */
-        void manualDraw(bool aSync = false);
-        
+        void manualDraw (bool aSync);
+        void manualDraw ();
+
         /**
          * @brief fires the shooter 
          * 
          * @param aSync when true, the function will happen asyncronously rather than waiting for completion
          */
-        void shoot(bool aSync = true);
+        void shoot (bool aSync);
+        void shoot ();
 
         /**
          * @brief returns the current possition of the shooter in percent of total range
@@ -61,12 +63,12 @@ class shooterObj {
         /**
          * @brief returns true if the shooter position is past the loaded position
          */
-        bool isLoaded();
+        bool isLoaded ();
         
         /**
          * @brief returns true if the shooters velocity is not 0
          */
-        bool isMoving();
+        bool isMoving ();
 
     private:
         /**
@@ -79,14 +81,14 @@ class shooterObj {
          * @param instance Pointer to the instance of the shooterObj
          * @return Result of calling shooterDrawFunction
          */
-        static int shooterDrawFunctionStatic(void* instance);
+        static int shooterDrawFunctionStatic (void* instance);
     
         /**
          * @brief Member function for the shooter task
          * @param Unused parameter
          * @return Result of the shooter task
          */
-        int shooterDrawFunction(void*);
+        int shooterDrawFunction (void*);
         
         /**
          * @brief Loaded position of the shooter
@@ -98,5 +100,7 @@ class shooterObj {
          */
         double UNLOADED_POSITION;
 };
+
+extern shooterObj Catapult;
 
 #endif

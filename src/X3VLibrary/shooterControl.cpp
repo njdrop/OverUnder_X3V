@@ -21,7 +21,7 @@ int shooterObj::shooterDrawFunction(void*) {
 				shooter_Group.stop(vex::brakeType::brake);
 			}
 			// Check if the shooter is at or below the loaded position.
-			else if (position(pct) >= 1)
+			else if (position(pct) <= 0)
 			{
 				// If the shooter is at or below the loaded position, stop it using brake mode.
 				shooter_Group.stop(vex::brakeType::brake);
@@ -59,29 +59,33 @@ void shooterObj::stopAutoDrawTask() {
         shooterDrawTask.stop();
 }
 
+void shooterObj::manualDraw() {
+	int startTime = vex::timer::system();
+	// Loop until the shooter is drawn back past the loaded position or the timeout is reached
+	while (!isLoaded() && vex::timer::system() - startTime < 1000 * timeout) {
+		// Check if the shooter is currently moving (velocity greater than 0).
+		if (velocity(rpm) > 0) {
+			// If the shooter is moving, stop it using brake mode.
+			shooter_Group.stop(vex::brakeType::brake);
+		} else {
+			// If the shooter is not moving, reverse the shooter motors
+			// to draw the shooter back using a predefined maximum motor voltage.
+			shooter_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+		}
+		// Wait for a short duration (10 milliseconds) before the next iteration.
+		wait(10, msec);
+	}
+	// Stop the shooter motors once drawing is completed or the timeout is reached.
+	shooter_Group.stop(vex::brakeType::brake);
+}
+
 void shooterObj::manualDraw(bool aSync) {
 	if (aSync) {
-		// Add code for asynchronous manual draw if needed later
+
 	}
 	else
 	{
-		int startTime = vex::timer::system();
-		// Loop until the shooter is drawn back past the loaded position or the timeout is reached
-		while (!isLoaded() && vex::timer::system() - startTime < 1000 * timeout) {
-			// Check if the shooter is currently moving (velocity greater than 0).
-			if (velocity(rpm) > 0) {
-				// If the shooter is moving, stop it using brake mode.
-				shooter_Group.stop(vex::brakeType::brake);
-			} else {
-				// If the shooter is not moving, reverse the shooter motors
-				// to draw the shooter back using a predefined maximum motor voltage.
-				shooter_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
-			}
-			// Wait for a short duration (10 milliseconds) before the next iteration.
-			wait(10, msec);
-		}
-		// Stop the shooter motors once drawing is completed or the timeout is reached.
-		shooter_Group.stop(vex::brakeType::brake);
+		manualDraw();
 	}
 }
 
@@ -93,36 +97,41 @@ void shooterObj::shoot (bool aSync)
 	}
 	else
 	{
-		// ensures the draw task is not running while the shooter is firing
-		shooterDrawTask.suspend();
-		
-		int startTime = vex::timer::system();
-		// Loop until the shooter has reached the top position and is not moving or the timeout is reached
-		while (position(pct) <= 0 && velocity(rpm) == 0 && vex::timer::system() - startTime < 1000 * timeout) {
-			// Check if the shooter is currently moving (velocity greater than 0).
-			if (velocity(rpm) > 0) {
-				// If the shooter is moving, stop it using brake mode.
-				shooter_Group.stop(vex::brakeType::brake);
-			} else {
-				// If the shooter is not moving, reverse the shooter motors
-				// to draw the shooter back using a predefined maximum motor voltage.
-				shooter_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
-			}
-			// Wait for a short duration (10 milliseconds) before the next iteration.
-			wait(10, msec);
-		}
-		// Stop the shooter motors once drawing is completed or the timeout is reached.
-		shooter_Group.stop(vex::brakeType::brake);
-		// resumes the draw task if it was running
-		shooterDrawTask.resume();
+		shoot();
 	}
+}
+
+void shooterObj::shoot ()
+{
+	// ensures the draw task is not running while the shooter is firing
+	shooterDrawTask.suspend();
+	
+	int startTime = vex::timer::system();
+	// Loop until the shooter has reached the top position and is not moving or the timeout is reached
+	while (isLoaded() && velocity(rpm) <= 0 && vex::timer::system() - startTime < 1000 * timeout) {
+		// Check if the shooter is currently moving (velocity greater than 0).
+		if (velocity(rpm) > 0) {
+			// If the shooter is moving, stop it using brake mode.
+			shooter_Group.stop(vex::brakeType::brake);
+		} else {
+			// If the shooter is not moving, reverse the shooter motors
+			// to draw the shooter back using a predefined maximum motor voltage.
+			shooter_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+		}
+		// Wait for a short duration (10 milliseconds) before the next iteration.
+		wait(10, msec);
+	}
+	// Stop the shooter motors once drawing is completed or the timeout is reached.
+	shooter_Group.stop(vex::brakeType::brake);
+	// resumes the draw task if it was running
+	shooterDrawTask.resume();
 }
 
 double shooterObj::position (vex::percentUnits units) {
         // find the range of the shooter
-        double maximumAngle = LOADED_POSITION - UNLOADED_POSITION;
+        double maximumAngle = UNLOADED_POSITION - LOADED_POSITION;
         // find the relative position of the shooter within in the range
-        double currentAngle = (*shooterRotationSensor).position(deg) - UNLOADED_POSITION;
+        double currentAngle = (*shooterRotationSensor).position(deg) - LOADED_POSITION;
         // find the percentage of the shooter's relative postition to the total range
         double percentAngle = currentAngle / maximumAngle;
         // return the value
@@ -131,7 +140,6 @@ double shooterObj::position (vex::percentUnits units) {
 
 double shooterObj::position (vex::rotationUnits units) {
         return (*shooterRotationSensor).position(units);
-;
 }
 
 double shooterObj::velocity (vex::velocityUnits units) {
@@ -139,7 +147,7 @@ double shooterObj::velocity (vex::velocityUnits units) {
 }
 
 bool shooterObj::isLoaded () {
-        return position(pct) >= 1;
+        return position(pct) <= 0;
 }
 
 bool shooterObj::isMoving () {

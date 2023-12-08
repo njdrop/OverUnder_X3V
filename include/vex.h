@@ -15,10 +15,10 @@
 #include "X3VLibrary/drivetrainControl.h"
 #include "X3VLibrary/shooterControl.h"
 
-void drive();
-void shoot();
-void ptoDriveToCata();
-void ptoCataToDrive();
+void driveState();
+void shootState();
+void ptoDriveToCataState();
+void ptoCataToDriveState();
 void autoPTODriveToCata();
 void autoPTOCataToDrive();
 
