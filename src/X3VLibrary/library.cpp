@@ -63,6 +63,20 @@ void vex::controller::lcd::smartPrint(char displayText)
     print(displayText);
 }
 
+void vex::brain::lcd::smartPrint(const char *displayText)   
+{
+    clearScreen();
+    setCursor(1,1);
+    print(displayText);
+}
+
+void vex::brain::lcd::smartPrint(char displayText)   
+{
+    clearScreen();
+    setCursor(1,1);
+    print(displayText);
+}
+
 toggleBoolObject::toggleBoolObject(bool initialValue)
 {
     firstLoop = true;

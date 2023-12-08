@@ -41,6 +41,7 @@ void pre_auton(void)
 		
 		// prints the name of the selected auton on the controller
 		con.Screen.smartPrint(autonRoutesList[autonSelect].name);
+		Brain.Screen.smartPrint(autonRoutesList[autonSelect].name);
 		wait(100, msec);
 	}
 

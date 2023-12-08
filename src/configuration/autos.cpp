@@ -156,13 +156,16 @@ void skills3Route()
     Drive.startAutoStateMachineTask();
     Catapult.startAutoDrawTask();
     intakeSolenoid.open();
-    for (int i = 0; i < 44; i++) {
-        while(!Catapult.isLoaded()) {
+    for (int i = 0; i < 44; i++) 
+    {
+        while(!Catapult.isLoaded()) 
+        {
             wait(10, msec);
         }
-        wait(250, msec);
+        wait(125, msec);
         Catapult.shoot();
     }
+
 }
 autonRoute skills3 = {"Skills", state::ptoDriveToCata, skills3Route};
 
@@ -351,8 +354,6 @@ void eliminationOffensiveRoute()
     Drive.moveDistance(-10, 100, 2, true, false);
     Drive.turn(180, 100, 1, true);
     Drive.moveDistance(-40, 4, true, true);
-
-
 }
 autonRoute eliminationOffensive = {"E - Offensive", state::drive, eliminationOffensiveRoute};
 

@@ -71,13 +71,8 @@ autonRoute autonRoutesList[] {
 	skills3,
 	soloAutonomousWinPoint,
 	qualificationOffensive,
-	qualificationOffensiveRisky,
 	qualificationDefensive,
-	qualificationDefensiveRisky,
 	eliminationOffensive,
-	eliminationOffensiveRisky,
-	eliminationDefensive,
-	eliminationDefensiveRisky
 };
 
-int NUMBER_OF_AUTONS = 11;
+int NUMBER_OF_AUTONS = 6;
