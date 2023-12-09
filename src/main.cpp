@@ -44,7 +44,7 @@ void pre_auton(void)
 		Brain.Screen.smartPrint(autonRoutesList[autonSelect].name);
 		wait(100, msec);
 	}
-
+	Brain.Screen.smartPrint("CALIBRATED LAKSJFLSKEJFL:KSDJFLKSDJFLKSDJFLKSDJ");
 	Drive.startAutoStateMachineTask();
 	Drive.driveState = autonRoutesList[autonSelect].initalState;
 }
@@ -52,7 +52,7 @@ void pre_auton(void)
 
 void autonomous(void)
 {
-	// run the selected auton route from the list of all routes
+	// run the selected auton route
 	autonRoutesList[autonSelect].routeFunction();
 }
 
@@ -61,11 +61,11 @@ void usercontrol(void)
 	// ensures the auton program will not interfere with the state machine
 	Drive.stopAutoStateMachineTask();
 	// contructs boolean objects for the intake lift
-	toggleBoolObject intakeToggle(false);
+	toggleBoolObject intakeToggle(intakeSolenoid.value());
 	// contructs boolean objects for the wings
-	toggleBoolObject wingsToggle(false);
+	toggleBoolObject wingsToggle(wingsSolenoid.value());
 	// contructs boolean objects for the blocker
-	toggleBoolObject blockerToggle(false);
+	toggleBoolObject blockerToggle(blockerSolenoid.value());
 
 	while (true)
 	{

@@ -67,12 +67,13 @@ bool stateSwitchButtonReleased = true;
 // Auton Routes Definitions //
 //**************************//
 autonRoute autonRoutesList[] {
+	eliminationOffensiveRisky,
 	doNothing,
 	skills3,
 	soloAutonomousWinPoint,
 	qualificationOffensive,
 	qualificationDefensive,
-	eliminationOffensive,
+	eliminationOffensive,	
 };
 
-int NUMBER_OF_AUTONS = 6;
+int NUMBER_OF_AUTONS = 7;

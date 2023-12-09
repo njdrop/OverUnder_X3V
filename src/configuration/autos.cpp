@@ -359,7 +359,64 @@ autonRoute eliminationOffensive = {"E - Offensive", state::drive, eliminationOff
 
 void eliminationOffensiveRiskyRoute()
 {
-    qualificationOffensiveRoute();
+    int startTime = vex::timer::system();
+    Drive.startAutoStateMachineTask();
+    intakeSolenoid.open();
+    wingsSolenoid.open();
+    // set intial rotation and hits the allience triball with the wings
+    wingsSolenoid.open();
+    Drive.turn(0, 100, 0.45, true);
+    wingsSolenoid.close();
+    // drive towards uncontested triball
+    Drive.moveDistance(30, 100, 0.85, true, true);
+    Drive.turn(-20, 100, 0.35, true);
+    Drive.moveDistance(25, 100, 0.70, true, true);
+    // turn to goal
+    Drive.turn(105, 100, 1, true);
+    // open wings
+    wingsSolenoid.open();
+    wait(150, msec);
+    // push uncontested and contested triball into goal
+    Drive.moveDistance(40, 100, 1, true, true);
+    // close wings
+    wingsSolenoid.close();
+    // back up
+    Drive.moveDistance(-10, 100, 0.25, true, true);
+    // turn to other contested triabll
+    Drive.turn(-30, 100, 0.9, true);
+    // drive into contested triball
+    Drive.moveDistance(20, 100, 0.8, true, true);
+    // turn to goal
+    Drive.turn(-210, 100, 1.15, true);
+    // open wings
+    wingsSolenoid.open();
+    // push last contested triball into goal
+    Drive.moveDistance(30, 100, 1, true, true);
+    // close wings
+    wingsSolenoid.close();
+    // back up
+    Drive.moveDistance(-10, 100, 0.25, true, true);
+    // turn to right wall
+    Drive.turn(-315, 100, 1, true);
+    // drive backwards towards left wall
+    Drive.moveDistance(-80, 100, 1.25, true, true);
+    // turn to match load triball
+    Drive.turn(-265, 100, 1, true);
+    // open wings
+    wingsSolenoid.open();
+    // push out match load triball
+    Drive.moveDistance(20, 100, 0.75, true, true);
+    // turn towards goal
+    Drive.turn(-310, 100, 0.75, true);
+    // push triballs into goal
+    Drive.moveDistance(20, 100, 0.82, true, true);
+    // backup
+    Drive.moveDistance(-5, 100, 0.25, true, true);
+    // open blocker
+    wingsSolenoid.close();
+    blockerSolenoid.open();
+    int currenttime = vex::timer::system();
+    printf("%i\n", currenttime - startTime);
 }
 autonRoute eliminationOffensiveRisky = {"RISKY E - Offensive", state::drive, eliminationOffensiveRiskyRoute};
 
