@@ -74,7 +74,6 @@ void usercontrol(void)
 		// indecates weather pto gear is engaged or disengaged from the drivetrain
 		leftDriveEngaged = (leftPTO_Sensor.value(pct) > LINE_SENOR_EDGE_VALUE);
 		rightDriveEngaged = (rightPTO_Sensor.value(pct) > LINE_SENOR_EDGE_VALUE);
-
 		//////////////////////////// Universal Controls ////////////////////////////
 
 		// toggles wings using button Up (see library.cpp for explaination)

@@ -189,33 +189,43 @@ void qualificationOffensiveRoute()
     // back up
     Drive.moveDistance(-23, 100, 1, true, true);
     // turn back towards goal
-    Drive.turn(-45, 100, 0.75, true);
+    Drive.turn(45, 100, 0.75, true);
     // push preload into goal
     Drive.moveDistance(-20, 100, 0.75, true, true);
     // drive away from goal
     Drive.moveDistance(10, 100, 0.75, true, true);
-    // point front towards long barrier
-    Drive.turn(63, 100, 1, true);
-    PTOSolenoid.open();
-    wait(500, msec);
-    leftPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
-    rightPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
-    // move towards triball
-    Drive.moveDistance(48, 100, 1.45, false, true);
-    // stop the intake
-    leftMotor3.stop(hold);
-    leftMotor4.stop(hold);
-    rightMotor3.stop(hold);
-    rightMotor4.stop(hold);
-    // back up
-    Drive.moveDistance(-2, 100, 0.1, false, true);
-    // turn to the goal
-    Drive.turn(200, 100, 1, false);
-    intakeSolenoid.close();
-    wingsSolenoid.open();
-    // move towards goal to score triball
-    Drive.moveDistance(100, 100, 1.75, false, true);
-    Drive.moveDistance(-15, 100, 1, false, true);
+    // // point front towards long barrier
+    // Drive.turn(63, 100, 1, true);
+    // PTOSolenoid.open();
+    // wait(500, msec);
+    // leftPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+    // rightPTO_Group.spin(fwd, MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+    // // move towards triball
+    // Drive.moveDistance(48, 100, 1.45, false, true);
+    // // stop the intake
+    // leftMotor3.stop(hold);
+    // leftMotor4.stop(hold);
+    // rightMotor3.stop(hold);
+    // rightMotor4.stop(hold);
+    // // back up
+    // Drive.moveDistance(-2, 100, 0.1, false, true);
+    // // turn to the goal
+    // Drive.turn(200, 100, 1, false);
+    // intakeSolenoid.close();
+    // wingsSolenoid.open();
+    // // move towards goal to score triball
+    // Drive.moveDistance(100, 100, 1.75, false, true);
+    // Drive.moveDistance(-15, 100, 1, false, true);
+
+
+    // turn towards bar
+    Drive.turn(130, 100, 2, true);
+    // drive to bar
+    Drive.moveDistance(60, 100, 2, true, true);
+    // turn into bar
+    Drive.turn(180, 100, 2, true);
+    // open blocker to touch bar
+    blockerSolenoid.open();
 }
 autonRoute qualificationOffensive = {"Q - Offensive", state::drive, qualificationOffensiveRoute};
 
