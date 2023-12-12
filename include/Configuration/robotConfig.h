@@ -116,9 +116,12 @@ enum class state
  */
 extern state INITIAL_STATE;
 
+//****************************//
+// private value declarations //
+//****************************//
+
 /**
  * @brief defines if the left pto motors are engaged with the drive or the catapult
- *
  * @return true => the left pto motors control the drive
  * @return false => the left pto motors control the catapult
  */
@@ -126,11 +129,12 @@ extern bool leftDriveEngaged;
 
 /**
  * @brief defines if the right pto motors are engaged with the drive or the catapult
- *
  * @return true => the right pto motors control the drive
  * @return false => the right pto motors control the catapult
  */
 extern bool rightDriveEngaged;
+
+extern bool stateSwitchButtonReleased;
 
 
 //***************************//
