@@ -89,12 +89,12 @@ void usercontrol(void)
 		lib::toggleSolenoid(intakeSolenoid, intakeToggle.getValue());
 
 		// records the value of the left stick
-		double leftStickY = con.Axis3.value() * 100;
+		double leftStickY = signbit(con.Axis3.value()) * pow(con.Axis3.value(), 2) / 1.27;
 		// runs the 2 left side drive motors at right stick value
 		Drive.runLeftSide(nearbyint(leftStickY));
 
 		// records the value of the right stick
-		double rightStickY = con.Axis2.value() * 100;
+		double rightStickY = signbit(con.Axis2.value()) * pow(con.Axis2.value(), 2) / 1.27;
 		// runs the 2 right side drive motors at right stick value
 		Drive.runRightSide(nearbyint(rightStickY));
 

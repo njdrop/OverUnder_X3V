@@ -74,18 +74,17 @@ class odometry {
                 void stopTracking();
 
         private:
-
                 /**
                  * @brief calculates the new X value of the object relative to (0,0) on the field
                  * @return double representing the new X value of the robot
                  */
-                double findNewX();
+                double findNewX(double deltaRelativeX, double deltaRelativeY, double heading);
 
                 /**
                  * @brief calculates the new Y value of the object relative to (0,0) on the field
                  * @return double representing the new Y value of the robot
                  */
-                double findNewY();
+                double findNewY(double deltaRelativeX, double deltaRelativeY, double heading);
 
                 /**
                  * @brief calculates the new heading value of the object
@@ -97,13 +96,13 @@ class odometry {
                  * @brief Static function for task constructor
                  * @param instance Pointer to the instance of the odometry
                  */
-                static int findNewPositionStatic (void* instance);
-        
+                static int findNewPositionStatic(void *instance);
+
                 /**
                  * @brief Member function for the odometry task
                  * @param Unused parameter
                  */
-                int findNewPositionFunction (void*);
+                int findNewPositionFunction(void *);
 
                 /**
                  * @brief Task for tracking the position of the object

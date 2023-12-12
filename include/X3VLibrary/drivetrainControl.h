@@ -126,7 +126,11 @@ class drivetrainObj: public odometry
          */
         double getRightDriveEncoderValue(bool withPTO = false);
 
-
+        /**
+         * @brief Gets the average encoder value of the whole drive.
+         * @param withPTO Indicates whether PTO is engaged.
+         * @return The encoder value.
+         */
         double getDriveEncoderValue(bool withPTO = false);
 
         /**

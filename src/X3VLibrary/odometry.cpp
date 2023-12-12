@@ -70,12 +70,13 @@ void odometry::stopTracking()
 // private members //
 //*****************//
 
-double odometry::findNewX()
-{
-        return 0;
+double odometry::findNewX(double deltaRelativeX, double deltaRelativeY, double heading)
+{       
+        double deltaGlobalX = cos(heading) * deltaRelativeY + sin(heading) * deltaRelativeX;
+        return xPosition += deltaGlobalX;
 }
 
-double odometry::findNewY()
+double odometry::findNewY(double deltaRelativeX, double deltaRelativeY, double heading)
 {
         return 0;
 }
@@ -89,7 +90,10 @@ int odometry::findNewPositionFunction(void*) {
         // Continuous loop for monitoring and controlling the shooter.
         while (true)
         {
-		
+		xPosition += findNewX(0,0,0);
+                yPosition += findNewY(0,0,0);
+                heading += findNewHeading();
+                wait(10, msec);
         }
         // The function will never return as it's in an infinite loop.
         return 0;

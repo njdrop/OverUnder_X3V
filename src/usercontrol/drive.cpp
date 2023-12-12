@@ -33,11 +33,11 @@ void driveState()
     }
 
     // gets value of the y axis on the left stick of the controller
-    double leftStickY = con.Axis3.value() * 100;
+    double leftStickY = signbit(con.Axis3.value()) * pow(con.Axis3.value(), 2) / 1.27;
     // runs the 2 left side pto motors at left stick value
     leftPTO_Group.spin(fwd, nearbyint(leftStickY), vex::voltageUnits::mV);
     // gets value of the y axis on the right stick of the controller
-    double rightStickY = con.Axis2.value() * 100;
+    double rightStickY = signbit(con.Axis2.value()) * pow(con.Axis2.value(), 2) / 1.27;
     // runs the 2 right side pto motors at right stick value
     rightPTO_Group.spin(fwd, nearbyint(rightStickY), vex::voltageUnits::mV);
 

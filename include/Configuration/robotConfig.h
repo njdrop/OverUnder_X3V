@@ -151,8 +151,7 @@ typedef struct
 } autonRoute;
 
 /**
- * @brief add comment pls
- * 
+ * @brief an array of routes for the auton selector to cycle through and run
  */
 extern autonRoute autonRoutesList[];
 
