@@ -5,7 +5,7 @@
 using namespace vex;
 
 /**
- * @file drivecontrol.h
+ * @file driveControl.h
  * @brief Contains the definition of the drivetrainObj class and related functions for controlling the robot's drivetrain.
  */
 

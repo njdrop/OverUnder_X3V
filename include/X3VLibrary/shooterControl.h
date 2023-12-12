@@ -4,7 +4,14 @@
 #include "vex.h"
 using namespace vex;
 
+/**
+ * @file shooterControl.h
+ * @brief Contains the definition of the shooterObj class and related functions for controlling the robot's shooter.
+ */
 
+/**
+ * @brief Class representing the shooter of the robot.
+ */
 class shooterObj {
     public:
         /**
