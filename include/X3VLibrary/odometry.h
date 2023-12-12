@@ -125,6 +125,21 @@ class odometry {
                  * @brief the current heading value of the object
                  */
                 double heading;
+
+                /**
+                 * @brief the change in the relative X position of the object
+                 */
+                double deltaRelativeX;
+
+                /**
+                 * @brief the change in the relative Y position of the object
+                 */
+                double deltaRelativeY;
+
+                /**
+                 * @brief the change in the relative heading of the object
+                 */
+                double deltaRelativeHeading;
 };
 
 #endif

@@ -15,9 +15,9 @@
 #include "Configuration/robotConfig.h"
 #include "X3VLibrary/MiniPID.h"
 #include "X3VLibrary/library.h"
+#include "X3VLibrary/odometry.h"
 #include "X3VLibrary/drivetrainControl.h"
 #include "X3VLibrary/shooterControl.h"
-#include "X3VLibrary/odometry.h"
 
 // usercontrol states
 void driveState();

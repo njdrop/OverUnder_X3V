@@ -20,7 +20,7 @@ int driveStateMachineFunction();
 /**
  * @brief Class representing the drivetrain of the robot.
  */
-class drivetrainObj
+class drivetrainObj: public odometry
 {
     public:
         /**

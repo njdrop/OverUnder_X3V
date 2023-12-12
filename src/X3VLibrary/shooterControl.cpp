@@ -8,7 +8,8 @@ shooterObj::shooterObj (double loaded_position, double unloaded_position)
         UNLOADED_POSITION = unloaded_position;
 };
 
-int shooterObj::shooterDrawFunction(void*) {
+int shooterObj::shooterDrawFunction(void*)
+{
         // Continuous loop for monitoring and controlling the shooter.
         while (true)
         {
@@ -40,26 +41,30 @@ int shooterObj::shooterDrawFunction(void*) {
 }
 
 
-int shooterObj::shooterDrawFunctionStatic(void* instance) {
+int shooterObj::shooterDrawFunctionStatic(void* instance)
+{
         // Execute the non-static member function shooterDrawFunction on the specified instance of the shooterObj class
         // This is achieved by casting the instance pointer back to a shooterObj*, then calling the shooterDrawFunction with a nullptr argument.
         return static_cast<shooterObj*>(instance)->shooterDrawFunction(nullptr);
 }
 
 
-void shooterObj::startAutoDrawTask() {
+void shooterObj::startAutoDrawTask()
+{
         // Start a VEX task for automatically drawing the shooter back.
         // The task is assigned the static member function shooterDrawFunctionStatic
         // with the current instance of the shooterObj class (this) as an argument.
         shooterDrawTask = vex::task(shooterDrawFunctionStatic, this);
 }
 
-void shooterObj::stopAutoDrawTask() {
+void shooterObj::stopAutoDrawTask()
+{
         // Stop the task responsible for automatically drawing the shooter back.
         shooterDrawTask.stop();
 }
 
-void shooterObj::manualDraw() {
+void shooterObj::manualDraw()
+{
 	int startTime = vex::timer::system();
 	// Loop until the shooter is drawn back past the loaded position or the timeout is reached
 	while (!isLoaded() && vex::timer::system() - startTime < 1000 * timeout) {
@@ -79,7 +84,8 @@ void shooterObj::manualDraw() {
 	shooter_Group.stop(vex::brakeType::brake);
 }
 
-void shooterObj::manualDraw(bool aSync) {
+void shooterObj::manualDraw(bool aSync)
+{
 	if (aSync) {
 
 	}
