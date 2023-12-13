@@ -89,36 +89,14 @@ void usercontrol(void)
 		lib::toggleSolenoid(intakeSolenoid, intakeToggle.getValue());
 
 		// records the value of the left stick
-		double leftStickY = signbit(con.Axis3.value()) * pow(con.Axis3.value(), 2) / 1.27;
-		// runs the 2 left side drive motors at right stick value
-		Drive.runLeftSide(nearbyint(leftStickY));
-
+		double leftStickY = abs(con.Axis3.value()) / con.Axis3.value() * pow(con.Axis3.value(), 2) / 1.27;
 		// records the value of the right stick
-		double rightStickY = signbit(con.Axis2.value()) * pow(con.Axis2.value(), 2) / 1.27;
-		// runs the 2 right side drive motors at right stick value
-		Drive.runRightSide(nearbyint(rightStickY));
+		double rightStickX = abs(con.Axis1.value()) / con.Axis1.value() * pow(con.Axis1.value(), 2) / 1.27;
 
-		//////////////////////////// State Control ////////////////////////////
-		switch (Drive.driveState)
-		{
-		case state::drive:
-			driveState();
-			break;
-		case state::ptoDriveToCata:
-			con.rumble("-");
-			ptoDriveToCataState();
-			break;
-		case state::ptoCataToDrive:
-			con.rumble(".");
-			ptoCataToDriveState();
-			break;
-		case state::shoot:
-			shootState();
-			break;
-		default:
-			printf("%d\n", 404); // if we reach this point, then no we did not
-			break;
-		}
+		// runs the 2 left side drive motors at right stick value
+		Drive.runLeftSide(nearbyint(leftStickY + rightStickX), Drive.PTO_DriveEngaged);
+		// runs the 2 right side drive motors at right stick value
+		Drive.runRightSide(nearbyint(leftStickY - rightStickX), Drive.PTO_DriveEngaged);
 	}
 }
 

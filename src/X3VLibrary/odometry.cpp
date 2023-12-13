@@ -90,9 +90,9 @@ int odometry::findNewPositionFunction(void*) {
         // Continuous loop for monitoring and controlling the shooter.
         while (true)
         {
-		xPosition += findNewX(0,0,0);
-                yPosition += findNewY(0,0,0);
-                heading += findNewHeading();
+		xPosition = findNewX(0,0,0);
+                yPosition = findNewY(0,0,0);
+                heading = findNewHeading();
                 wait(10, msec);
         }
         // The function will never return as it's in an infinite loop.
@@ -110,3 +110,27 @@ int odometry::findNewPositionStatic(void* instance) {
 //*******************//
 // protected members //
 //*******************//
+
+
+double odometry::getLeftDriveEncoderValue(bool withPTO)
+{
+    if (withPTO)
+    {
+        return (leftDrive_Group.position(deg) + leftPTO_Group.position(deg)) / 2;
+    }
+    return leftDrive_Group.position(deg);
+}
+
+double odometry::getRightDriveEncoderValue(bool withPTO)
+{
+    if (withPTO)
+    {
+        return (rightDrive_Group.position(deg) + rightPTO_Group.position(deg)) / 2;
+    }
+    return rightDrive_Group.position(deg);
+}
+
+double odometry::getDriveEncoderValue(bool withPTO)
+{
+    return (getLeftDriveEncoderValue(withPTO) + getRightDriveEncoderValue(withPTO)) / 2;
+}

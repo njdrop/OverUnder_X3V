@@ -111,6 +111,27 @@ class odometry {
 
         protected:
                 /**
+                 * @brief Gets the average encoder value of the left drive.
+                 * @param withPTO Indicates whether PTO is engaged.
+                 * @return The encoder value.
+                 */
+                double getLeftDriveEncoderValue(bool withPTO = false);
+
+                /**
+                 * @brief Gets the average encoder value of the right drive.
+                 * @param withPTO Indicates whether PTO is engaged.
+                 * @return The encoder value.
+                 */
+                double getRightDriveEncoderValue(bool withPTO = false);
+
+                /**
+                 * @brief Gets the average encoder value of the whole drive.
+                 * @param withPTO Indicates whether PTO is engaged.
+                 * @return The encoder value.
+                 */
+                double getDriveEncoderValue(bool withPTO = false);
+                
+                /**
                  * @brief the current X value of the object
                  */
                 double xPosition;

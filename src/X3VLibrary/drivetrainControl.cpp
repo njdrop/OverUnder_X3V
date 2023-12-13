@@ -33,47 +33,6 @@ void drivetrainObj::stopAutoStateMachineTask()
 }
 
 /**
- * @brief returns the average value of the motor encoders on the left side of the drive
- *
- * @param withPTO weather to include the pto motors in the average
- * @return double average motor encoder value (deg)
- */
-double drivetrainObj::getLeftDriveEncoderValue(bool withPTO)
-{
-    if (withPTO)
-    {
-        return (leftDrive_Group.position(deg) + leftPTO_Group.position(deg)) / 2;
-    }
-    return leftDrive_Group.position(deg);
-}
-
-/**
- * @brief returns the average value of the motor encoders on the right side of the drive
- *
- * @param withPTO weather to include the pto motors in the average
- * @return double average motor encoder value (deg)
- */
-double drivetrainObj::getRightDriveEncoderValue(bool withPTO)
-{
-    if (withPTO)
-    {
-        return (rightDrive_Group.position(deg) + rightPTO_Group.position(deg)) / 2;
-    }
-    return rightDrive_Group.position(deg);
-}
-
-/**
- * @brief returns the average value of the motor encoders of the drive
- *
- * @param withPTO weather to include the pto motors in the average
- * @return double average motor encoder value (deg)
- */
-double drivetrainObj::getDriveEncoderValue(bool withPTO)
-{
-    return (getLeftDriveEncoderValue(withPTO) + getRightDriveEncoderValue(withPTO)) / 2;
-}
-
-/**
  * @brief state machine task that handels the state operations during autonomous
  *
  * @param drive

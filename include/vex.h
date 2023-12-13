@@ -19,12 +19,6 @@
 #include "X3VLibrary/drivetrainControl.h"
 #include "X3VLibrary/shooterControl.h"
 
-// usercontrol states
-void driveState();
-void shootState();
-void ptoDriveToCataState();
-void ptoCataToDriveState();
-
 // autonomous routes
 extern	autonRoute	doNothing;
 extern	autonRoute	skills1;

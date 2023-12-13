@@ -113,27 +113,6 @@ class drivetrainObj: public odometry
 
     private:
         /**
-         * @brief Gets the average encoder value of the left drive.
-         * @param withPTO Indicates whether PTO is engaged.
-         * @return The encoder value.
-         */
-        double getLeftDriveEncoderValue(bool withPTO = false);
-
-        /**
-         * @brief Gets the average encoder value of the right drive.
-         * @param withPTO Indicates whether PTO is engaged.
-         * @return The encoder value.
-         */
-        double getRightDriveEncoderValue(bool withPTO = false);
-
-        /**
-         * @brief Gets the average encoder value of the whole drive.
-         * @param withPTO Indicates whether PTO is engaged.
-         * @return The encoder value.
-         */
-        double getDriveEncoderValue(bool withPTO = false);
-
-        /**
          * @brief memeber variable that stores the diameter of the wheels in inches
          */
         double wheelDiameter;
