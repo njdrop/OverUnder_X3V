@@ -31,6 +31,7 @@ vex::motor_group leftDrive_Group = motor_group(leftMotor1, leftMotor2);
 vex::motor_group rightDrive_Group = motor_group(rightMotor1, rightMotor2);
 vex::motor_group leftPTO_Group = motor_group(leftMotor3, leftMotor4);
 vex::motor_group rightPTO_Group = motor_group(rightMotor3, rightMotor4);
+vex::inertial *driveIntertial = &inertialSensor;
 
 //***************************//
 // Shooter Group Definitions //

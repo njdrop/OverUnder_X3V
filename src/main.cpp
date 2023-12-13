@@ -97,6 +97,35 @@ void usercontrol(void)
 		Drive.runLeftSide(nearbyint(leftStickY + rightStickX), Drive.PTO_DriveEngaged);
 		// runs the 2 right side drive motors at right stick value
 		Drive.runRightSide(nearbyint(leftStickY - rightStickX), Drive.PTO_DriveEngaged);
+
+		double leftpow1 = leftMotor1.power(watt);
+		double leftpow2 = leftMotor2.power(watt);
+		double leftpow3 = leftMotor3.power(watt);
+		double leftpow4 = leftMotor4.power(watt);
+		double rightpow1 = rightMotor1.power(watt);
+		double rightpow2 = rightMotor2.power(watt);
+		double rightpow3 = rightMotor3.power(watt);
+		double rightpow4 = rightMotor4.power(watt);
+		
+		// char rightmotorspow1[1000];
+		// char rightmotorspow2[1000];
+		// char rightmotorspow3[1000];
+		// char rightmotorspow4[1000];
+		// sprintf(rightmotorspow1, "%1.1111f", rightpow1);
+		// sprintf(rightmotorspow2, "%1.1111f", rightpow2);
+		// sprintf(rightmotorspow3, "%1.1111f", rightpow3);
+		// sprintf(rightmotorspow4, "%1.1111f", rightpow4);
+
+		printf("%f ", leftpow1);
+		printf("%f ", leftpow2);
+		printf("%f ", leftpow3);
+		printf("%f ", leftpow4);
+		printf("%f ", rightpow1);
+		printf("%f ", rightpow2);
+		printf("%f ", rightpow3);
+		printf("%f\n", rightpow4);
+
+		wait(20, msec);
 	}
 }
 

@@ -38,6 +38,7 @@ extern vex::motor_group leftDrive_Group;
 extern vex::motor_group rightDrive_Group;
 extern vex::motor_group leftPTO_Group;
 extern vex::motor_group rightPTO_Group;
+extern vex::inertial *driveIntertial;
 
 
 //****************************//

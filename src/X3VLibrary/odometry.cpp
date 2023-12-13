@@ -72,7 +72,15 @@ void odometry::stopTracking()
 
 double odometry::findNewX(double deltaRelativeX, double deltaRelativeY, double heading)
 {       
+        // get delta values
+        deltaRelativeX = 0;
+        deltaRelativeY = getDriveEncoderValue(false) - previousY;
+        // record previous values
+        previousY = getDriveEncoderValue(false);
+        previousX = 0;
+        // find global X
         double deltaGlobalX = cos(heading) * deltaRelativeY + sin(heading) * deltaRelativeX;
+        // return New X
         return xPosition += deltaGlobalX;
 }
 

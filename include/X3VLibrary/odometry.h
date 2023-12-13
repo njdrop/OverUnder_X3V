@@ -150,16 +150,19 @@ class odometry {
                  * @brief the change in the relative X position of the object
                  */
                 double deltaRelativeX;
+                double previousX;
 
                 /**
                  * @brief the change in the relative Y position of the object
                  */
                 double deltaRelativeY;
+                double previousY;
 
                 /**
                  * @brief the change in the relative heading of the object
                  */
                 double deltaRelativeHeading;
+                double previousHeading;
 };
 
 #endif
