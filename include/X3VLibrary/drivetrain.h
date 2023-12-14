@@ -186,9 +186,4 @@ class drivetrainObj
         double heading;
 };
 
-/**
- * @brief Global instance of drivetrainObj representing the drivetrain for the current robot.
- */
-extern drivetrainObj Drive;
-
 #endif

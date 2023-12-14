@@ -108,6 +108,4 @@ class shooterObj {
         double UNLOADED_POSITION;
 };
 
-extern shooterObj Catapult;
-
 #endif

@@ -19,16 +19,14 @@ extern vex::motor rightMotor2;
 extern vex::motor rightMotor3;
 extern vex::motor rightMotor4;
 // pneumatics
-extern vex::pneumatics wingsSolenoid;
-extern vex::pneumatics PTOSolenoid;
-extern vex::pneumatics intakeSolenoid;
-extern vex::pneumatics blockerSolenoid;
+
 // sensors
 extern vex::inertial inertialSensor;
 extern vex::limit autonSelectorSwitch;
-extern vex::line leftPTO_Sensor;
-extern vex::line rightPTO_Sensor;
-extern vex::rotation catapultRotationSensor;
+// vision
+extern vision::signature GREEN_TRIBALL;
+extern vision::signature HANGBAR_CAP;
+extern vex::vision visionSensor;
 
 
 //**************************//
@@ -37,14 +35,14 @@ extern vex::rotation catapultRotationSensor;
 extern vex::motor_group leftDrive_Group;
 extern vex::motor_group rightDrive_Group;
 extern vex::inertial *driveIntertial;
-
+extern drivetrainObj Drive;
 
 //****************************//
 // Shooter Group Declarations //
 //****************************//
 extern vex::motor_group shooter_Group;
 extern vex::rotation *shooterRotationSensor;
-
+extern shooterObj Catapult;
 
 //****************************//
 // Intake Group Declarations  //

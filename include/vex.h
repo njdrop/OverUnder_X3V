@@ -12,11 +12,12 @@
 #include "v5_vcs.h"
 
 // X3V Library
+#include "X3VLibrary/drivetrain.h"
+#include "X3VLibrary/shooter.h"
 #include "Configuration/robotConfig.h"
 #include "X3VLibrary/MiniPID.h"
 #include "X3VLibrary/library.h"
-#include "X3VLibrary/drivetrain.h"
-#include "X3VLibrary/shooter.h"
+
 
 // autonomous routes
 extern	autonRoute	doNothing;

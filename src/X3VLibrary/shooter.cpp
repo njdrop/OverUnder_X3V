@@ -156,5 +156,3 @@ bool shooterObj::isLoaded () {
 bool shooterObj::isMoving () {
         return velocity(rpm) != 0;
 }
-
-shooterObj Catapult = shooterObj(SHOOTER_LOADED_POSITION, SHOOTER_UNLOADED_POSITION);

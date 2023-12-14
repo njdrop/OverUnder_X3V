@@ -81,7 +81,7 @@ void usercontrol(void)
 		
 		if (con.ButtonB.pressing())
 		{
-			printf("%i ", vex::timer::system());
+			printf("%lu ", vex::timer::system());
 			printf("%f ", Drive.getX());
 			printf("%f ", Drive.getY());
 			printf("%f\n", Drive.getHeading());

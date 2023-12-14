@@ -202,8 +202,3 @@ int drivetrainObj::findNewPositionStatic(void* instance) {
     // This is achieved by casting the instance pointer back to a shooterObj*, then calling the shooterDrawFunction with a nullptr argument.
     return static_cast<drivetrainObj*>(instance)->updatePositionFunction(nullptr);
 }
-
-/**
- * @brief definition of drivetrain
- */
-drivetrainObj Drive(DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO);
