@@ -44,9 +44,17 @@ void pre_auton(void)
 		Brain.Screen.smartPrint(autonRoutesList[autonSelect].name);
 		wait(100, msec);
 	}
-	Brain.Screen.smartPrint("CALIBRATED LAKSJFLSKEJFL:KSDJFLKSDJFLKSDJFLKSDJ");
-	Drive.startAutoStateMachineTask();
-	Drive.driveState = autonRoutesList[autonSelect].initalState;
+	// calibrate the drivetrain
+	(*driveIntertial).calibrate();
+	wait(3000, msec);
+	Brain.Screen.smartPrint("CALIBRATED");
+
+	// set position
+	Drive.setPosition(0, 0);
+
+	// start tracking
+	Drive.startTracking();
+
 }
 
 
@@ -54,78 +62,42 @@ void autonomous(void)
 {
 	// run the selected auton route
 	autonRoutesList[autonSelect].routeFunction();
+	// Drive.turn(90, 100, 1.5);
+	// Drive.turn(0, 100, 1.5);
+	// Drive.turn(90, 100, 1.5);
+	// Drive.turn(0, 100, 1.5);
+	// Drive.turn(15, 100, 0.75);
+	// Drive.turn(30, 100, 0.75);
+	// Drive.turn(45, 100, 0.75);
+	// Drive.turn(180, 100, 1.5);
+	// Drive.turn(0, 100, 1.5);
+	// Drive.turn(180, 100, 1.5);
 }
 
 void usercontrol(void)
 {
-	// ensures the auton program will not interfere with the state machine
-	Drive.stopAutoStateMachineTask();
-	// contructs boolean objects for the intake lift
-	toggleBoolObject intakeToggle(intakeSolenoid.value());
-	// contructs boolean objects for the wings
-	toggleBoolObject wingsToggle(wingsSolenoid.value());
-	// contructs boolean objects for the blocker
-	toggleBoolObject blockerToggle(blockerSolenoid.value());
-
+	Drive.startTracking();
 	while (true)
 	{
-		// define states of sensors
-		// each loop determine if the line sensor dectects a light level greater than the edge case
-		// indecates weather pto gear is engaged or disengaged from the drivetrain
-		leftDriveEngaged = (leftPTO_Sensor.value(pct) > LINE_SENOR_EDGE_VALUE);
-		rightDriveEngaged = (rightPTO_Sensor.value(pct) > LINE_SENOR_EDGE_VALUE);
-		//////////////////////////// Universal Controls ////////////////////////////
-
-		// toggles wings using button Up (see library.cpp for explaination)
-		wingsToggle.changeValueFromInput(con.ButtonL2.pressing());
-		lib::toggleSolenoid(wingsSolenoid, wingsToggle.getValue());
-
-		// toggles blocker using button B (see library.cpp for explaination)
-		blockerToggle.changeValueFromInput(con.ButtonB.pressing());
-		lib::toggleSolenoid(blockerSolenoid, blockerToggle.getValue());
-
-		// toggles intake lift using button X (see library.cpp for explaination)
-		intakeToggle.changeValueFromInput(con.ButtonX.pressing());
-		lib::toggleSolenoid(intakeSolenoid, intakeToggle.getValue());
-
 		// records the value of the left stick
-		double leftStickY = abs(con.Axis3.value()) / con.Axis3.value() * pow(con.Axis3.value(), 2) / 1.27;
+		double leftStickY = con.Axis3.value() * 100;
 		// records the value of the right stick
-		double rightStickX = abs(con.Axis1.value()) / con.Axis1.value() * pow(con.Axis1.value(), 2) / 1.27;
+		double rightStickY = con.Axis2.value() * 100;
 
 		// runs the 2 left side drive motors at right stick value
-		Drive.runLeftSide(nearbyint(leftStickY + rightStickX), Drive.PTO_DriveEngaged);
+		Drive.runLeftSide(nearbyint(leftStickY));
 		// runs the 2 right side drive motors at right stick value
-		Drive.runRightSide(nearbyint(leftStickY - rightStickX), Drive.PTO_DriveEngaged);
-
-		double leftpow1 = leftMotor1.power(watt);
-		double leftpow2 = leftMotor2.power(watt);
-		double leftpow3 = leftMotor3.power(watt);
-		double leftpow4 = leftMotor4.power(watt);
-		double rightpow1 = rightMotor1.power(watt);
-		double rightpow2 = rightMotor2.power(watt);
-		double rightpow3 = rightMotor3.power(watt);
-		double rightpow4 = rightMotor4.power(watt);
+		Drive.runRightSide(nearbyint(rightStickY));
 		
-		// char rightmotorspow1[1000];
-		// char rightmotorspow2[1000];
-		// char rightmotorspow3[1000];
-		// char rightmotorspow4[1000];
-		// sprintf(rightmotorspow1, "%1.1111f", rightpow1);
-		// sprintf(rightmotorspow2, "%1.1111f", rightpow2);
-		// sprintf(rightmotorspow3, "%1.1111f", rightpow3);
-		// sprintf(rightmotorspow4, "%1.1111f", rightpow4);
-
-		printf("%f ", leftpow1);
-		printf("%f ", leftpow2);
-		printf("%f ", leftpow3);
-		printf("%f ", leftpow4);
-		printf("%f ", rightpow1);
-		printf("%f ", rightpow2);
-		printf("%f ", rightpow3);
-		printf("%f\n", rightpow4);
-
-		wait(20, msec);
+		if (con.ButtonB.pressing())
+		{
+			printf("%i ", vex::timer::system());
+			printf("%f ", Drive.getX());
+			printf("%f ", Drive.getY());
+			printf("%f\n", Drive.getHeading());
+		}
+		
+		wait(10, msec);
 	}
 }
 

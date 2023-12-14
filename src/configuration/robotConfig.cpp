@@ -27,22 +27,20 @@ vex::limit autonSelectorSwitch = limit(Brain.ThreeWirePort.A);
 //*************************//
 // Drive Group Definitions //
 //*************************//x
-vex::motor_group leftDrive_Group = motor_group(leftMotor1, leftMotor2);
-vex::motor_group rightDrive_Group = motor_group(rightMotor1, rightMotor2);
-vex::motor_group leftPTO_Group = motor_group(leftMotor3, leftMotor4);
-vex::motor_group rightPTO_Group = motor_group(rightMotor3, rightMotor4);
+vex::motor_group leftDrive_Group = motor_group(leftMotor1, leftMotor2, leftMotor3, leftMotor4);
+vex::motor_group rightDrive_Group = motor_group(rightMotor1, rightMotor2, rightMotor3, rightMotor4);
 vex::inertial *driveIntertial = &inertialSensor;
 
 //***************************//
 // Shooter Group Definitions //
 //***************************//
-vex::motor_group shooter_Group = motor_group(leftMotor3,leftMotor4, rightMotor3, rightMotor4);
+vex::motor_group shooter_Group = motor_group();
 vex::rotation *shooterRotationSensor = &catapultRotationSensor;
 
 //***************************//
 // Intake Group Definitions  //
 //***************************//
-vex::motor_group intake_Group = motor_group(leftMotor3,leftMotor4, rightMotor3, rightMotor4);
+vex::motor_group intake_Group = motor_group();
 
 
 //*****************************//
@@ -51,18 +49,12 @@ vex::motor_group intake_Group = motor_group(leftMotor3,leftMotor4, rightMotor3, 
 // drivetrain
 double DRIVE_WHEEL_DIAMETER = 2.75;
 double DRIVE_GEAR_RATIO = 3/4;
-double LINE_SENOR_EDGE_VALUE = 57;
-state INITIAL_STATE = state::drive;
 // shooter
-double SHOOTER_LOADED_POSITION = 233;
-double SHOOTER_UNLOADED_POSITION = 291;
+double SHOOTER_LOADED_POSITION = 0;
+double SHOOTER_UNLOADED_POSITION = 0;
 // other
 double MAX_MOTOR_VOLTAGE = 12000;
 
-
-bool leftDriveEngaged = true;
-bool rightDriveEngaged = true;
-bool stateSwitchButtonReleased = true;
 
 //**************************//
 // Auton Routes Definitions //

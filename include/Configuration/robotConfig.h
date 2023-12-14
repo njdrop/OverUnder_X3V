@@ -36,8 +36,6 @@ extern vex::rotation catapultRotationSensor;
 //**************************//
 extern vex::motor_group leftDrive_Group;
 extern vex::motor_group rightDrive_Group;
-extern vex::motor_group leftPTO_Group;
-extern vex::motor_group rightPTO_Group;
 extern vex::inertial *driveIntertial;
 
 
@@ -70,11 +68,6 @@ extern double DRIVE_WHEEL_DIAMETER;
 extern double DRIVE_GEAR_RATIO;
 
 /**
- * @brief the value (pct) at which the line sensor should read that the pto gear has engaged with the drivetrain
- */
-extern double LINE_SENOR_EDGE_VALUE;
-
-/**
  * @brief This is the bottom position of the shooter (degrees)
  */
 extern double SHOOTER_LOADED_POSITION;
@@ -92,52 +85,6 @@ extern double SHOOTER_UNLOADED_POSITION;
  */
 extern double MAX_MOTOR_VOLTAGE;
 
-/**
- * @brief Enum representing possible states for the robot.
- *
- * This enumeration defines the various states that the system can be in. Each state
- * represents a specific operational mode.
- *
- * The possible states are:
- *   - #drive: The system is in the regular drive state.
- *   - #ptoCataToDrive: The system is transitioning from power take-off (PTO) to drive state.
- *   - #ptoDriveToCata: The system is transitioning from drive to power take-off (PTO) state.
- *   - #shoot: The system is in the shoot state.
- */
-enum class state
-{
-    drive,
-    ptoCataToDrive,
-    ptoDriveToCata,
-    shoot
-};
-
-/**
- * @brief the inital state of the drivetrain
- */
-extern state INITIAL_STATE;
-
-//****************************//
-// private value declarations //
-//****************************//
-
-/**
- * @brief defines if the left pto motors are engaged with the drive or the catapult
- * @return true => the left pto motors control the drive
- * @return false => the left pto motors control the catapult
- */
-extern bool leftDriveEngaged;
-
-/**
- * @brief defines if the right pto motors are engaged with the drive or the catapult
- * @return true => the right pto motors control the drive
- * @return false => the right pto motors control the catapult
- */
-extern bool rightDriveEngaged;
-
-extern bool stateSwitchButtonReleased;
-
-
 //***************************//
 // Auton Routes Declarations //
 //***************************//
@@ -147,7 +94,9 @@ extern bool stateSwitchButtonReleased;
 typedef struct 
 { 
 	const char *name;
-	state initalState;
+    double setUpX;
+    double setUpY;
+    double setUpHeading;
 	void (*routeFunction)();
 } autonRoute;
 

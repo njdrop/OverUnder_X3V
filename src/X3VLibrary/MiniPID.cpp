@@ -254,14 +254,13 @@ double MiniPID::getOutput(double actual, double setpoint)
 	output = Foutput + Poutput + Ioutput + Doutput;
 
 	// Figure out what we're doing with the error.
-	//  if(minOutput!=maxOutput && !bounded(output, minOutput,maxOutput) ) {
-	//  	errorSum=error;
-	//  	// reset the error sum to a sane level
-	//  	// Setting to current error ensures a smooth transition when the P term
-	//  	// decreases enough for the I term to start acting upon the controller
-	//  	// From that point the I term will build up as would be expected
-	//  }
-
+	 if(minOutput!=maxOutput && !bounded(output, minOutput,maxOutput) ) {
+	 	errorSum=error;
+	 	// reset the error sum to a sane level
+	 	// Setting to current error ensures a smooth transition when the P term
+	 	// decreases enough for the I term to start acting upon the controller
+	 	// From that point the I term will build up as would be expected
+	 }
 	if (minOutput != maxOutput && !bounded(output, minOutput, maxOutput))
 	{
 		errorSum = error;
@@ -277,9 +276,10 @@ double MiniPID::getOutput(double actual, double setpoint)
 		// buildup, so restrict the error directly
 	}
 
-	// if (signbit(error) != signbit(error)) {
-	// 	errorSum = 0;
-	// }
+	// if we pass the destination reset the error sum to prevent occsilation
+	if (signbit(error) != signbit(error)) {
+		errorSum = -error;
+	}
 
 	// Restrict output to our specified output and ramp limits
 	if (outputRampRate != 0)

@@ -1,11 +1,11 @@
-#ifndef SHOOTERCONTROL_H
-#define SHOOTERCONTROL_H
+#ifndef SHOOTER_H
+#define SHOOTER_H
 
 #include "vex.h"
 using namespace vex;
 
 /**
- * @file shooterControl.h
+ * @file shooter.h
  * @brief Contains the definition of the shooterObj class and related functions for controlling the robot's shooter.
  */
 

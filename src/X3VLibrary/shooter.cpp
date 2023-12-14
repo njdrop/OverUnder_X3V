@@ -13,28 +13,25 @@ int shooterObj::shooterDrawFunction(void*)
         // Continuous loop for monitoring and controlling the shooter.
         while (true)
         {
-		if (Drive.driveState == state::shoot)
+		// Check if the shooter is currently firing (velocity greater than 0).
+		if (velocity(rpm) > 0) 
 		{
-			// Check if the shooter is currently firing (velocity greater than 0).
-			if (velocity(rpm) > 0) 
-			{
-				// If the shooter is moving, stop it using brake mode.
-				shooter_Group.stop(vex::brakeType::brake);
-			}
-			// Check if the shooter is at or below the loaded position.
-			else if (position(pct) <= 0)
-			{
-				// If the shooter is at or below the loaded position, stop it using brake mode.
-				shooter_Group.stop(vex::brakeType::brake);
-			}
-			// If none of the above conditions are met, reverse the shooter motors to draw the shooter back
-			else
-			{
-				shooter_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
-			}
-			// Wait for a short duration (10 milliseconds) before the next iteration.
-			wait(10, msec);
+			// If the shooter is moving, stop it using brake mode.
+			shooter_Group.stop(vex::brakeType::brake);
 		}
+		// Check if the shooter is at or below the loaded position.
+		else if (position(pct) <= 0)
+		{
+			// If the shooter is at or below the loaded position, stop it using brake mode.
+			shooter_Group.stop(vex::brakeType::brake);
+		}
+		// If none of the above conditions are met, reverse the shooter motors to draw the shooter back
+		else
+		{
+			shooter_Group.spin(fwd, -MAX_MOTOR_VOLTAGE, vex::voltageUnits::mV);
+		}
+		// Wait for a short duration (10 milliseconds) before the next iteration.
+		wait(10, msec);
         }
         // The function will never return as it's in an infinite loop.
         return 0;
