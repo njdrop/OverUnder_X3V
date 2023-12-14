@@ -60,13 +60,8 @@ double MAX_MOTOR_VOLTAGE = 12000;
 // Auton Routes Definitions //
 //**************************//
 autonRoute autonRoutesList[] {
-	eliminationOffensiveRisky,
 	doNothing,
-	skills3,
-	soloAutonomousWinPoint,
-	qualificationOffensive,
-	qualificationDefensive,
-	eliminationOffensive,	
+	eliminationOffensiveRisky,
 };
 
-int NUMBER_OF_AUTONS = 7;
+int NUMBER_OF_AUTONS = 2;

@@ -62,16 +62,6 @@ void autonomous(void)
 {
 	// run the selected auton route
 	autonRoutesList[autonSelect].routeFunction();
-	// Drive.turn(90, 100, 1.5);
-	// Drive.turn(0, 100, 1.5);
-	// Drive.turn(90, 100, 1.5);
-	// Drive.turn(0, 100, 1.5);
-	// Drive.turn(15, 100, 0.75);
-	// Drive.turn(30, 100, 0.75);
-	// Drive.turn(45, 100, 0.75);
-	// Drive.turn(180, 100, 1.5);
-	// Drive.turn(0, 100, 1.5);
-	// Drive.turn(180, 100, 1.5);
 }
 
 void usercontrol(void)
