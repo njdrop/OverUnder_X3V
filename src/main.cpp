@@ -69,6 +69,11 @@ void usercontrol(void)
 	Drive.startTracking();
 	while (true)
 	{
+		visionSensor.takeSnapshot(HANGBAR_CAP);
+		vex::vision::object YellowCap = visionSensor.objects[1];
+		printf("%d ", YellowCap.centerX);
+		printf("%d\n", YellowCap.centerY);
+		
 		// records the value of the left stick
 		double leftStickY = con.Axis3.value() * 100;
 		// records the value of the right stick
