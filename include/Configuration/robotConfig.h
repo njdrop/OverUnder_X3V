@@ -10,22 +10,12 @@ using namespace vex;
 extern vex::brain Brain;
 extern vex::controller con;
 // motors
-extern vex::motor leftMotor1;
-extern vex::motor leftMotor2;
-extern vex::motor leftMotor3;
-extern vex::motor leftMotor4;
-extern vex::motor rightMotor1;
-extern vex::motor rightMotor2;
-extern vex::motor rightMotor3;
-extern vex::motor rightMotor4;
 // pneumatics
-
 // sensors
 extern vex::inertial inertialSensor;
 extern vex::limit autonSelectorSwitch;
 // vision
-extern vision::signature GREEN_TRIBALL;
-extern vision::signature HANGBAR_CAP;
+extern vision::signature TRIBALL;
 extern vex::vision visionSensor;
 
 

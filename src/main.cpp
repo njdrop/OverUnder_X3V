@@ -66,31 +66,19 @@ void autonomous(void)
 
 void usercontrol(void)
 {
+
+	
 	Drive.startTracking();
 	while (true)
 	{
-		visionSensor.takeSnapshot(HANGBAR_CAP);
-		vex::vision::object YellowCap = visionSensor.objects[1];
-		printf("%d ", YellowCap.centerX);
-		printf("%d\n", YellowCap.centerY);
-		
 		// records the value of the left stick
 		double leftStickY = con.Axis3.value() * 100;
 		// records the value of the right stick
 		double rightStickY = con.Axis2.value() * 100;
-
 		// runs the 2 left side drive motors at right stick value
 		Drive.runLeftSide(nearbyint(leftStickY));
 		// runs the 2 right side drive motors at right stick value
-		Drive.runRightSide(nearbyint(rightStickY));
-		
-		if (con.ButtonB.pressing())
-		{
-			printf("%lu ", vex::timer::system());
-			printf("%f ", Drive.getX());
-			printf("%f ", Drive.getY());
-			printf("%f\n", Drive.getHeading());
-		}
+		Drive.runRightSide(nearbyint(rightStickY));		
 		
 		wait(10, msec);
 	}

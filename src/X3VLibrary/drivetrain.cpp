@@ -116,7 +116,7 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
     {
         double actualAngle = (*driveIntertial).rotation(deg);
         double speed = angleControl.getOutput(actualAngle, targetAngle);
-        if (abs(targetAngle-actualAngle) < 5) 
+        if (fabs(targetAngle-actualAngle) < 5) 
         {
             angleControl.setMaxIOutput(2000);
         }
