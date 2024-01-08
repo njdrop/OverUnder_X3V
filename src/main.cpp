@@ -54,7 +54,6 @@ void pre_auton(void)
 
 	// start tracking
 	Drive.startTracking();
-
 }
 
 
@@ -66,8 +65,10 @@ void autonomous(void)
 
 void usercontrol(void)
 {
+	toggleBoolObject frontWingsToggle(false);
+	toggleBoolObject backWingsToggle(false);
+	toggleBoolObject liftToggle(false);
 
-	
 	Drive.startTracking();
 	while (true)
 	{
@@ -80,6 +81,30 @@ void usercontrol(void)
 		// runs the 2 right side drive motors at right stick value
 		Drive.runRightSide(nearbyint(rightStickY));		
 		
+		// update toggle objects from controller input
+		frontWingsToggle.changeValueFromInput(con.ButtonR1.pressing());
+		backWingsToggle.changeValueFromInput(con.ButtonR1.pressing());
+		liftToggle.changeValueFromInput(con.ButtonL1.pressing());
+
+		// set solinoids to correct output from toggled values
+		lib::toggleSolenoid(leftWing, frontWingsToggle.getValue());
+		lib::toggleSolenoid(rightWing, backWingsToggle.getValue());
+		lib::toggleSolenoid(lift, liftToggle.getValue());
+
+		if (con.ButtonR1.pressing())
+		{
+			shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
+		}
+		else if (con.ButtonA.pressing())
+		{
+			shooter_Group.spin(fwd, -8000, vex::voltageUnits::mV);
+		}
+		else
+		{
+			shooter_Group.stop(coast);
+		}
+
+
 		wait(10, msec);
 	}
 }

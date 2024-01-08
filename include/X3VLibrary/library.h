@@ -47,14 +47,14 @@ public:
      * @brief Construct a new toggle Boolean object
      * @param initialValue the value the boolean will be set to initaly
      */
-    toggleBoolObject(bool);
+    toggleBoolObject(bool initialValue);
 
     /**
      * @brief Set the Boolean objects value manually
      *
      * @param value the value the boolean will be manually set to
      */
-    void setValue(bool);
+    void setValue(bool value);
 
     /**
      * @brief changes the boolean object's value based on input from the controller
@@ -63,7 +63,7 @@ public:
      *
      * @param buttonValue weather the button is being pressed. Used to determine if the boolean object should be toggled
      */
-    void changeValueFromInput(bool);
+    void changeValueFromInput(bool buttonValue);
 
     /**
      * @brief Get the Value of the boolean object

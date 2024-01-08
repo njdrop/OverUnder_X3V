@@ -1,8 +1,9 @@
 #include "vex.h"
 using namespace vex;
 
-shooterObj::shooterObj (double loaded_position, double unloaded_position) 
+shooterObj::shooterObj (double loaded_position, double unloaded_position, vex::rotation &rotationSensor) 
 {    
+	shooterRotationSensor = &rotationSensor;
         timeout = 5;
         LOADED_POSITION = loaded_position;
         UNLOADED_POSITION = unloaded_position;

@@ -17,7 +17,7 @@ class shooterObj {
         /**
          * @brief Construct a new shooter Obj object
          */
-        shooterObj (double loaded_position, double unloaded_position);
+        shooterObj (double loaded_position, double unloaded_position, vex::rotation  &rotationSensor);
 
         /**
          * @brief maximum amount of time the shooter will spend trying to complete a function
@@ -106,6 +106,9 @@ class shooterObj {
          * @brief Unloaded position of the shooter
          */
         double UNLOADED_POSITION;
+
+
+        vex::rotation *shooterRotationSensor;
 };
 
 #endif

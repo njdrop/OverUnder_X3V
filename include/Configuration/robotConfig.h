@@ -10,13 +10,15 @@ using namespace vex;
 extern vex::brain Brain;
 extern vex::controller con;
 // motors
+
 // pneumatics
+extern vex::pneumatics lift;
+extern vex::pneumatics leftWing;
+extern vex::pneumatics rightWing;
 // sensors
 extern vex::inertial inertialSensor;
 extern vex::limit autonSelectorSwitch;
 // vision
-extern vision::signature TRIBALL;
-extern vex::vision visionSensor;
 
 
 //**************************//
@@ -31,8 +33,6 @@ extern drivetrainObj Drive;
 // Shooter Group Declarations //
 //****************************//
 extern vex::motor_group shooter_Group;
-extern vex::rotation *shooterRotationSensor;
-extern shooterObj Catapult;
 
 //****************************//
 // Intake Group Declarations  //
@@ -54,18 +54,6 @@ extern double DRIVE_WHEEL_DIAMETER;
  * GR = # teeth on powered gear / # teeth on drive gear
  */
 extern double DRIVE_GEAR_RATIO;
-
-/**
- * @brief This is the bottom position of the shooter (degrees)
- */
-extern double SHOOTER_LOADED_POSITION;
-
-/**
- * @brief This is the top position of the shooter (degrees)
- * This value should in theory be larger than SHOOTER_LOADED_POSITION 
- * otherwise the member function will not work properly
- */
-extern double SHOOTER_UNLOADED_POSITION; 
 
 /**
  * @brief this is the maximum voltage the motor can be run at in mV's
