@@ -87,9 +87,9 @@ void usercontrol(void)
 		liftToggle.changeValueFromInput(con.ButtonL1.pressing());
 
 		// set solinoids to correct output from toggled values
-		lib::toggleSolenoid(leftWing, frontWingsToggle.getValue());
-		lib::toggleSolenoid(rightWing, backWingsToggle.getValue());
-		lib::toggleSolenoid(lift, liftToggle.getValue());
+		frontWings.set(frontWingsToggle.getValue());
+		backWings.set(backWingsToggle.getValue());
+		lift.set(liftToggle.getValue());
 
 		if (con.ButtonR1.pressing())
 		{
@@ -103,7 +103,6 @@ void usercontrol(void)
 		{
 			shooter_Group.stop(coast);
 		}
-
 
 		wait(10, msec);
 	}

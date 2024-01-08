@@ -13,8 +13,8 @@ extern vex::controller con;
 
 // pneumatics
 extern vex::pneumatics lift;
-extern vex::pneumatics leftWing;
-extern vex::pneumatics rightWing;
+extern vex::pneumatics frontWings;
+extern vex::pneumatics backWings;
 // sensors
 extern vex::inertial inertialSensor;
 extern vex::limit autonSelectorSwitch;

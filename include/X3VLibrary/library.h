@@ -12,22 +12,6 @@ using namespace vex;
 namespace lib
 {
     /**
-     * @brief Send an input to two motors with one command as a voltage command. Also rounds the input to the nearest integer to stop the motors from bugging out
-     *
-     * @param motors an array of all the motors that the command will be sent to
-     * @param input mV to be sent to both motors (min: -12000, max:+12000)
-     */
-    void sendInputToMotors(vex::motor motor1, vex::motor motor2, double input);
-
-    /**
-     * @brief If bool is true open a solinoid, otherwise close it
-     *
-     * @param solenoid the solenoid that should be controlled
-     * @param toggleValue the bool that should be used to evaluate if it should be toggled
-     */
-    void toggleSolenoid(vex::pneumatics solenoid, bool toggleValue);
-
-    /**
      * @brief converts angular distance to linear distance
      *
      * @param angularDistance (deg)
@@ -38,6 +22,17 @@ namespace lib
     double angularDistanceToLinearDistance(double angularDistance, double diameter);
     double angularDistanceToLinearDistance(double angularDistance, double diameter, double gearRatio);
 
+    /**
+     * @brief returns the value bounded by a maximum and/or minimum limit.
+     * 
+     * @param value 
+     * @param min 
+     * @param max 
+     * @return double 
+     */
+    double clamp(double value, double min, double max);
+    double clampMin(double value, double min);
+    double clampMax(double value, double max);
 }
 
 class toggleBoolObject

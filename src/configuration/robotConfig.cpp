@@ -2,7 +2,7 @@
 using namespace vex;
 
 //*******************//
-// Motor Definitions //
+// Robot Definitions //
 //*******************//
 vex::brain Brain;
 vex::controller con;
@@ -17,8 +17,8 @@ vex::motor slapper1 (PORT19, ratio18_1, true);
 vex::motor slapper2 (PORT20, ratio18_1, true);
 // pneumatics
 vex::pneumatics lift (Brain.ThreeWirePort.B);
-vex::pneumatics leftWing (Brain.ThreeWirePort.B);
-vex::pneumatics rightWing (Brain.ThreeWirePort.C);
+vex::pneumatics frontWings (Brain.ThreeWirePort.B);
+vex::pneumatics backWings (Brain.ThreeWirePort.C);
 // sensors
 vex::inertial inertialSensor (PORT11);
 vex::limit autonSelectorSwitch (Brain.ThreeWirePort.A);
@@ -41,6 +41,7 @@ drivetrainObj Drive (DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO);
 // Shooter Group Definitions //
 //***************************//
 vex::motor_group shooter_Group = motor_group(slapper1, slapper2);
+
 
 //***************************//
 // Intake Group Definitions  //
@@ -67,4 +68,4 @@ autonRoute autonRoutesList[]
 	doNothing,
 };
 
-int NUMBER_OF_AUTONS = 2;
+int NUMBER_OF_AUTONS = sizeof(autonRoutesList)/sizeof(autonRoutesList[0]);
