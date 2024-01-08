@@ -13,14 +13,16 @@ vex::motor leftMotor3 (PORT3, ratio6_1, true);
 vex::motor rightMotor1 (PORT8, ratio6_1, false);
 vex::motor rightMotor2 (PORT9, ratio6_1, false);
 vex::motor rightMotor3 (PORT10, ratio6_1, false);
-vex::motor slapper1 (PORT19, ratio18_1, true);
-vex::motor slapper2 (PORT20, ratio18_1, true);
+vex::motor kicker1 (PORT19, ratio18_1, true);
+vex::motor kicker2 (PORT20, ratio18_1, true);
+vex::motor intake (PORT1, ratio6_1, true);
 // pneumatics
 vex::pneumatics lift (Brain.ThreeWirePort.B);
 vex::pneumatics frontWings (Brain.ThreeWirePort.B);
 vex::pneumatics backWings (Brain.ThreeWirePort.C);
 // sensors
-vex::inertial inertialSensor (PORT11);
+vex::inertial inertialSensorMain (PORT11);
+vex::inertial inertialSensorBackup (PORT12);
 vex::limit autonSelectorSwitch (Brain.ThreeWirePort.A);
 // vision
 // vision::signature TRIBALL (1, -6037, -4939, -5488, -4991, -3223, -4106, 4.200, 0);
@@ -34,28 +36,25 @@ vex::limit autonSelectorSwitch (Brain.ThreeWirePort.A);
 //*************************//
 vex::motor_group leftDrive_Group = motor_group(leftMotor1, leftMotor2, leftMotor3);
 vex::motor_group rightDrive_Group = motor_group(rightMotor1, rightMotor2, rightMotor3);
-vex::inertial *driveIntertial = &inertialSensor;
-drivetrainObj Drive (DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO);
+drivetrainObj Drive (DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO, inertialSensorMain, inertialSensorBackup);
 
 //***************************//
 // Shooter Group Definitions //
 //***************************//
-vex::motor_group shooter_Group = motor_group(slapper1, slapper2);
+vex::motor_group shooter_Group = motor_group(kicker1, kicker2);
 
 
 //***************************//
 // Intake Group Definitions  //
 //***************************//
-vex::motor_group intake_Group = motor_group();
+vex::motor_group intake_Group = motor_group(intake);
 
 
 //*****************************//
 // Robot Parameter Definitions //
 //*****************************//
-// drivetrain
 double DRIVE_WHEEL_DIAMETER = 2.75;
 double DRIVE_GEAR_RATIO = 3/4;
-// other
 double MAX_MOTOR_VOLTAGE = 12000;
 
 

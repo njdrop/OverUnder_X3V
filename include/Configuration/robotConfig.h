@@ -16,7 +16,8 @@ extern vex::pneumatics lift;
 extern vex::pneumatics frontWings;
 extern vex::pneumatics backWings;
 // sensors
-extern vex::inertial inertialSensor;
+extern vex::inertial inertialSensorMain;
+extern vex::inertial inertialSensorBackup;
 extern vex::limit autonSelectorSwitch;
 // vision
 
@@ -26,7 +27,6 @@ extern vex::limit autonSelectorSwitch;
 //**************************//
 extern vex::motor_group leftDrive_Group;
 extern vex::motor_group rightDrive_Group;
-extern vex::inertial *driveIntertial;
 extern drivetrainObj Drive;
 
 //****************************//
