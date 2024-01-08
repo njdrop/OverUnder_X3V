@@ -13,23 +13,20 @@ vex::motor leftMotor3 (PORT3, ratio6_1, true);
 vex::motor rightMotor1 (PORT8, ratio6_1, false);
 vex::motor rightMotor2 (PORT9, ratio6_1, false);
 vex::motor rightMotor3 (PORT10, ratio6_1, false);
-vex::motor kicker1 (PORT19, ratio18_1, true);
-vex::motor kicker2 (PORT20, ratio18_1, true);
-vex::motor intake (PORT1, ratio6_1, true);
+vex::motor kicker1 (PORT18, ratio18_1, true);
+vex::motor kicker2 (PORT19, ratio18_1, true);
+vex::motor intake (PORT21, ratio6_1, true);
 // pneumatics
-vex::pneumatics lift (Brain.ThreeWirePort.B);
+vex::pneumatics lift (Brain.ThreeWirePort.A);
 vex::pneumatics frontWings (Brain.ThreeWirePort.B);
 vex::pneumatics backWings (Brain.ThreeWirePort.C);
 // sensors
-vex::inertial inertialSensorMain (PORT11);
-vex::inertial inertialSensorBackup (PORT12);
-vex::limit autonSelectorSwitch (Brain.ThreeWirePort.A);
+vex::inertial inertialSensorMain (PORT4);
+vex::inertial inertialSensorBackup (PORT7);
+vex::limit autonSelectorSwitch (Brain.ThreeWirePort.H);
 // vision
 // vision::signature TRIBALL (1, -6037, -4939, -5488, -4991, -3223, -4106, 4.200, 0);
 // vex::vision visionSensor (vex::PORT6, 84, TRIBALL);
-
-
-
 
 //*************************//
 // Drive Group Definitions //
