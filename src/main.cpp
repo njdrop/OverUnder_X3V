@@ -82,26 +82,40 @@ void usercontrol(void)
 		Drive.runRightSide(nearbyint(rightStickY));		
 		
 		// update toggle objects from controller input
-		frontWingsToggle.changeValueFromInput(con.ButtonR1.pressing());
-		backWingsToggle.changeValueFromInput(con.ButtonR1.pressing());
-		liftToggle.changeValueFromInput(con.ButtonL1.pressing());
+		frontWingsToggle.changeValueFromInput(con.ButtonR2.pressing());
+		backWingsToggle.changeValueFromInput(con.ButtonR2.pressing());
+		liftToggle.changeValueFromInput(con.ButtonUp.pressing());
 
 		// set solinoids to correct output from toggled values
 		frontWings.set(frontWingsToggle.getValue());
 		backWings.set(backWingsToggle.getValue());
 		lift.set(liftToggle.getValue());
 
-		if (con.ButtonR1.pressing())
+		if (con.ButtonL2.pressing())
 		{
 			shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
 		}
-		else if (con.ButtonA.pressing())
+		else if (con.ButtonX.pressing())
 		{
 			shooter_Group.spin(fwd, -8000, vex::voltageUnits::mV);
 		}
 		else
 		{
 			shooter_Group.stop(coast);
+		}
+
+
+		if (con.ButtonR1.pressing())
+		{
+			intake_Group.spin(fwd, 8000, vex::voltageUnits::mV);
+		}
+		else if (con.ButtonL1.pressing())
+		{
+			intake_Group.spin(fwd, -8000, vex::voltageUnits::mV);
+		}
+		else
+		{
+			intake_Group.stop(coast);
 		}
 
 		wait(10, msec);

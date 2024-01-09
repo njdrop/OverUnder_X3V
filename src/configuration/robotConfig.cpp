@@ -13,15 +13,16 @@ vex::motor leftMotor3 (PORT3, ratio6_1, true);
 vex::motor rightMotor1 (PORT8, ratio6_1, false);
 vex::motor rightMotor2 (PORT9, ratio6_1, false);
 vex::motor rightMotor3 (PORT10, ratio6_1, false);
-vex::motor slapper1 (PORT19, ratio18_1, true);
-vex::motor slapper2 (PORT20, ratio18_1, true);
+vex::motor slapper1 (PORT18, ratio18_1, true);
+vex::motor slapper2 (PORT19, ratio18_1, true);
+vex::motor intake (PORT16, ratio18_1, false);
 // pneumatics
-vex::pneumatics lift (Brain.ThreeWirePort.B);
+vex::pneumatics lift (Brain.ThreeWirePort.A);
 vex::pneumatics frontWings (Brain.ThreeWirePort.B);
 vex::pneumatics backWings (Brain.ThreeWirePort.C);
 // sensors
 vex::inertial inertialSensor (PORT11);
-vex::limit autonSelectorSwitch (Brain.ThreeWirePort.A);
+vex::limit autonSelectorSwitch (Brain.ThreeWirePort.H);
 // vision
 // vision::signature TRIBALL (1, -6037, -4939, -5488, -4991, -3223, -4106, 4.200, 0);
 // vex::vision visionSensor (vex::PORT6, 84, TRIBALL);
@@ -46,7 +47,7 @@ vex::motor_group shooter_Group = motor_group(slapper1, slapper2);
 //***************************//
 // Intake Group Definitions  //
 //***************************//
-vex::motor_group intake_Group = motor_group();
+vex::motor_group intake_Group = motor_group(intake);
 
 
 //*****************************//
@@ -68,4 +69,4 @@ autonRoute autonRoutesList[]
 	doNothing,
 };
 
-int NUMBER_OF_AUTONS = sizeof(autonRoutesList)/sizeof(autonRoutesList[0]);
+int NUMBER_OF_AUTONS = 2;

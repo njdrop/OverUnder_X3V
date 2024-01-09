@@ -134,15 +134,13 @@ autonRoute skills2 = {"Skills", 0, 0, 0, skills2Route};
 
 void skills3Route() 
 {
-    Catapult.startAutoDrawTask();
     for (int i = 0; i < 44; i++) 
     {
-        while(!Catapult.isLoaded()) 
+        while(true) 
         {
             wait(10, msec);
         }
         wait(125, msec);
-        Catapult.shoot();
     }
 
 }
@@ -227,10 +225,7 @@ void qualificationOffensiveRiskyRoute()
     // move towards triball
     Drive.moveDistance(43.25, 100, 2, false);
     // stop the intake
-    leftMotor3.stop(hold);
-    leftMotor4.stop(hold);
-    rightMotor3.stop(hold);
-    rightMotor4.stop(hold);
+
     // switch pto back to drive
 
     wait(3000, msec);
