@@ -18,7 +18,6 @@ vex::motor slapper2 (PORT19, ratio18_1, true);
 vex::motor intake (PORT16, ratio18_1, false);
 vex::motor kicker1 (PORT18, ratio18_1, true);
 vex::motor kicker2 (PORT19, ratio18_1, true);
-vex::motor intake (PORT21, ratio6_1, true);
 // pneumatics
 vex::pneumatics lift (Brain.ThreeWirePort.A);
 vex::pneumatics frontWings (Brain.ThreeWirePort.B);
@@ -47,7 +46,6 @@ vex::motor_group shooter_Group = motor_group(kicker1, kicker2);
 //***************************//
 // Intake Group Definitions  //
 //***************************//
-vex::motor_group intake_Group = motor_group(intake);
 vex::motor_group intake_Group = motor_group(intake);
 
 
