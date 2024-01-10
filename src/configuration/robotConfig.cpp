@@ -34,7 +34,7 @@ vex::limit autonSelectorSwitch (Brain.ThreeWirePort.H);
 //*************************//
 vex::motor_group leftDrive_Group = motor_group(leftMotor1, leftMotor2, leftMotor3);
 vex::motor_group rightDrive_Group = motor_group(rightMotor1, rightMotor2, rightMotor3);
-InertialGroup driveInertial (inertialSensorMain, inertialSensorBackup);
+inertialGroup driveInertial (inertialSensorMain, inertialSensorBackup);
 drivetrainObj Drive (DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO);
 
 //***************************//

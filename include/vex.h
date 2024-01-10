@@ -14,12 +14,15 @@
 // libraries
 // #include <stdarg.h>
 
+
 // X3V Library
 #include "X3VLibrary/drivetrain.h"
-#include "X3VLibrary/shooter.h"
+#include "X3VLibrary/inertialGroup.h"
+#include "X3VLibrary/MiniPID.h"
 #include "X3VLibrary/library.h"
 #include "Configuration/robotConfig.h"
-#include "X3VLibrary/MiniPID.h"
+
+
 
 
 // autonomous routes
