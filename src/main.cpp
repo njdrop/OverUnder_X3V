@@ -15,7 +15,7 @@ int autonSelect = 0;
 void pre_auton(void)
 {
 	// calibrate the inertial sensor
-	inertialSensor.calibrate();
+	(*driveIntertial).calibrate();
 
 	//  tracks the first loop that the button has been held
 	bool firstButtonPress = true;
