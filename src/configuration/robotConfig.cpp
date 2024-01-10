@@ -7,6 +7,7 @@ using namespace vex;
 vex::brain Brain;
 vex::controller con;
 // motors
+<<<<<<< HEAD
 vex::motor leftMotor1 (PORT5, ratio6_1, true);//1
 vex::motor leftMotor2 (PORT8, ratio6_1, true);//2
 vex::motor leftMotor3 (PORT15, ratio6_1, true);//3
@@ -16,6 +17,20 @@ vex::motor rightMotor3 (PORT20, ratio6_1, false);//10
 vex::motor intake (PORT11, ratio18_1, false);//16
 vex::motor kicker1 (PORT21, ratio18_1, true);//18
 vex::motor kicker2 (PORT19, ratio18_1, true);//19
+=======
+vex::motor leftMotor1 (PORT1, ratio6_1, true);
+vex::motor leftMotor2 (PORT2, ratio6_1, true);
+vex::motor leftMotor3 (PORT3, ratio6_1, true);
+vex::motor rightMotor1 (PORT8, ratio6_1, false);
+vex::motor rightMotor2 (PORT9, ratio6_1, false);
+vex::motor rightMotor3 (PORT10, ratio6_1, false);
+vex::motor slapper1 (PORT18, ratio18_1, true);
+vex::motor slapper2 (PORT19, ratio18_1, true);
+vex::motor intake (PORT16, ratio18_1, false);
+vex::motor kicker1 (PORT18, ratio18_1, true);
+vex::motor kicker2 (PORT19, ratio18_1, true);
+vex::motor intake (PORT21, ratio6_1, true);
+>>>>>>> parent of d7dc326 (fixed error and merged branches)
 // pneumatics
 vex::pneumatics intakeLift (Brain.ThreeWirePort.A);
 vex::pneumatics lift (Brain.ThreeWirePort.B);
@@ -46,6 +61,7 @@ vex::motor_group shooter_Group = motor_group(kicker1, kicker2);
 //***************************//
 // Intake Group Definitions  //
 //***************************//
+vex::motor_group intake_Group = motor_group(intake);
 vex::motor_group intake_Group = motor_group(intake);
 
 

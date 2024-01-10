@@ -107,7 +107,7 @@ void usercontrol(void)
 		{
 			shooter_Group.stop(coast);
 		}
-		
+
 
 		if (con.ButtonR1.pressing())
 		{
