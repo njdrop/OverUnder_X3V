@@ -36,7 +36,7 @@ extern vex::limit autonSelectorSwitch;
 //**************************//
 extern vex::motor_group leftDrive_Group;
 extern vex::motor_group rightDrive_Group;
-extern inertialGroup driveInertial;
+extern InertialGroup driveInertial;
 extern drivetrainObj Drive;
 
 //****************************//
