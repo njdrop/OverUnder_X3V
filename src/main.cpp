@@ -16,6 +16,8 @@ void pre_auton(void)
 {
 	// calibrate the inertial sensor
 	Drive.calibrate();
+	inertialSensorMain.calibrate();
+	inertialSensorBackup.calibrate();
 
 	//  tracks the first loop that the button has been held
 	bool firstButtonPress = true;
@@ -46,6 +48,8 @@ void pre_auton(void)
 	}
 	// calibrate the drivetrain
 	Drive.calibrate();
+	inertialSensorMain.calibrate();
+	inertialSensorBackup.calibrate();	
 	wait(3000, msec);
 	Brain.Screen.smartPrint("CALIBRATED");
 

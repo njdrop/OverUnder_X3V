@@ -5,10 +5,8 @@ using namespace vex;
 // constructor function //
 //**********************//
 
-drivetrainObj::drivetrainObj(double wheelDiam, double gR, vex::inertial inertialSensorMain, vex::inertial inertialSensorBackup)
+drivetrainObj::drivetrainObj(double wheelDiam, double gR)
 {
-    inertialMain = &inertialSensorMain;
-    inertialBackup = &inertialSensorBackup;
     wheelDiameter = wheelDiam;
     gearRatio = gR;
     xPosition = 0;
@@ -35,32 +33,6 @@ double drivetrainObj::getHeading()
     return heading;
 }
 
-double drivetrainObj::getInertialHeading(vex::rotationUnits units)
-{
-        if ((*inertialMain).installed()) 
-        {
-            return (*inertialMain).heading(units);
-        }
-        if ((*inertialBackup).installed())
-        {
-            return (*inertialBackup).heading(units);
-        }
-        return 1;
-}
-
-double drivetrainObj::getInertialRotation(vex::rotationUnits units)
-{
-        if ((*inertialMain).installed()) 
-        {
-            return (*inertialMain).rotation(units);
-        }
-        if ((*inertialBackup).installed())
-        {
-            return (*inertialBackup).rotation(units);
-        }
-        return 1;
-}
-
 void drivetrainObj::setX(double newX) 
 {
     xPosition = newX;
@@ -79,9 +51,9 @@ void drivetrainObj::setPosition(double newX, double newY)
 
 void drivetrainObj::calibrate()
 {
-    (*inertialMain).calibrate();
-    (*inertialBackup).calibrate();
+    setPosition(0, 0);
 }
+
 void drivetrainObj::runLeftSide(double voltage)
 {
     leftDrive_Group.spin(fwd, nearbyint(voltage), vex::voltageUnits::mV);
@@ -115,12 +87,12 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
     distanceControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     headingControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     double startPos = getDriveEncoderValue();
-    double startAngle = getInertialRotation(deg);
+    double startAngle = driveInertial.getRotation();
     double startTime = vex::timer::system();
     while (vex::timer::system() - startTime <= timeout * 1000)
     {
         double actualDistance = lib::angularDistanceToLinearDistance((getDriveEncoderValue() - startPos), wheelDiameter, gearRatio);
-        double actualAngle = getInertialRotation(deg);
+        double actualAngle = driveInertial.getRotation();
         double speed = distanceControl.getOutput(actualDistance, targetDistance);
         double correctionFactor = headingControl.getOutput(actualAngle, startAngle);
         if (correctHeading)
@@ -147,7 +119,7 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
     double startTime = vex::timer::system();
     while (vex::timer::system() - startTime <= timeout * 1000)
     {
-        double actualAngle = getInertialRotation(deg);
+        double actualAngle = driveInertial.getRotation();
         double speed = angleControl.getOutput(actualAngle, targetAngle);
         if (fabs(targetAngle-actualAngle) < 5) 
         {
@@ -158,7 +130,7 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 
         wait(10, msec);
     }
-    printf("%f\n", targetAngle - getInertialRotation(deg));
+    printf("%f\n", targetAngle - driveInertial.getRotation());
     stopLeftSide(vex::brakeType::coast);
     stopRightSide(vex::brakeType::coast);
 }
@@ -219,7 +191,7 @@ int drivetrainObj::updatePositionFunction(void*) {
         double headingInRad = heading * 3.1416 / 180;
         xPosition += sin(headingInRad) * relativeMovementY + cos(headingInRad) * relativeMovementX;
         yPosition += cos(headingInRad) * relativeMovementY - sin(headingInRad) * relativeMovementX;
-        heading = getInertialHeading(deg);
+        heading = driveInertial.getRotation();
 
         // update previous values for reference
         previousRelativeX = 0;

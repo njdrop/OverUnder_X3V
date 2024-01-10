@@ -20,7 +20,7 @@ class drivetrainObj
          * @param wheelDiam The diameter of the wheels.
          * @param gR The gear ratio of the drivetrain.
          */
-        drivetrainObj(double wheelDiam, double gR, vex::inertial inertialMain, vex::inertial inertialBackup);
+        drivetrainObj(double wheelDiam, double gR);
 
         /**
          * @brief gets the X position of the object relative to a point on the field
@@ -39,18 +39,6 @@ class drivetrainObj
          * @return double
          */
         double getHeading();
-
-        /**
-         * @brief Get the Inertial heading using either the main or backup sensor depending on availability
-         * @return double 
-         */
-        double getInertialHeading(vex::rotationUnits units);
-
-        /**
-         * @brief Get the Inertial rotation using either the main or backup sensor depending on availability
-         * @return double 
-         */
-        double getInertialRotation(vex::rotationUnits units);
 
         /**
          * @brief manualy set the X value of the object relative to (0,0) on the field
@@ -140,16 +128,6 @@ class drivetrainObj
         void stopTracking();
 
     private:
-        /**
-         * @brief pointer to the main inertial sensor 
-         */
-        vex::inertial *inertialMain;
-
-        /**
-         * @brief pointer to the backup inertial sensor 
-         */
-        vex::inertial *inertialBackup;
-
         /**
          * @brief Gets the average encoder value of the left drive.
          * @return The encoder value.
