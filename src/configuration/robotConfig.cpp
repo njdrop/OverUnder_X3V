@@ -62,7 +62,7 @@ double MAX_MOTOR_VOLTAGE = 12000;
 //**************************//
 autonRoute autonRoutesList[] 
 {
-	doNothing,
+	doNothing
 };
 
 int NUMBER_OF_AUTONS = 1;

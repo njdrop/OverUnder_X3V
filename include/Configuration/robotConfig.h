@@ -16,8 +16,6 @@ extern vex::motor leftMotor3;
 extern vex::motor rightMotor1;
 extern vex::motor rightMotor2;
 extern vex::motor rightMotor3;
-extern vex::motor slapper1;
-extern vex::motor slapper2;
 extern vex::motor intake;
 extern vex::motor kicker1;
 extern vex::motor kicker2;
