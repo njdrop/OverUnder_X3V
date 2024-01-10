@@ -62,7 +62,6 @@ vex::motor_group shooter_Group = motor_group(kicker1, kicker2);
 // Intake Group Definitions  //
 //***************************//
 vex::motor_group intake_Group = motor_group(intake);
-vex::motor_group intake_Group = motor_group(intake);
 
 
 //*****************************//
