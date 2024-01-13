@@ -69,8 +69,10 @@ void autonomous(void)
 
 void usercontrol(void)
 {
+	toggleBoolObject frontWingsToggle(false);
+	toggleBoolObject backWingsToggle(false);
 	toggleBoolObject liftToggle(lift.value());
-	toggleBoolObject intakeLiftToggle(true);
+	toggleBoolObject intakeLiftToggle(false);
 	while (true)
 	{
 		// records the value of the left stick
@@ -84,11 +86,13 @@ void usercontrol(void)
 		
 		// update toggle objects from controller input
 		liftToggle.changeValueFromInput(con.ButtonUp.pressing());
-		intakeLiftToggle.changeValueFromInput(con.ButtonR1.pressing() && con.ButtonR2.pressing());
+		intakeLiftToggle.changeValueFromInput(con.ButtonR1.pressing() && con.ButtonL1.pressing());
+		frontWingsToggle.changeValueFromInput(con.ButtonR2.pressing());
+		backWingsToggle.changeValueFromInput(con.ButtonL2.pressing());
 
 		// set solinoids to correct output from toggled values
-		frontWings.set(con.ButtonL1.pressing());
-		backWings.set(con.ButtonL2.pressing());
+		frontWings.set(frontWingsToggle.getValue());
+		backWings.set(backWingsToggle.getValue());
 		intakeLift.set(intakeLiftToggle.getValue() || liftToggle.getValue());
 		lift.set(liftToggle.getValue());
 
@@ -105,13 +109,13 @@ void usercontrol(void)
 			shooter_Group.stop(coast);
 		}
 
-		if (con.ButtonR1.pressing() && !con.ButtonR2.pressing())
+		if (con.ButtonR1.pressing() && !con.ButtonL1.pressing())
 		{
-			intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+			intake_Group.spin(fwd, 8000, vex::voltageUnits::mV);
 		}
-		else if (con.ButtonR2.pressing() && !con.ButtonR1.pressing())
+		else if (con.ButtonL1.pressing() && !con.ButtonR1.pressing())
 		{
-			intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+			intake_Group.spin(fwd, -8000, vex::voltageUnits::mV);
 		}
 		else
 		{

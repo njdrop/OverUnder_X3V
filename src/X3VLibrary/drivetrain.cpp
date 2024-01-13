@@ -92,7 +92,7 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
     double correctionFactor, speed, actualAngle, actualDistance;
     while (vex::timer::system() - startTime <= timeout * 1000)
     {
-        actualDistance = (getDriveEncoderValue() - startPos) * 0.01799870791;
+        actualDistance = lib::angularDistanceToLinearDistance((getDriveEncoderValue() - startPos), wheelDiameter, gearRatio);
         actualAngle = driveInertial.getRotation();
         speed = distanceControl.getOutput(actualDistance, targetDistance);
         correctionFactor = headingControl.getOutput(actualAngle, startAngle);

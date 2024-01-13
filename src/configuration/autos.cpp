@@ -26,21 +26,21 @@ void farSideAWPRoute()
 {
     backWings.open();
     wait(500,msec);
-    Drive.moveDistance(-15, 100, 1, true);//-15
+    Drive.moveDistance(-5, 100, 2, true);//-15
     backWings.close();
-    Drive.turn(45, 100, 1);
-    Drive.moveDistance(-25, 100, 1, true);//-25
-    Drive.turn(-10, 100, 1);
-    Drive.moveDistance(17, 100, 2, true);
-    Drive.turn(-45, 100, 1);
+    Drive.moveDistance(5, 100, 2, true);//-25
+    Drive.turn(-40, 100, 1);
     intakeLift.open();
-    Drive.moveDistance(13, 100, 2, true);
+    Drive.moveDistance(10, 100, 2, true);
 }
 autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 
 void skills1Route()
 {
-   
+   while (true)
+   {
+        shooter_Group.spin(fwd, 6500, vex::voltageUnits::mV);
+   }
 }
 autonRoute skills1 = {"Skills", 0, 0, 0, skills1Route};
 

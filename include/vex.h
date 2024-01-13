@@ -26,5 +26,7 @@ extern	autonRoute	doNothing;
 extern  autonRoute      forwardsBackwards;
 extern  autonRoute      backwardsForwards;
 extern  autonRoute      farSideAWP;
+extern  autonRoute      skills1;
+
 
 #endif

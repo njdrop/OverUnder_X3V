@@ -66,6 +66,7 @@ autonRoute autonRoutesList[]
 	forwardsBackwards,
 	backwardsForwards,
 	farSideAWP,
+	skills1,
 };
 
-int NUMBER_OF_AUTONS = 4;
+int NUMBER_OF_AUTONS = 5;
