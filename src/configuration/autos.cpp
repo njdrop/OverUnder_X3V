@@ -5,7 +5,6 @@ using namespace vex;
 void doNothingRoute()
 {
     // do nothing
-    Drive.moveDistance(10, 100, 15, true);
 }
 autonRoute doNothing = {"Do Nothing", 0, 0, 0, doNothingRoute};
 
@@ -27,14 +26,15 @@ void farSideAWPRoute()
 {
     backWings.open();
     wait(500,msec);
-    Drive.moveDistance(-1, 100, 1, true);//-15
+    Drive.moveDistance(-15, 100, 1, true);//-15
     backWings.close();
     Drive.turn(45, 100, 1);
-    Drive.moveDistance(-1, 100, 1, true);//-25
+    Drive.moveDistance(-25, 100, 1, true);//-25
     Drive.turn(-10, 100, 1);
-    Drive.moveDistance(1, 100, 2, true);
+    Drive.moveDistance(17, 100, 2, true);
     Drive.turn(-45, 100, 1);
-    Drive.moveDistance(1, 100, 2, true);
+    intakeLift.open();
+    Drive.moveDistance(13, 100, 2, true);
 }
 autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 

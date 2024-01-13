@@ -10,7 +10,15 @@ using namespace vex;
 extern vex::brain Brain;
 extern vex::controller con;
 // motors
-
+extern vex::motor leftMotor1;
+extern vex::motor leftMotor2;
+extern vex::motor leftMotor3;
+extern vex::motor rightMotor1;
+extern vex::motor rightMotor2;
+extern vex::motor rightMotor3;
+extern vex::motor intake;
+extern vex::motor kicker1;
+extern vex::motor kicker2;
 // pneumatics
 extern vex::pneumatics lift;
 extern vex::pneumatics frontWings;

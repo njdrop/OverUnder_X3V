@@ -92,7 +92,7 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
     double correctionFactor, speed, actualAngle, actualDistance;
     while (vex::timer::system() - startTime <= timeout * 1000)
     {
-        actualDistance = lib::angularDistanceToLinearDistance((getDriveEncoderValue() - startPos), wheelDiameter, gearRatio);
+        actualDistance = (getDriveEncoderValue() - startPos) * 0.01799870791;
         actualAngle = driveInertial.getRotation();
         speed = distanceControl.getOutput(actualDistance, targetDistance);
         correctionFactor = headingControl.getOutput(actualAngle, startAngle);
@@ -107,6 +107,7 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
             runLeftSide(speed);
             runRightSide(speed);
         }
+        printf("%f\n", actualDistance);
         wait(20, msec);
     }
     stopLeftSide(vex::brakeType::coast);
