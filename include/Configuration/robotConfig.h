@@ -15,6 +15,7 @@ extern vex::controller con;
 extern vex::pneumatics lift;
 extern vex::pneumatics frontWings;
 extern vex::pneumatics backWings;
+extern vex::pneumatics intakeLift;
 // sensors
 extern vex::inertial inertialSensorMain;
 extern vex::inertial inertialSensorBackup;

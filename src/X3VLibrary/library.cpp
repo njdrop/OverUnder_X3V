@@ -11,7 +11,7 @@ namespace lib
     double angularDistanceToLinearDistance(double angularDistance, double diameter, double gearRatio)
     {
         double angularDitstanceinRadians = angularDistance * 3.14159 / 180 * gearRatio;
-        return angularDitstanceinRadians * (diameter / 2);
+        return angularDitstanceinRadians * diameter / 2;
     }
 }
 

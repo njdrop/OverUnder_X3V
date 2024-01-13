@@ -69,11 +69,8 @@ void autonomous(void)
 
 void usercontrol(void)
 {
-	toggleBoolObject frontWingsToggle(false);
-	toggleBoolObject backWingsToggle(false);
-	toggleBoolObject liftToggle(false);
-
-	Drive.startTracking();
+	toggleBoolObject liftToggle(lift.value());
+	toggleBoolObject intakeLiftToggle(true);
 	while (true)
 	{
 		// records the value of the left stick
@@ -86,36 +83,35 @@ void usercontrol(void)
 		Drive.runRightSide(nearbyint(rightStickY));		
 		
 		// update toggle objects from controller input
-		frontWingsToggle.changeValueFromInput(con.ButtonR2.pressing());
-		backWingsToggle.changeValueFromInput(con.ButtonR2.pressing());
 		liftToggle.changeValueFromInput(con.ButtonUp.pressing());
+		intakeLiftToggle.changeValueFromInput(con.ButtonR1.pressing() && con.ButtonR2.pressing());
 
 		// set solinoids to correct output from toggled values
-		frontWings.set(frontWingsToggle.getValue());
-		backWings.set(backWingsToggle.getValue());
+		frontWings.set(con.ButtonL1.pressing());
+		backWings.set(con.ButtonL2.pressing());
+		intakeLift.set(intakeLiftToggle.getValue() || liftToggle.getValue());
 		lift.set(liftToggle.getValue());
 
-		if (con.ButtonL2.pressing())
+		if (con.ButtonX.pressing())
 		{
-			shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
+			shooter_Group.spin(fwd, 12000, vex::voltageUnits::mV);
 		}
-		else if (con.ButtonX.pressing())
+		else if (con.ButtonB.pressing())
 		{
-			shooter_Group.spin(fwd, -8000, vex::voltageUnits::mV);
+			shooter_Group.spin(fwd, -12000, vex::voltageUnits::mV);
 		}
 		else
 		{
 			shooter_Group.stop(coast);
 		}
 
-
-		if (con.ButtonR1.pressing())
+		if (con.ButtonR1.pressing() && !con.ButtonR2.pressing())
 		{
-			intake_Group.spin(fwd, 8000, vex::voltageUnits::mV);
+			intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
 		}
-		else if (con.ButtonL1.pressing())
+		else if (con.ButtonR2.pressing() && !con.ButtonR1.pressing())
 		{
-			intake_Group.spin(fwd, -8000, vex::voltageUnits::mV);
+			intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
 		}
 		else
 		{

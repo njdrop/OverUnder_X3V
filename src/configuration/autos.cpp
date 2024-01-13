@@ -5,9 +5,38 @@ using namespace vex;
 void doNothingRoute()
 {
     // do nothing
-    Drive.turn(90, 100, 10);
+    Drive.moveDistance(10, 100, 15, true);
 }
 autonRoute doNothing = {"Do Nothing", 0, 0, 0, doNothingRoute};
+
+void forwardsBackwardsRoute()
+{
+    Drive.moveDistance(25, 100, 1, true);
+    Drive.moveDistance(-25, 100, 1, true);
+}
+autonRoute forwardsBackwards = {"Forwards Backwards", 0, 0, 0, forwardsBackwardsRoute};
+
+void backwardsForwardsRoute()
+{
+    Drive.moveDistance(-25, 100, 1, true);
+    Drive.moveDistance(25, 100, 1, true);
+}
+autonRoute backwardsForwards = {"Backwards Forwards", 0, 0, 0, backwardsForwardsRoute};
+
+void farSideAWPRoute()
+{
+    backWings.open();
+    wait(500,msec);
+    Drive.moveDistance(-1, 100, 1, true);//-15
+    backWings.close();
+    Drive.turn(45, 100, 1);
+    Drive.moveDistance(-1, 100, 1, true);//-25
+    Drive.turn(-10, 100, 1);
+    Drive.moveDistance(1, 100, 2, true);
+    Drive.turn(-45, 100, 1);
+    Drive.moveDistance(1, 100, 2, true);
+}
+autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 
 void skills1Route()
 {

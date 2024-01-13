@@ -16,7 +16,6 @@
 
 // X3V Library
 #include "X3VLibrary/drivetrain.h"
-#include "X3VLibrary/shooter.h"
 #include "X3VLibrary/library.h"
 #include "Configuration/robotConfig.h"
 #include "X3VLibrary/MiniPID.h"
@@ -24,15 +23,8 @@
 
 // autonomous routes
 extern	autonRoute	doNothing;
-extern	autonRoute	skills1;
-extern	autonRoute	soloAutonomousWinPoint;
-extern	autonRoute	qualificationOffensive;
-extern	autonRoute	qualificationOffensiveRisky;
-extern	autonRoute	qualificationDefensive;
-extern	autonRoute	qualificationDefensiveRisky;
-extern	autonRoute	eliminationOffensive;
-extern	autonRoute	eliminationOffensiveRisky;
-extern	autonRoute	eliminationDefensive;
-extern	autonRoute	eliminationDefensiveRisky;
+extern  autonRoute      forwardsBackwards;
+extern  autonRoute      backwardsForwards;
+extern  autonRoute      farSideAWP;
 
 #endif
