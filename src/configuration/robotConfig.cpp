@@ -62,10 +62,10 @@ double MAX_MOTOR_VOLTAGE = 12000;
 //**************************//
 autonRoute autonRoutesList[] 
 {
-	farSideAWP,
 	doNothing,
 	forwardsBackwards,
 	backwardsForwards,
+	farSideAWP,
 };
 
 int NUMBER_OF_AUTONS = 4;
