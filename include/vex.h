@@ -28,6 +28,8 @@ extern  autonRoute      forwardsBackwards;
 extern  autonRoute      backwardsForwards;
 extern  autonRoute      nearSideAWP;
 extern  autonRoute      nearSide;
+extern  autonRoute      farSideAWP;
+extern  autonRoute      farSide;
 extern  autonRoute      skills1;
 
 

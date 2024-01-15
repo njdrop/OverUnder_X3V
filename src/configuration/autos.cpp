@@ -36,7 +36,6 @@ autonRoute nearSideAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
 
 void nearSideRoute()
 {
-    double startTime = vex::timer::system();
     Drive.moveDistance(-5,100,.3);
     backWings.open();
     Drive.moveDistance(5,100,.3);
@@ -68,9 +67,77 @@ void nearSideRoute()
     Drive.turn(-40,100,.6);
     Drive.moveDistance(25,100,1);
     intakeLift.open();
-    printf("%f\n", vex::timer::system()- startTime);
 }
 autonRoute nearSide = {"NS Elims", 0, 0, 0, nearSideRoute};
+
+void farSideAWPRoute()
+{
+   Drive.moveDistance(7,100,.8);
+    backWings.open();
+   Drive.moveDistance(13,100,.8);
+   Drive.turn(-45,100,1);
+   backWings.close();
+   wait(3,sec);
+   frontWings.open();
+   wait(.5,sec);
+   Drive.moveDistance(1000,100,1);
+   Drive.moveDistance(-5,100,1);
+   frontWings.close();
+   wait(1,sec);
+   Drive.turn(-200,100,1);
+   Drive.moveDistance(23,100,1.2);
+   Drive.turn(-140,100,1.2);
+   Drive.moveDistance(34,100,1.5);
+   intakeLift.open();
+
+}
+autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
+
+void farSideRoute()
+{
+   intake_Group.spin(fwd,100,pct);
+   intakeLift.open();
+   wait(.4,sec);
+   Drive.moveDistance(-34,100,1);
+   Drive.turn(-35,100,.5);
+   backWings.open();
+   Drive.moveDistance(-18,100,.7);
+   Drive.turn(-90,100,.6);
+   backWings.close();
+   wait(.3,sec);
+   Drive.turn(97,100,.9);
+   frontWings.open();
+   intakeLift.close();
+   intake_Group.spin(fwd,-100,pct);
+   wait(.3,sec);
+   Drive.moveDistance(1000,100,.7);
+   Drive.moveDistance(-10,100,.7);
+   intakeLift.open();
+   intake_Group.spin(fwd,100,pct);
+   frontWings.close();
+   wait(.3,sec);
+   Drive.turn(15,100,.6);
+   Drive.moveDistance(46,100,1.5);
+   Drive.turn(125,100,.7);
+   intake_Group.spin(fwd,-100,pct);
+   Drive.moveDistance(16,100,.6);
+   Drive.turn(180,100,.7);
+   backWings.open();
+   intakeLift.close();
+   intake_Group.spin(fwd,-100,pct);
+   Drive.moveDistance(1000,100,.8);
+   backWings.close();
+   intakeLift.open();
+   Drive.turn(11,100,1);
+   intake_Group.spin(fwd,100,pct);
+   Drive.moveDistance(22,100,1.1);
+   frontWings.open();
+   Drive.turn(180,100,1);
+   intakeLift.close();
+   Drive.moveDistance(100000,100,1);
+}
+
+autonRoute farSide = {"FS Elims", 0, 0, 0, farSideRoute};
 
 void skills1Route()
 {
