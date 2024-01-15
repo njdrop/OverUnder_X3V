@@ -89,10 +89,11 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
     double startPos = getDriveEncoderValue();
     double startAngle = driveInertial.getRotation();
     double startTime = vex::timer::system();
-    double correctionFactor, speed, actualAngle, actualDistance;
+    double correctionFactor, speed, actualAngle, actualDistance, encoderDistance;
     while (vex::timer::system() - startTime <= timeout * 1000)
-    {
-        actualDistance = lib::angularDistanceToLinearDistance((getDriveEncoderValue() - startPos), wheelDiameter, gearRatio);
+    {   
+        encoderDistance = getDriveEncoderValue() - startPos;
+        actualDistance = angularDistanceToLinearDistance(encoderDistance, wheelDiameter, gearRatio);
         actualAngle = driveInertial.getRotation();
         speed = distanceControl.getOutput(actualDistance, targetDistance);
         correctionFactor = headingControl.getOutput(actualAngle, startAngle);
@@ -107,7 +108,6 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
             runLeftSide(speed);
             runRightSide(speed);
         }
-        printf("%f\n", actualDistance);
         wait(20, msec);
     }
     stopLeftSide(vex::brakeType::coast);
@@ -133,7 +133,6 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 
         wait(10, msec);
     }
-    printf("%f\n", targetAngle - driveInertial.getRotation());
     stopLeftSide(vex::brakeType::coast);
     stopRightSide(vex::brakeType::coast);
 }
@@ -185,12 +184,12 @@ double drivetrainObj::getDriveEncoderValue()
 int drivetrainObj::updatePositionFunction(void*) {
     // Continuous loop for monitoring and controlling the shooter.
     double previousRelativeX = 0;
-    double previousRelativeY = lib::angularDistanceToLinearDistance(getDriveEncoderValue(), DRIVE_WHEEL_DIAMETER);
+    double previousRelativeY = angularDistanceToLinearDistance(getDriveEncoderValue(), wheelDiameter, gearRatio);
     while (true)
     {
         // calculate relative robot movement
         double relativeMovementX = 0 - previousRelativeX;
-        double relativeMovementY = lib::angularDistanceToLinearDistance(getDriveEncoderValue(), DRIVE_WHEEL_DIAMETER) - previousRelativeY;
+        double relativeMovementY = angularDistanceToLinearDistance(getDriveEncoderValue(), wheelDiameter, gearRatio) - previousRelativeY;
         double headingInRad = heading * 3.1416 / 180;
         xPosition += sin(headingInRad) * relativeMovementY + cos(headingInRad) * relativeMovementX;
         yPosition += cos(headingInRad) * relativeMovementY - sin(headingInRad) * relativeMovementX;
@@ -198,7 +197,7 @@ int drivetrainObj::updatePositionFunction(void*) {
 
         // update previous values for reference
         previousRelativeX = 0;
-        previousRelativeY = lib::angularDistanceToLinearDistance(getDriveEncoderValue(), DRIVE_WHEEL_DIAMETER);
+        previousRelativeY = angularDistanceToLinearDistance(getDriveEncoderValue(), wheelDiameter, gearRatio);
         wait(10, msec);
     }
     // The function will never return as it's in an infinite loop.

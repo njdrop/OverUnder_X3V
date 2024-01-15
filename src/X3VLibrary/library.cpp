@@ -1,20 +1,29 @@
 #include "vex.h"
 using namespace vex;
 
-namespace lib
+double angularDistanceToLinearDistance(double angularDistance, double diameter, double gearRatio)
 {
-    double angularDistanceToLinearDistance(double angularDistance, double diameter)
-    {
-        return (angularDistance * 3.14159 / 180) * (diameter / 2);
-    }
-
-    double angularDistanceToLinearDistance(double angularDistance, double diameter, double gearRatio)
-    {
-        double angularDitstanceinRadians = angularDistance * 3.14159 / 180 * gearRatio;
-        return angularDitstanceinRadians * diameter / 2;
-    }
+    return angularDistance * M_PI / 180.0 * gearRatio * diameter;
 }
 
+double clamp(double value, double min, double max) 
+{
+    if (min < value && value < max)
+    {
+        return value;
+    }
+    if (value < min)
+    {
+        return min;
+    }
+    if (value > max)
+    {
+        return max;
+    }
+    return -1;
+}
+double clamp(double value, double min); 
+double clamp(double value, double max);
 
 void vex::controller::lcd::smartPrint(const char *displayText)   
 {

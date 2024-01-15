@@ -29,6 +29,13 @@ vex::limit autonSelectorSwitch (Brain.ThreeWirePort.H);
 // vision::signature TRIBALL (1, -6037, -4939, -5488, -4991, -3223, -4106, 4.200, 0);
 // vex::vision visionSensor (vex::PORT6, 84, TRIBALL);
 
+//*****************************//
+// Robot Parameter Definitions //
+//*****************************//
+double DRIVE_WHEEL_DIAMETER = 2.75;
+double DRIVE_GEAR_RATIO = 0.75;
+double MAX_MOTOR_VOLTAGE = 12000;
+
 //*************************//
 // Drive Group Definitions //
 //*************************//
@@ -42,30 +49,21 @@ drivetrainObj Drive (DRIVE_WHEEL_DIAMETER, DRIVE_GEAR_RATIO);
 //***************************//
 vex::motor_group shooter_Group = motor_group(kicker1, kicker2);
 
-
 //***************************//
 // Intake Group Definitions  //
 //***************************//
 vex::motor_group intake_Group = motor_group(intake);
-
-
-//*****************************//
-// Robot Parameter Definitions //
-//*****************************//
-double DRIVE_WHEEL_DIAMETER = 2.75;
-double DRIVE_GEAR_RATIO = 3/4;
-double MAX_MOTOR_VOLTAGE = 12000;
-
 
 //**************************//
 // Auton Routes Definitions //
 //**************************//
 autonRoute autonRoutesList[] 
 {
+	nearSide,
 	doNothing,
 	forwardsBackwards,
 	backwardsForwards,
-	farSideAWP,
+	nearSideAWP,
 	skills1,
 };
 

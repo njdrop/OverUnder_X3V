@@ -1,7 +1,6 @@
 #include "vex.h"
 using namespace vex;
 
-
 void doNothingRoute()
 {
     // do nothing
@@ -22,79 +21,63 @@ void backwardsForwardsRoute()
 }
 autonRoute backwardsForwards = {"Backwards Forwards", 0, 0, 0, backwardsForwardsRoute};
 
-void farSideAWPRoute()
+void nearSideAWPRoute()
 {
     backWings.open();
-    wait(500,msec);
-    Drive.moveDistance(-5, 100, 2, true);//-15
+    Drive.turn(-45, 100, 1);
+    Drive.turn(-35, 100, 1);
     backWings.close();
-    Drive.moveDistance(5, 100, 2, true);//-25
-    Drive.turn(-40, 100, 1);
+    wait(6, sec);
+    Drive.moveDistance(40, 100, 1.3, true);
     intakeLift.open();
-    Drive.moveDistance(10, 100, 2, true);
+    intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
 }
-autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
+autonRoute nearSideAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
+
+void nearSideRoute()
+{
+    double startTime = vex::timer::system();
+    Drive.moveDistance(-5,100,.3);
+    backWings.open();
+    Drive.moveDistance(5,100,.3);
+    Drive.turn(-40, 100, .6);
+    backWings.close();
+    wait(.1,sec);
+    Drive.turn(-118,100,.6);
+    intakeLift.open();
+    intake_Group.spin(fwd,100,pct);
+    Drive.moveDistance(50,80,1.33);
+    Drive.turn(-40,100,.7);
+    intakeLift.close();
+    intake_Group.spin(fwd,-100,pct);
+    frontWings.open();
+    Drive.moveDistance(23,100,1);
+    Drive.moveDistance(-10,100,.7);
+    frontWings.close();
+    Drive.turn(-100,100,1);
+    Drive.moveDistance(-50,100,1.7);
+    Drive.turn(-15,100,.6);
+    Drive.moveDistance(-15,100,.6);
+    Drive.turn(45,100,.8);
+    backWings.open();
+    Drive.moveDistance(-11,100,.4);
+    backWings.close();
+    Drive.moveDistance(7,100,.5);
+    Drive.turn(-5,100,.7);
+    Drive.moveDistance(30,100,1);
+    Drive.turn(-40,100,.6);
+    Drive.moveDistance(25,100,1);
+    intakeLift.open();
+    printf("%f\n", vex::timer::system()- startTime);
+}
+autonRoute nearSide = {"NS Elims", 0, 0, 0, nearSideRoute};
 
 void skills1Route()
 {
-   while (true)
-   {
-        shooter_Group.spin(fwd, 6500, vex::voltageUnits::mV);
-   }
+    backWings.open();
+    while (true)
+    {
+        shooter_Group.spin(fwd, 7000, vex::voltageUnits::mV);
+    }
 }
 autonRoute skills1 = {"Skills", 0, 0, 0, skills1Route};
-
-void soloAutonomousWinPointRoute()
-{
-   
-}
-autonRoute soloAutonomousWinPoint = {"Solo AWP", 0, 0, 0, soloAutonomousWinPointRoute};
-
-void qualificationOffensiveRoute()
-{
-    
-}
-autonRoute qualificationOffensive = {"Q - Offensive", 0, 0, 0, qualificationOffensiveRoute};
-
-void qualificationOffensiveRiskyRoute()
-{
-   
-}
-autonRoute qualificationOffensiveRisky = {"RISKY Q - Offensive", 0, 0, 0, qualificationOffensiveRiskyRoute};
-
-void qualificationDefensiveRoute()
-{
-   
-}
-autonRoute qualificationDefensive = {"Q - Defensive", 0, 0, 0, qualificationDefensiveRoute};
-
-void qualificationDefensiveRiskyRoute()
-{
-
-}
-autonRoute qualificationDefensiveRisky = {"RISKY Q - Defensive", 0, 0, 0, qualificationDefensiveRiskyRoute};
-
-void eliminationOffensiveRoute()
-{
-   
-}
-autonRoute eliminationOffensive = {"E - Offensive", 0, 0, 0, eliminationOffensiveRoute};
-
-void eliminationOffensiveRiskyRoute()
-{
-  
-}
-autonRoute eliminationOffensiveRisky = {"RISKY E - Offensive", 0, 0, 0, eliminationOffensiveRiskyRoute};
-
-void eliminationDefensiveRoute()
-{
-
-}
-autonRoute eliminationDefensive = {"E - Defensive", 0, 0, 0, eliminationDefensiveRoute};
-
-void eliminationDefensiveRiskyRoute()
-{
-
-}
-autonRoute eliminationDefensiveRisky = {"RISKY E - Defensive", 0, 0, 0, eliminationDefensiveRiskyRoute};
-

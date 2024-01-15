@@ -16,12 +16,11 @@ void pre_auton(void)
 {
 	// calibrate the inertial sensor
 	Drive.calibrate();
-	inertialSensorMain.calibrate();
-	inertialSensorBackup.calibrate();
+	driveInertial.calibrate();
 
 	//  tracks the first loop that the button has been held
 	bool firstButtonPress = true;
-	while (!Brain.Screen.pressing())
+	while (!Brain.Screen.pressing() && !Competition.isDriverControl())
 	{
 		if (autonSelectorSwitch.pressing())
 		{
@@ -46,33 +45,18 @@ void pre_auton(void)
 		Brain.Screen.smartPrint(autonRoutesList[autonSelect].name);
 		wait(100, msec);
 	}
-	// calibrate the drivetrain
-	Drive.calibrate();
-	inertialSensorMain.calibrate();
-	inertialSensorBackup.calibrate();	
-	wait(3000, msec);
-	Brain.Screen.smartPrint("CALIBRATED");
-
-	// set position
-	Drive.setPosition(0, 0);
-
-	// start tracking
-	Drive.startTracking();
 }
 
 
-void autonomous(void)
-{
-	// run the selected auton route
-	autonRoutesList[autonSelect].routeFunction();
-}
+
 
 void usercontrol(void)
 {
+	con.Screen.clearScreen();
 	toggleBoolObject frontWingsToggle(false);
 	toggleBoolObject backWingsToggle(false);
 	toggleBoolObject liftToggle(lift.value());
-	toggleBoolObject intakeLiftToggle(false);
+	toggleBoolObject intakeLiftToggle(intakeLift.value());
 	while (true)
 	{
 		// records the value of the left stick
@@ -84,43 +68,55 @@ void usercontrol(void)
 		// runs the 2 right side drive motors at right stick value
 		Drive.runRightSide(nearbyint(rightStickY));		
 		
-		// update toggle objects from controller input
+		frontWingsToggle.changeValueFromInput(con.ButtonX.pressing());
+		backWingsToggle.changeValueFromInput(con.ButtonB.pressing());
 		liftToggle.changeValueFromInput(con.ButtonUp.pressing());
-		intakeLiftToggle.changeValueFromInput(con.ButtonR1.pressing() && con.ButtonL1.pressing());
-		frontWingsToggle.changeValueFromInput(con.ButtonR2.pressing());
-		backWingsToggle.changeValueFromInput(con.ButtonL2.pressing());
+		
+		if (con.ButtonUp.pressing())
+		{
+			intakeLiftToggle.setValue(true);
+		}
 
-		// set solinoids to correct output from toggled values
-		frontWings.set(frontWingsToggle.getValue());
-		backWings.set(backWingsToggle.getValue());
-		intakeLift.set(intakeLiftToggle.getValue() || liftToggle.getValue());
-		lift.set(liftToggle.getValue());
+		if(con.ButtonR2.pressing())
+		{
+			intakeLiftToggle.setValue(false);
+			backWingsToggle.setValue(false);
+		}
 
-		if (con.ButtonX.pressing())
+		if (con.ButtonL2.pressing())
 		{
 			shooter_Group.spin(fwd, 12000, vex::voltageUnits::mV);
 		}
-		else if (con.ButtonB.pressing())
+		else if (false)
 		{
-			shooter_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+			shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
 		}
 		else
 		{
 			shooter_Group.stop(coast);
 		}
 
-		if (con.ButtonR1.pressing() && !con.ButtonL1.pressing())
+
+		if (con.ButtonR1.pressing())
 		{
-			intake_Group.spin(fwd, 8000, vex::voltageUnits::mV);
+			intakeLiftToggle.setValue(true);
+			intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
 		}
-		else if (con.ButtonL1.pressing() && !con.ButtonR1.pressing())
+		else if (con.ButtonL1.pressing())
 		{
-			intake_Group.spin(fwd, -8000, vex::voltageUnits::mV);
+			intakeLiftToggle.setValue(true);
+			intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
 		}
 		else
 		{
 			intake_Group.stop(coast);
 		}
+
+		
+		frontWings.set(frontWingsToggle.getValue());
+		backWings.set(backWingsToggle.getValue());
+		intakeLift.set(intakeLiftToggle.getValue());
+		lift.set(liftToggle.getValue());
 
 		wait(10, msec);
 	}
@@ -128,11 +124,10 @@ void usercontrol(void)
 
 int main()
 {
-	Competition.autonomous(autonomous);
+	Competition.autonomous(autonRoutesList[autonSelect].routeFunction);
 	Competition.drivercontrol(usercontrol);
 
 	pre_auton();
-
 	while (true)
 	{
 		wait(100, msec);

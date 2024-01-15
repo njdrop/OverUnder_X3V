@@ -5,35 +5,26 @@
 using namespace vex;
 
 /**
- * @brief a short personal library of function I write that will be repeated multiple times
- * The purpose of this library is mostly just to abstract some functions
- * so they can be called more than once, and it decreases the complexity slightly
+ * @brief converts angular distance to linear distance
+ *
+ * @param angularDistance (deg)
+ * @param diameter the diameter of angular object
+ * @param gearRatio the mechanical advantage from the input angle to the output angle
+ * @return double (inches)
  */
-namespace lib
-{
-    /**
-     * @brief converts angular distance to linear distance
-     *
-     * @param angularDistance (deg)
-     * @param diameter the diameter of angular object
-     * @param gearRatio the mechanical advantage from the input angle to the output angle
-     * @return double (inches)
-     */
-    double angularDistanceToLinearDistance(double angularDistance, double diameter);
-    double angularDistanceToLinearDistance(double angularDistance, double diameter, double gearRatio);
+extern double angularDistanceToLinearDistance(double angularDistance, double diameter, double gearRatio);
 
-    /**
-     * @brief returns the value bounded by a maximum and/or minimum limit.
-     * 
-     * @param value 
-     * @param min 
-     * @param max 
-     * @return double 
-     */
-    double clamp(double value, double min, double max);
-    double clampMin(double value, double min);
-    double clampMax(double value, double max);
-}
+/**
+ * @brief returns the value bounded by a maximum and/or minimum limit.
+ * 
+ * @param value 
+ * @param min 
+ * @param max 
+ * @return double 
+ */
+extern double clamp(double value, double min, double max); 
+extern double clamp(double value, double min); 
+extern double clamp(double value, double max);
 
 class toggleBoolObject
 {
@@ -90,7 +81,7 @@ public:
         for (const auto& sensor : inertialSensors) {
             vex::inertial nonConstSensor = sensor;  // Create a non-const copy
             if (nonConstSensor.installed()) {
-                return nonConstSensor.rotation();
+                return nonConstSensor.rotation(deg);
             }
         }
 
@@ -98,6 +89,13 @@ public:
         // For example, you can return a default value or throw an exception.
         // Here, I'm returning -1 as an indication of no installed sensor.
         return -1;
+    }
+
+    void calibrate() const {
+        for (const auto& sensor : inertialSensors) {
+            vex::inertial nonConstSensor = sensor;
+            nonConstSensor.calibrate();
+        }
     }
 };
 
