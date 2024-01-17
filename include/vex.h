@@ -30,7 +30,8 @@ extern  autonRoute      nearSideAWP;
 extern  autonRoute      nearSide;
 extern  autonRoute      farSideAWP;
 extern  autonRoute      farSide;
-extern  autonRoute      skills1;
+extern  autonRoute      autonSkills;
+extern  autonRoute      driverSkills;
 
 
 #endif

@@ -17,7 +17,6 @@ void pre_auton(void)
 	// calibrate the inertial sensor
 	Drive.calibrate();
 	driveInertial.calibrate();
-
 	//  tracks the first loop that the button has been held
 	bool firstButtonPress = true;
 	while (!Brain.Screen.pressing() && !Competition.isDriverControl())
@@ -47,14 +46,21 @@ void pre_auton(void)
 	}
 }
 
-
+void autonomous ()
+{
+	autonRoutesList[autonSelect].routeFunction();
+}
 
 
 void usercontrol(void)
 {
+	if (autonRoutesList[autonSelect].name == driverSkills.name) {
+		driverSkills.routeFunction();
+	}
+	
 	con.Screen.clearScreen();
-	toggleBoolObject frontWingsToggle(false);
-	toggleBoolObject backWingsToggle(false);
+	toggleBoolObject frontWingsToggle(frontWings.value());
+	toggleBoolObject backWingsToggle(backWings.value());
 	toggleBoolObject liftToggle(lift.value());
 	toggleBoolObject intakeLiftToggle(intakeLift.value());
 	while (true)
@@ -85,11 +91,11 @@ void usercontrol(void)
 
 		if (con.ButtonL2.pressing())
 		{
-			shooter_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+			shooter_Group.spin(fwd, 9000, vex::voltageUnits::mV);
 		}
-		else if (false)
+		else if (con.ButtonDown.pressing())
 		{
-			shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
+			shooter_Group.spin(fwd, 12000, vex::voltageUnits::mV);
 		}
 		else
 		{
@@ -124,7 +130,7 @@ void usercontrol(void)
 
 int main()
 {
-	Competition.autonomous(autonRoutesList[autonSelect].routeFunction);
+	Competition.autonomous(autonomous);
 	Competition.drivercontrol(usercontrol);
 
 	pre_auton();

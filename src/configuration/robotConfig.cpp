@@ -59,6 +59,8 @@ vex::motor_group intake_Group = motor_group(intake);
 //**************************//
 autonRoute autonRoutesList[] 
 {
+	autonSkills,
+	driverSkills,
 	farSide,
 	farSideAWP,
 	doNothing,
@@ -66,7 +68,6 @@ autonRoute autonRoutesList[]
 	backwardsForwards,
 	nearSideAWP,
 	nearSide,
-	skills1,
 };
 
-int NUMBER_OF_AUTONS = 5;
+int NUMBER_OF_AUTONS = 9;

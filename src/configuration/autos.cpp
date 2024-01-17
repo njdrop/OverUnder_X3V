@@ -101,10 +101,10 @@ void farSideRoute()
    Drive.moveDistance(-34,100,1);
    Drive.turn(-35,100,.5);
    backWings.open();
-   Drive.moveDistance(-18,100,.7);
-   Drive.turn(-90,100,.6);
+   Drive.moveDistance(-17,100,.7);
    backWings.close();
-   wait(.3,sec);
+   Drive.turn(-45, 100, 0.6);
+   wait(.4,sec);
    Drive.turn(97,100,.9);
    frontWings.open();
    intakeLift.close();
@@ -116,35 +116,94 @@ void farSideRoute()
    intake_Group.spin(fwd,100,pct);
    frontWings.close();
    wait(.3,sec);
-   Drive.turn(15,100,.6);
-   Drive.moveDistance(46,100,1.5);
-   Drive.turn(125,100,.7);
-   intake_Group.spin(fwd,-100,pct);
-   Drive.moveDistance(16,100,.6);
+   Drive.turn(17,100,.6);
+   Drive.moveDistance(46,100,1.4);
+   Drive.turn(100,100,.7);
+   Drive.moveDistance(14,100,.6);
    Drive.turn(180,100,.7);
-   backWings.open();
+   intake_Group.spin(fwd,-100,pct);
+   frontWings.open();
    intakeLift.close();
    intake_Group.spin(fwd,-100,pct);
    Drive.moveDistance(1000,100,.8);
-   backWings.close();
+   frontWings.close();
    intakeLift.open();
-   Drive.turn(11,100,1);
+   Drive.turn(19,100,1.2 );
    intake_Group.spin(fwd,100,pct);
-   Drive.moveDistance(22,100,1.1);
+   Drive.moveDistance(20,100,.9);
    frontWings.open();
-   Drive.turn(180,100,1);
+   Drive.turn(180,100,.8);
    intakeLift.close();
    Drive.moveDistance(100000,100,1);
 }
 
 autonRoute farSide = {"FS Elims", 0, 0, 0, farSideRoute};
 
-void skills1Route()
+void autonSkillsRoute()
 {
+    double startTime = vex::timer::system();
+    Drive.moveDistance(-20, 100, 0.6, true);
+    Drive.turn(45, 100, 0.5);
+    Drive.moveDistance(-1000, 100, 0.4, true);
+    Drive.moveDistance(10, 100, 0.4, true);
+    Drive.turn(-50, 100, 0.5);
+    Drive.moveDistance(-1000, 100, 0.3, true);
+    Drive.turn(-67, 100, 0.3);
     backWings.open();
-    while (true)
+    wait(100, msec);
+    while (vex::timer::system() - startTime <= 44000)
     {
-        shooter_Group.spin(fwd, 7000, vex::voltageUnits::mV);
+        shooter_Group.spin(fwd, 8500, vex::voltageUnits::mV);
     }
+    shooter_Group.stop(coast);
+    backWings.close();
+    wait(200, msec);
+    Drive.turn(0, 100, 0.45);
+    Drive.moveDistance(25, 100, 0.85, true);
+    Drive.turn(-45, 100, 0.45);
+    Drive.moveDistance(90, 100, 2.5, true);
+    Drive.turn(-90, 100, 0.45);
+    Drive.moveDistance(1000, 100, 1, false);
+    Drive.moveDistance(-10, 100, 0.5, false);
+    Drive.turn(-120, 100, 0.3);
+    Drive.moveDistance(1000, 100, 0.75, true);
+    Drive.moveDistance(-20, 100, 0.7, true);
+    Drive.turn(-185, 100, 0.9);
+    Drive.moveDistance(45, 100, 1, true);
+    Drive.turn(-235, 100, 0.8);
+    backWings.open();
+    Drive.moveDistance(-1000, 100, 1, true);
+    backWings.close();
+    Drive.moveDistance(20, 100, 1, true);
+    Drive.turn(-165, 100, 0.5);
+    Drive.moveDistance(15, 100, 0.6, true);
+    Drive.turn(-235, 100, 0.5);
+    backWings.open();
+    Drive.moveDistance(-1000, 100, 1, true);
+    Drive.moveDistance(10, 100, 0.2, true);
+    backWings.close();
+    printf("%f\t", vex::timer::system() -startTime);
+    printf("%f  ", kicker1.temperature(fahrenheit));
+    printf("%f\t", kicker2.temperature(fahrenheit));
+    printf("%f  ", leftMotor1.temperature(fahrenheit));
+    printf("%f  ", leftMotor2.temperature(fahrenheit));
+    printf("%f\t", leftMotor3.temperature(fahrenheit));
+    printf("%f  ", rightMotor1.temperature(fahrenheit));
+    printf("%f  ", rightMotor2.temperature(fahrenheit));
+    printf("%f\n", rightMotor3.temperature(fahrenheit));
 }
-autonRoute skills1 = {"Skills", 0, 0, 0, skills1Route};
+autonRoute autonSkills = {"Skills", 0, 0, 0, autonSkillsRoute};
+
+void driverSkillsRoute()
+{
+    Drive.moveDistance(-20, 100, 0.6, true);
+    Drive.turn(45, 100, 0.5);
+    Drive.moveDistance(-1000, 100, 0.4, true);
+    Drive.moveDistance(10, 100, 0.4, true);
+    Drive.turn(-50, 100, 0.5);
+    Drive.moveDistance(-1000, 100, 0.3, true);
+    Drive.turn(-67, 100, 0.5);
+    backWings.open();
+    wait(100, msec);
+}
+autonRoute driverSkills = {"Driver Skills", 0, 0, 0, driverSkillsRoute};
