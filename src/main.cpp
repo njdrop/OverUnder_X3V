@@ -129,7 +129,7 @@ void usercontrol(void)
 
 int main()
 {
-	Competition.autonomous(autonRoutesList[autonSelect].routeFunction);
+	Competition.autonomous(autonomous);
 	Competition.drivercontrol(usercontrol);
 
 	pre_auton();

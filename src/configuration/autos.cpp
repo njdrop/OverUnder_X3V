@@ -28,7 +28,7 @@ void nearSideAWPRoute()
     Drive.turn(-35, 100, 1);
     backWings.close();
     wait(6, sec);
-    Drive.moveDistance(40, 100, 1.3, true);
+    Drive.moveDistance(33, 100, 1.3, true);
     intakeLift.open();
     intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
 }
@@ -65,7 +65,7 @@ void nearSideRoute()
     Drive.turn(-5,100,.7);
     Drive.moveDistance(30,100,1);
     Drive.turn(-40,100,.6);
-    Drive.moveDistance(25,100,1);
+    Drive.moveDistance(22,100,1);
     intakeLift.open();
 }
 autonRoute nearSide = {"NS Elims", 0, 0, 0, nearSideRoute};
@@ -73,7 +73,7 @@ autonRoute nearSide = {"NS Elims", 0, 0, 0, nearSideRoute};
 void farSideAWPRoute()
 {
    Drive.moveDistance(7,100,.8);
-    backWings.open();
+   backWings.open();
    Drive.moveDistance(13,100,.8);
    Drive.turn(-45,100,1);
    backWings.close();
@@ -87,7 +87,7 @@ void farSideAWPRoute()
    Drive.turn(-200,100,1);
    Drive.moveDistance(23,100,1.2);
    Drive.turn(-140,100,1.2);
-   Drive.moveDistance(34,100,1.5);
+   Drive.moveDistance(33,100,1.5);
    intakeLift.open();
 
 }
