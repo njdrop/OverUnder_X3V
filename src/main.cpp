@@ -15,11 +15,10 @@ int autonSelect = 0;
 void pre_auton(void)
 {
 	// calibrate the inertial sensor
-	Drive.calibrate();
 	driveInertial.calibrate();
 	//  tracks the first loop that the button has been held
 	bool firstButtonPress = true;
-	while (!Brain.Screen.pressing() && !Competition.isDriverControl())
+	while (!Brain.Screen.pressing())
 	{
 		if (autonSelectorSwitch.pressing())
 		{
@@ -91,7 +90,7 @@ void usercontrol(void)
 
 		if (con.ButtonL2.pressing())
 		{
-			shooter_Group.spin(fwd, 9000, vex::voltageUnits::mV);
+			shooter_Group.spin(fwd, 7000, vex::voltageUnits::mV);
 		}
 		else if (con.ButtonDown.pressing())
 		{
@@ -130,7 +129,7 @@ void usercontrol(void)
 
 int main()
 {
-	Competition.autonomous(autonomous);
+	Competition.autonomous(autonRoutesList[autonSelect].routeFunction);
 	Competition.drivercontrol(usercontrol);
 
 	pre_auton();
