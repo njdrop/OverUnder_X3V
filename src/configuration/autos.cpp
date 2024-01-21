@@ -153,7 +153,7 @@ void autonSkillsRoute()
     wait(100, msec);
     while (vex::timer::system() - startTime <= 44000)
     {
-        shooter_Group.spin(fwd, 8500, vex::voltageUnits::mV);
+        shooter_Group.spin(fwd, 7000, vex::voltageUnits::mV);
     }
     shooter_Group.stop(coast);
     backWings.close();
