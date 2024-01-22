@@ -25,34 +25,6 @@ double clamp(double value, double min, double max)
 double clamp(double value, double min); 
 double clamp(double value, double max);
 
-void vex::controller::lcd::smartPrint(const char *displayText)   
-{
-    clearScreen();
-    setCursor(1,1);
-    print(displayText);
-}
-
-void vex::controller::lcd::smartPrint(char displayText)   
-{
-    clearScreen();
-    setCursor(1,1);
-    print(displayText);
-}
-
-void vex::brain::lcd::smartPrint(const char *displayText)   
-{
-    clearScreen();
-    setCursor(1,1);
-    print(displayText);
-}
-
-void vex::brain::lcd::smartPrint(char displayText)   
-{
-    clearScreen();
-    setCursor(1,1);
-    print(displayText);
-}
-
 toggleBoolObject::toggleBoolObject(bool initialValue)
 {
     firstLoop = true;
