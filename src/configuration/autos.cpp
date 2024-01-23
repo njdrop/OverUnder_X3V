@@ -139,19 +139,26 @@ void farSideRoute()
 
 autonRoute farSide = {"FS Elims", 0, 0, 0, farSideRoute};
 
-void autonSkillsRoute()
+void driverSkillsRoute()
 {
-    double startTime = vex::timer::system();
     Drive.moveDistance(-20, 100, 0.6, true);
     Drive.turn(45, 100, 0.5);
     Drive.moveDistance(-1000, 100, 0.4, true);
     Drive.moveDistance(10, 100, 0.4, true);
     Drive.turn(-50, 100, 0.5);
     Drive.moveDistance(-1000, 100, 0.3, true);
-    Drive.turn(-67, 100, 0.3);
+    Drive.turn(-65, 100, 0.5);
     backWings.open();
     wait(100, msec);
-    while (vex::timer::system() - startTime <= 44000)
+}
+autonRoute driverSkills = {"Driver Skills", 0, 0, 0, driverSkillsRoute};
+
+
+void autonSkillsRoute()
+{
+    int startTime = vex::timer::system();
+    driverSkillsRoute();
+    while (vex::timer::system() - startTime <= 35000)
     {
         shooter_Group.spin(fwd, 7000, vex::voltageUnits::mV);
     }
@@ -182,28 +189,5 @@ void autonSkillsRoute()
     Drive.moveDistance(-1000, 100, 1, true);
     Drive.moveDistance(10, 100, 0.2, true);
     backWings.close();
-    printf("%f\t", vex::timer::system() -startTime);
-    printf("%f  ", kicker1.temperature(fahrenheit));
-    printf("%f\t", kicker2.temperature(fahrenheit));
-    printf("%f  ", leftMotor1.temperature(fahrenheit));
-    printf("%f  ", leftMotor2.temperature(fahrenheit));
-    printf("%f\t", leftMotor3.temperature(fahrenheit));
-    printf("%f  ", rightMotor1.temperature(fahrenheit));
-    printf("%f  ", rightMotor2.temperature(fahrenheit));
-    printf("%f\n", rightMotor3.temperature(fahrenheit));
 }
 autonRoute autonSkills = {"Skills", 0, 0, 0, autonSkillsRoute};
-
-void driverSkillsRoute()
-{
-    Drive.moveDistance(-20, 100, 0.6, true);
-    Drive.turn(45, 100, 0.5);
-    Drive.moveDistance(-1000, 100, 0.4, true);
-    Drive.moveDistance(10, 100, 0.4, true);
-    Drive.turn(-50, 100, 0.5);
-    Drive.moveDistance(-1000, 100, 0.3, true);
-    Drive.turn(-67, 100, 0.5);
-    backWings.open();
-    wait(100, msec);
-}
-autonRoute driverSkills = {"Driver Skills", 0, 0, 0, driverSkillsRoute};
