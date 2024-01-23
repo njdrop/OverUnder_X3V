@@ -90,7 +90,7 @@ void usercontrol(void)
 
 		if (con.ButtonL2.pressing())
 		{
-			shooter_Group.spin(fwd, 7000, vex::voltageUnits::mV);
+			shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
 		}
 		else if (con.ButtonDown.pressing())
 		{
