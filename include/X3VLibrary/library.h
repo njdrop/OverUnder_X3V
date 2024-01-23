@@ -66,7 +66,6 @@ private:
 };
 
 
-#include <vector>
 class InertialGroup {
 private:
     std::vector<vex::inertial> inertialSensors;

@@ -12,13 +12,14 @@ using namespace vex;
 competition Competition;
 
 int autonSelect = 0;
+bool usercontrolRunning = false;
 void pre_auton(void)
 {
 	// calibrate the inertial sensor
 	driveInertial.calibrate();
 	//  tracks the first loop that the button has been held
 	bool firstButtonPress = true;
-	while (!Brain.Screen.pressing())
+	while (!Brain.Screen.pressing() && !usercontrolRunning)
 	{
 		if (autonSelectorSwitch.pressing())
 		{
@@ -39,8 +40,11 @@ void pre_auton(void)
 		}
 		
 		// prints the name of the selected auton on the controller
-		con.Screen.smartPrint(autonRoutesList[autonSelect].name);
-		Brain.Screen.smartPrint(autonRoutesList[autonSelect].name);
+		con.Screen.clearScreen();
+		con.Screen.setCursor(1,1);
+		con.Screen.print(autonRoutesList[autonSelect].name);
+		Brain.Screen.clearScreen();
+		Brain.Screen.printAt(69, 69, autonRoutesList[autonSelect].name);
 		wait(100, msec);
 	}
 }
@@ -53,17 +57,20 @@ void autonomous ()
 
 void usercontrol(void)
 {
+	int startTime = vex::timer::system();
 	if (autonRoutesList[autonSelect].name == driverSkills.name) {
 		driverSkills.routeFunction();
 	}
-	
-	con.Screen.clearScreen();
+	usercontrolRunning = true;
 	toggleBoolObject frontWingsToggle(frontWings.value());
 	toggleBoolObject backWingsToggle(backWings.value());
 	toggleBoolObject liftToggle(lift.value());
 	toggleBoolObject intakeLiftToggle(intakeLift.value());
-	while (true)
+	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - startTime) <= 60000.0)
 	{
+		con.Screen.clearScreen();
+		con.Screen.setCursor(1,1);
+		con.Screen.print((vex::timer::system() - startTime) / 1000);
 		// records the value of the left stick
 		double leftStickY = con.Axis3.value() * 100;
 		// records the value of the right stick
@@ -125,6 +132,10 @@ void usercontrol(void)
 
 		wait(10, msec);
 	}
+	Drive.stopLeftSide(coast);
+	Drive.stopRightSide(coast);
+	intake_Group.stop();
+	shooter_Group.stop();
 }
 
 int main()
