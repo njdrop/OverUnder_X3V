@@ -149,7 +149,7 @@ void driverSkillsRoute()
     Drive.moveDistance(10, 100, 0.4, true);
     Drive.turn(-50, 100, 0.5);
     Drive.moveDistance(-50, 100, 0.3, true);
-    Drive.turn(-64, 100, 0.6);
+    Drive.turn(-61, 100, 0.6);
     backWings.open();
     wait(100, msec);
 }
@@ -169,11 +169,11 @@ void autonSkillsRoute()
     wait(200, msec);
     Drive.turn(0, 100, 0.45);
     Drive.moveDistance(25, 100, 0.85, true);
-    Drive.turn(-45, 100, 0.45);
+    Drive.turn(-43, 100, 0.5);
     Drive.moveDistance(90, 100, 2.5, true);
-    Drive.turn(-90, 100, 0.45);
-    Drive.moveDistance(1000, 100, 1, false);
-    Drive.moveDistance(-10, 100, 0.5, false);
+    // Drive.turn(-90, 100, 0.45);
+    // Drive.moveDistance(1000, 100, 1, false);
+    // Drive.moveDistance(-10, 100, 0.5, false);
     Drive.turn(-120, 100, 0.3);
     Drive.moveDistance(1000, 100, 0.75, true);
     Drive.moveDistance(-20, 100, 0.7, true);
@@ -183,13 +183,14 @@ void autonSkillsRoute()
     backWings.open();
     Drive.moveDistance(-1000, 100, 1, true);
     backWings.close();
-    Drive.moveDistance(20, 100, 1, true);
+    Drive.moveDistance(20, 100, 0.8, true);
     Drive.turn(-165, 100, 0.5);
-    Drive.moveDistance(15, 100, 0.6, true);
-    Drive.turn(-235, 100, 0.5);
+    Drive.moveDistance(30, 100, 1, true);
+    Drive.turn(-210, 100, 0.6);
     backWings.open();
-    Drive.moveDistance(-1000, 100, 1, true);
+    Drive.moveDistance(-1000, 100, 0.9, true);
     Drive.moveDistance(10, 100, 0.2, true);
     backWings.close();
+    printf("%lu\n", vex::timer::system());
 }
 autonRoute autonSkills = {"Skills", 0, 0, 0, autonSkillsRoute};
