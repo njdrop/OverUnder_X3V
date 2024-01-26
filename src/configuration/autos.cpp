@@ -141,13 +141,15 @@ autonRoute farSide = {"FS Elims", 0, 0, 0, farSideRoute};
 
 void driverSkillsRoute()
 {
-    Drive.moveDistance(-20, 100, 0.6, true);
-    Drive.turn(45, 100, 0.5);
-    Drive.moveDistance(-1000, 100, 0.4, true);
+    Drive.turn(20, 100, 0.4);
+    Drive.moveDistance(-24, 100, 0.6, true);
+    Drive.turn(47, 100, 0.5);
+    Drive.moveDistance(-50, 100, 0.6, true);
+    Drive.turn(35, 100, 0.45);
     Drive.moveDistance(10, 100, 0.4, true);
     Drive.turn(-50, 100, 0.5);
-    Drive.moveDistance(-1000, 100, 0.3, true);
-    Drive.turn(-65, 100, 0.5);
+    Drive.moveDistance(-50, 100, 0.3, true);
+    Drive.turn(-64, 100, 0.6);
     backWings.open();
     wait(100, msec);
 }

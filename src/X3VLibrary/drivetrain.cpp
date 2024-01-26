@@ -130,7 +130,7 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
         }
         runLeftSide(speed);
         runRightSide(-speed);
-
+        printf("%f\n", driveInertial.getRotation());
         wait(10, msec);
     }
     stopLeftSide(vex::brakeType::coast);
