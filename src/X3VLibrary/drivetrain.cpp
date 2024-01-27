@@ -33,7 +33,7 @@ double drivetrainObj::getHeading()
     return heading;
 }
 
-void drivetrainObj::setX(double newX) 
+void drivetrainObj::setX(double newX)
 {
     xPosition = newX;
 }
@@ -91,13 +91,13 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
     double startTime = vex::timer::system();
     double correctionFactor, speed, actualAngle, actualDistance, encoderDistance;
     while (vex::timer::system() - startTime <= timeout * 1000)
-    {   
+    {
         encoderDistance = getDriveEncoderValue() - startPos;
         actualDistance = angularDistanceToLinearDistance(encoderDistance, wheelDiameter, gearRatio);
         actualAngle = driveInertial.getRotation();
         speed = distanceControl.getOutput(actualDistance, targetDistance);
         correctionFactor = headingControl.getOutput(actualAngle, startAngle);
-        
+
         if (correctHeading)
         {
             runLeftSide(speed + correctionFactor);
@@ -114,6 +114,11 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
     stopRightSide(vex::brakeType::coast);
 }
 
+void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double timeout)
+{
+    moveDistance(targetDistance, maxSpeed, timeout, true);
+}
+
 void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 {
     MiniPID angleControl(350, 15, 1500);
@@ -124,7 +129,7 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
     {
         double actualAngle = driveInertial.getRotation();
         double speed = angleControl.getOutput(actualAngle, targetAngle);
-        if (fabs(targetAngle-actualAngle) < 5) 
+        if (fabs(targetAngle - actualAngle) < 5)
         {
             angleControl.setMaxIOutput(2000);
         }
@@ -181,7 +186,8 @@ double drivetrainObj::getDriveEncoderValue()
     return (getLeftDriveEncoderValue() + getRightDriveEncoderValue()) / 2;
 }
 
-int drivetrainObj::updatePositionFunction(void*) {
+int drivetrainObj::updatePositionFunction(void *)
+{
     // Continuous loop for monitoring and controlling the shooter.
     double previousRelativeX = 0;
     double previousRelativeY = angularDistanceToLinearDistance(getDriveEncoderValue(), wheelDiameter, gearRatio);
@@ -204,8 +210,9 @@ int drivetrainObj::updatePositionFunction(void*) {
     return 0;
 }
 
-int drivetrainObj::findNewPositionStatic(void* instance) {
+int drivetrainObj::findNewPositionStatic(void *instance)
+{
     // Execute the non-static member function shooterDrawFunction on the specified instance of the shooterObj class
     // This is achieved by casting the instance pointer back to a shooterObj*, then calling the shooterDrawFunction with a nullptr argument.
-    return static_cast<drivetrainObj*>(instance)->updatePositionFunction(nullptr);
+    return static_cast<drivetrainObj *>(instance)->updatePositionFunction(nullptr);
 }
