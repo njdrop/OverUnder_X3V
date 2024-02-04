@@ -204,7 +204,7 @@ void Skills2Route()
     SkillsSetupRoute(); // 4.45 seconds
     // shoot for 28 seconds
     int startTime = vex::timer::system();
-    while (vex::timer::system() - startTime <= 28000) //28000
+    while (vex::timer::system() - startTime <= 27000) //28000
     {
         shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
     }
