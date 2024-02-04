@@ -83,7 +83,7 @@ void drivetrainObj::setBrakeType(vex::brakeType brakeType)
 void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double timeout, bool correctHeading)
 {
     MiniPID distanceControl(2000, 5, 1200);
-    MiniPID headingControl(400, 0, 1200);
+    MiniPID headingControl(350, 2, 1200);
     distanceControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     headingControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     double startPos = getDriveEncoderValue();
@@ -135,7 +135,7 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
         }
         runLeftSide(speed);
         runRightSide(-speed);
-        printf("%f\n", driveInertial.getRotation());
+        printf("%f\t%f\n", driveInertial.getRotation(), targetAngle - driveInertial.getRotation());
         wait(10, msec);
     }
     stopLeftSide(vex::brakeType::coast);
