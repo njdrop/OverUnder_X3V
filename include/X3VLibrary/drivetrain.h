@@ -101,6 +101,16 @@ class drivetrainObj
         void moveDistance(double targetDistance, double maxSpeed, double timeout);
 
         /**
+         * @brief move the robot a specified distance and angle
+         * 
+         * @param targetDistance The distance to move. (inches)
+         * @param maxSpeed The maximum speed to use. (pct 0-100)
+         * @param angle absolute field-centric rotation to swing to during movement (degrees)
+         * @param timeout The maximum time to allow for the movement. (seconds)
+         */
+        void swing(double targetDistance, double maxSpeed, double targetAngle, double timeout);
+
+        /**
          * @brief Turns the robot to a specified angle.
          * @param targetAngle The target angle to turn to. (degrees clockwise)
          * @param maxSpeed The maximum speed to use. (pct 0-100)

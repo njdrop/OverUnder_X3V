@@ -83,7 +83,7 @@ void drivetrainObj::setBrakeType(vex::brakeType brakeType)
 void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double timeout, bool correctHeading)
 {
     MiniPID distanceControl(2000, 5, 1200);
-    MiniPID headingControl(350, 2, 1200);
+    MiniPID headingControl(400, 3, 1200);
     distanceControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     headingControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     double startPos = getDriveEncoderValue();
@@ -119,6 +119,35 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
     moveDistance(targetDistance, maxSpeed, timeout, true);
 }
 
+void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetAngle, double timeout)
+{
+    MiniPID distanceControl(2000, 5, 1200);
+    MiniPID headingControl(300, 2, 1200);
+    distanceControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
+    headingControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
+    double startPos = getDriveEncoderValue();
+    double startAngle = driveInertial.getRotation();
+    double currTargetAngle = driveInertial.getRotation();
+    double startTime = vex::timer::system();
+    double correctionFactor, speed, actualAngle, actualDistance, encoderDistance;
+    while (vex::timer::system() - startTime <= timeout * 1000)
+    {
+        encoderDistance = getDriveEncoderValue() - startPos;
+        actualDistance = angularDistanceToLinearDistance(encoderDistance, wheelDiameter, gearRatio);
+        actualAngle = driveInertial.getRotation();
+        double fracComplete = actualDistance / targetDistance;
+        currTargetAngle = (targetAngle - startAngle) * fracComplete + startAngle;
+        speed = distanceControl.getOutput(actualDistance, targetDistance);
+        correctionFactor = headingControl.getOutput(actualAngle, currTargetAngle);
+            runLeftSide(speed + correctionFactor);
+            runRightSide(speed - correctionFactor);
+        wait(20, msec);
+    }
+    stopLeftSide(vex::brakeType::coast);
+    stopRightSide(vex::brakeType::coast);
+}
+
+
 void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 {
     MiniPID angleControl(350, 15, 1500);
@@ -135,7 +164,6 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
         }
         runLeftSide(speed);
         runRightSide(-speed);
-        printf("%f\t%f\n", driveInertial.getRotation(), targetAngle - driveInertial.getRotation());
         wait(10, msec);
     }
     stopLeftSide(vex::brakeType::coast);
