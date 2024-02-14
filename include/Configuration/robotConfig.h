@@ -21,7 +21,8 @@ extern vex::motor kicker1;
 extern vex::motor kicker2;
 // pneumatics
 extern vex::pneumatics lift;
-extern vex::pneumatics frontWings;
+extern vex::pneumatics frontLeftWing;
+extern vex::pneumatics frontRightWing;
 extern vex::pneumatics backWings;
 extern vex::pneumatics intakeLift;
 // sensors

@@ -54,7 +54,6 @@ void autonomous ()
 	autonRoutesList[autonSelect].routeFunction();
 }
 
-
 void usercontrol(void)
 {
 	int startTime = vex::timer::system();
@@ -62,7 +61,7 @@ void usercontrol(void)
 		driverSkills.routeFunction();
 	}
 	usercontrolRunning = true;
-	toggleBoolObject frontWingsToggle(frontWings.value());
+	toggleBoolObject frontWingsToggle(frontLeftWing.value() && frontRightWing.value());
 	toggleBoolObject backWingsToggle(backWings.value());
 	toggleBoolObject liftToggle(lift.value());
 	toggleBoolObject intakeLiftToggle(intakeLift.value());
@@ -125,7 +124,8 @@ void usercontrol(void)
 		}
 
 		
-		frontWings.set(frontWingsToggle.getValue());
+		frontLeftWing.set(frontWingsToggle.getValue());
+		frontRightWing.set(frontWingsToggle.getValue());
 		backWings.set(backWingsToggle.getValue());
 		intakeLift.set(intakeLiftToggle.getValue());
 		lift.set(liftToggle.getValue());

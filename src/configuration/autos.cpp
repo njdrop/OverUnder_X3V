@@ -49,10 +49,12 @@ void nearSideRoute()
     Drive.turn(-40, 100, .7);
     intakeLift.close();
     intake_Group.spin(fwd, -100, pct);
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     Drive.moveDistance(23, 100, 1);
     Drive.moveDistance(-10, 100, .7);
-    frontWings.close();
+    frontLeftWing.close();
+    frontRightWing.close();
     Drive.turn(-100, 100, 1);
     Drive.moveDistance(-50, 100, 1.7);
     Drive.turn(-15, 100, .6);
@@ -78,11 +80,13 @@ void farSideAWPRoute()
     Drive.turn(-45, 100, 1);
     backWings.close();
     wait(3, sec);
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     wait(.5, sec);
     Drive.moveDistance(1000, 100, 1);
     Drive.moveDistance(-5, 100, 1);
-    frontWings.close();
+    frontLeftWing.close();
+    frontRightWing.close();
     wait(1, sec);
     Drive.turn(-200, 100, 1);
     Drive.moveDistance(23, 100, 1.2);
@@ -105,7 +109,8 @@ void farSideRoute()
     Drive.turn(-45, 100, 0.6);
     wait(.4, sec);
     Drive.turn(97, 100, .9);
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     intakeLift.close();
     intake_Group.spin(fwd, -100, pct);
     wait(.3, sec);
@@ -113,7 +118,8 @@ void farSideRoute()
     Drive.moveDistance(-10, 100, .7);
     intakeLift.open();
     intake_Group.spin(fwd, 100, pct);
-    frontWings.close();
+    frontLeftWing.close();
+    frontRightWing.close();
     wait(.3, sec);
     Drive.turn(17, 100, .6);
     Drive.moveDistance(46, 100, 1.4);
@@ -121,16 +127,19 @@ void farSideRoute()
     Drive.moveDistance(14, 100, .6);
     Drive.turn(180, 100, .7);
     intake_Group.spin(fwd, -100, pct);
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     intakeLift.close();
     intake_Group.spin(fwd, -100, pct);
     Drive.moveDistance(1000, 100, .8);
-    frontWings.close();
+    frontLeftWing.close();
+    frontRightWing.close();
     intakeLift.open();
     Drive.turn(19, 100, 1.2);
     intake_Group.spin(fwd, 100, pct);
     Drive.moveDistance(20, 100, .9);
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     Drive.turn(180, 100, .8);
     intakeLift.close();
     Drive.moveDistance(100000, 100, 1);
@@ -171,7 +180,7 @@ void autonSkillsRoute()
     Drive.moveDistance(75, 100, 2.5);
     Drive.moveDistance(10, 50, 1);
     Drive.turn(-90, 100, 0.45);
-    Drive.moveDistance(24, 100, 1, false);
+    Drive.moveDistance(24, 100, 1);
     Drive.turn(-135, 100, 1);
     Drive.moveDistance(18, 100, 1);
     Drive.moveDistance(-10, 100, 0.5);
@@ -180,17 +189,20 @@ void autonSkillsRoute()
     Drive.turn(-215, 100, .5);
     Drive.moveDistance(44, 100, 3);
     Drive.turn(-135, 100, .5);
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     Drive.turn(-110, 80, 1);
     Drive.moveDistance(14, 100, .5);
     Drive.turn(-45, 80, 1);
     Drive.moveDistance(30, 100, 2);
     Drive.moveDistance(-5, 100, .5);
-    frontWings.close();
+    frontLeftWing.close();
+    frontRightWing.close();
     Drive.turn(-90, 100, .5);
     Drive.moveDistance(-20, 100, 2);
     Drive.turn(-135, 100, 1);
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     Drive.moveDistance(24, 80, 3);
     Drive.turn(-45, 80, 1);
     Drive.moveDistance(24, 100, 2);
@@ -215,9 +227,11 @@ void Skills2Route()
     // turn parrell to long barrier to push triballs
     Drive.turn(-133, 100, 0.7);
     // open wings and run down the long barrier to push all the triballs across and into the alley way
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     Drive.moveDistance(67, 100, 1.5);
-    frontWings.close();
+    frontLeftWing.close();
+    frontRightWing.close();
     // ensure the robot has not gotten turned incedentally
     Drive.turn(-134, 100, 0.1);
     // back off of the short barrier
@@ -245,10 +259,12 @@ void Skills2Route()
     // face the front of the goal
     Drive.turn(-36, 100, 0.7);
     // first push into the front of the goal
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     wait(100, msec);
     Drive.moveDistance(1000, 100, 0.9);
-    frontWings.close();
+    frontLeftWing.close();
+    frontRightWing.close();
     wait(100, msec);
     Drive.moveDistance(-30, 100, 0.9);
     // turn to move further right for the second push
@@ -257,10 +273,12 @@ void Skills2Route()
     // face the front of the goal agian
     Drive.turn(-423, 100, 0.7);
     // second push into the front of the goal
-    frontWings.open();
+    frontLeftWing.open();
+    frontRightWing.open();
     wait(100, msec);
-    Drive.moveDistance(1000, 100, 0.8, false);
-    frontWings.close();
+    Drive.moveDistance(1000, 100, 0.8);
+    frontLeftWing.close();
+    frontRightWing.close();
     Drive.moveDistance(-30, 100, 0.9);
     // turn and move towards the right corner
     Drive.turn(-350, 100, 0.7);
@@ -273,7 +291,6 @@ void Skills2Route()
     Drive.moveDistance(-100, 100, 0.15);
     printf("%lu\n", vex::timer::system() - startTime);
 }
-
 
 autonRoute driverSkills = {"Driver Skills", 0, 0, 0, SkillsSetupRoute};
 autonRoute autonSkills = {"Skills", 0, 0, 0, Skills2Route};
