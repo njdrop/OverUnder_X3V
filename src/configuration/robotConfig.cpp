@@ -19,8 +19,8 @@ vex::motor kicker2 (PORT19, ratio18_1, true);
 // pneumatics
 vex::pneumatics intakeLift (Brain.ThreeWirePort.D);
 vex::pneumatics lift (Brain.ThreeWirePort.B);
-vex::pneumatics frontLeftWing (Brain.ThreeWirePort.A);
-vex::pneumatics frontRightWing (Brain.ThreeWirePort.G);
+vex::pneumatics frontLeftWing (Brain.ThreeWirePort.G);
+vex::pneumatics frontRightWing (Brain.ThreeWirePort.A);
 vex::pneumatics backWings (Brain.ThreeWirePort.C);
 // sensors
 vex::inertial inertialSensorMain (PORT4);//4
@@ -60,6 +60,7 @@ vex::motor_group intake_Group = motor_group(intake);
 //**************************//
 autonRoute autonRoutesList[] 
 {
+	autonSkills,
 	doNothing,
 	forwardsBackwards,
 	backwardsForwards,
@@ -67,7 +68,6 @@ autonRoute autonRoutesList[]
 	farSide,
 	nearSideAWP,
 	nearSide,
-	autonSkills,
 	driverSkills,
 };
 
