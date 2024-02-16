@@ -91,7 +91,7 @@ void farSideAWPRoute()
     Drive.turn(-200, 100, 1);
     Drive.moveDistance(23, 100, 1.2);
     Drive.turn(-140, 100, 1.2);
-    Drive.moveDistance(33, 100, 1.5);
+    Drive.moveDistance(31, 100, 1.5);
     intakeLift.open();
 }
 autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
@@ -157,7 +157,7 @@ void SkillsSetupRoute()
     Drive.moveDistance(11, 100, 0.45);
     Drive.turn(-60, 100, 0.5);
     Drive.moveDistance(-50, 100, 0.3);
-    Drive.turn(-67, 100, 0.6);
+    Drive.turn(-67 , 100, 0.6);
     backWings.open();
     printf("%lu   ", vex::timer::system() - startTime);
 }
@@ -214,9 +214,9 @@ void Skills2Route()
     SkillsSetupRoute(); // 4.45 seconds
     // shoot for 28 seconds
     int startTime = vex::timer::system();
-    while (vex::timer::system() - startTime <= 1000) //25500
+    while (vex::timer::system() - startTime <= 25500) //25500
     {
-        shooter_Group.spin(fwd, 8500, vex::voltageUnits::mV);
+        shooter_Group.spin(fwd, 8700, vex::voltageUnits::mV);
     }
 
     shooter_Group.stop(coast);
@@ -228,7 +228,7 @@ void Skills2Route()
     // open wings and run down the long barrier to push all the triballs across and into the alley way
     frontLeftWing.open();
     frontRightWing.open();
-    Drive.moveDistance(67, 100, 1.5);
+    Drive.moveDistance(67, 100, 1.65);
     frontLeftWing.close();
     frontRightWing.close();
     // ensure the robot has not gotten turned incedentally
@@ -238,15 +238,17 @@ void Skills2Route()
     // sequence to get around the short barrier
     Drive.turn(-185, 100, 0.6);
     Drive.moveDistance(16, 100, 0.5);
-    Drive.swing(18, 100, -51, 1.4);
+    Drive.swing(18, 100, -51, 1.2);
     // run down left alley way
-    Drive.turn(-51, 100, 0.3);
+    Drive.turn(-55, 100, 0.3);
+    Drive.moveDistance(70, 100, 1.7);
     frontRightWing.open();
-    Drive.moveDistance(70, 100, 1.8);
-    Drive.turn(-35, 100, 0.3);
+    Drive.turn(-35, 100, 0.4);
             // push tribals into the corner
-            Drive.swing(30, 100, 46, 1);
+            Drive.swing(26, 100, 46, 1); // 30
             // push left side of goal
+            Drive.moveDistance(1000, 100, 0.5);
+            Drive.moveDistance(-1000, 100, 0.3);
             Drive.moveDistance(1000, 100, 0.5);
             Drive.moveDistance(-8, 100, 0.5);
             frontRightWing.close();
@@ -257,22 +259,22 @@ void Skills2Route()
             Drive.turn(100, 100, 0.45);
             frontRightWing.open();
             Drive.turn(51, 100, 0.65);
-            Drive.moveDistance(16, 100, 0.9);
+            Drive.moveDistance(24, 100, 0.9);
             frontRightWing.close();
             // face the front of the goal
             Drive.turn(144, 100, 0.7);
                     // first push into the front of the goal
                     backWings.open();
                     wait(100, msec);
-                    Drive.moveDistance(-1000, 100, 0.9);
-                    backWings.close();
+                    Drive.moveDistance(-1000, 100, 0.75);
                     Drive.turn(144, 100, 0.25);
+                    backWings.close();
                     Drive.moveDistance(30, 100, 0.9);
                     // turn to move further right for the second push
                     Drive.turn(51, 100, 0.7);
-                    frontRightWing.open();
-                    Drive.moveDistance(22, 100, 0.85);
-                    frontRightWing.close();
+                    // frontRightWing.open();
+                    Drive.moveDistance(27, 100, 0.85);
+                    // frontRightWing.close();
                     // face the front of the goal agian
                     Drive.turn(125, 100, 0.7);
                     // second push into the front of the goal
@@ -281,28 +283,21 @@ void Skills2Route()
                     Drive.swing(-50, 100, 165, 0.95);
                     Drive.turn(125, 100, 0.45);
                     backWings.close();
-                    Drive.moveDistance(20, 100, 0.9);
-                    // turn to move further right for the second push
-                    Drive.turn(51, 100, 0.7);
-                    frontRightWing.open();
-                    Drive.moveDistance(14, 100, 0.85);
-                    frontRightWing.close();
-                    // face the front of the goal a third time
-                    Drive.turn(110, 100, 0.65);
-                    // third push into the front of the goal
-                    backWings.open();
-                    wait(100, msec);
-                    Drive.swing(-50, 100, 155, 1);
-                    backWings.close();
-                    Drive.moveDistance(8, 100, 0.45);
-                    // push right side
-                    Drive.turn(48, 100, 0.65);
-                    Drive.moveDistance(36, 100, 0.9);
-                    Drive.turn(142, 100, 0.75);
-                    // backWings.open();
-                    Drive.swing(-25, 100, 30, 1.0);
-                    Drive.moveDistance(8, 100, 0.1);
-                    backWings.close();
+                    Drive.moveDistance(23, 100, 0.9);
+                                // push right side
+                                Drive.turn(48, 100, 0.65);
+                                frontRightWing.open();
+                                Drive.moveDistance(25, 100, 0.8);
+                                Drive.turn(-39, 100, 0.75);
+                                Drive.moveDistance(15, 100, 0.65);
+                                frontRightWing.close();
+                                Drive.turn(0, 100, 0.55);
+                                Drive.moveDistance(25, 100, 0.8);
+                                Drive.turn(-87, 100, 0.8);
+                                frontLeftWing.open();
+                                Drive.swing(24, 100, -132, 1);
+                                Drive.moveDistance(1000, 100, 0.6);
+                                Drive.moveDistance(-1000, 100, 0.1);
     printf("%lu\n", vex::timer::system() - startTime);
 }
 
