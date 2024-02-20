@@ -162,59 +162,13 @@ void SkillsSetupRoute()
     printf("%lu   ", vex::timer::system() - startTime);
 }
 
-void autonSkillsRoute()
-{
-    int startTime = vex::timer::system();
-    SkillsSetupRoute();
-    while (vex::timer::system() - startTime <= 35000)
-    {
-        shooter_Group.spin(fwd, 7000, vex::voltageUnits::mV);
-    }
-    shooter_Group.stop(coast);
-    backWings.close();
-    wait(200, msec);
-    Drive.turn(0, 100, 0.45);
-    Drive.moveDistance(23, 100, 0.85);
-    Drive.turn(-43, 100, 0.5);
-    Drive.moveDistance(75, 100, 2.5);
-    Drive.moveDistance(10, 50, 1);
-    Drive.turn(-90, 100, 0.45);
-    Drive.moveDistance(24, 100, 1);
-    Drive.turn(-135, 100, 1);
-    Drive.moveDistance(18, 100, 1);
-    Drive.moveDistance(-10, 100, 0.5);
-    Drive.moveDistance(18, 100, 1);
-    Drive.moveDistance(-10, 100, 0.5);
-    Drive.turn(-215, 100, .5);
-    Drive.moveDistance(44, 100, 3);
-    Drive.turn(-135, 100, .5);
-    frontLeftWing.open();
-    frontRightWing.open();
-    Drive.turn(-110, 80, 1);
-    Drive.moveDistance(14, 100, .5);
-    Drive.turn(-45, 80, 1);
-    Drive.moveDistance(30, 100, 2);
-    Drive.moveDistance(-5, 100, .5);
-    frontLeftWing.close();
-    frontRightWing.close();
-    Drive.turn(-90, 100, .5);
-    Drive.moveDistance(-20, 100, 2);
-    Drive.turn(-135, 100, 1);
-    frontLeftWing.open();
-    frontRightWing.open();
-    Drive.moveDistance(24, 80, 3);
-    Drive.turn(-45, 80, 1);
-    Drive.moveDistance(24, 100, 2);
-    printf("%lu\n", vex::timer::system());
-}
-
 void Skills2Route()
 {
     // run the inital setup route for skills
     SkillsSetupRoute(); // 4.45 seconds
     // shoot for 28 seconds
     int startTime = vex::timer::system();
-    while (vex::timer::system() - startTime <= 25500) //25500
+    while (vex::timer::system() - startTime <= 25250) //25500
     {
         shooter_Group.spin(fwd, 8700, vex::voltageUnits::mV);
     }
@@ -301,5 +255,47 @@ void Skills2Route()
     printf("%lu\n", vex::timer::system() - startTime);
 }
 
-autonRoute driverSkills = {"Driver Skills", 0, 0, 0, SkillsSetupRoute};
+void driverSkillsRoute() 
+{
+    // run the inital setup route for skills
+    SkillsSetupRoute(); // 4.45 seconds
+    // shoot for 28 seconds
+    int startTime = vex::timer::system();
+    while (vex::timer::system() - startTime <= 25500) //25500
+    {
+        shooter_Group.spin(fwd, 8800, vex::voltageUnits::mV);
+    }
+
+    shooter_Group.stop(coast);
+    backWings.close();
+    // drive towards long barrier
+    Drive.moveDistance(55, 100, 1);
+    // turn parrell to long barrier to push triballs
+    Drive.turn(-133, 100, 0.7);
+    // open wings and run down the long barrier to push all the triballs across and into the alley way
+    frontLeftWing.open();
+    frontRightWing.open();
+    Drive.moveDistance(67, 100, 1.65);
+    frontLeftWing.close();
+    frontRightWing.close();
+    // ensure the robot has not gotten turned incedentally
+    Drive.turn(-134, 100, 0.1);
+    // back off of the short barrier
+    Drive.moveDistance(-10, 100, 0.6);
+    // sequence to get around the short barrier
+    Drive.turn(-185, 100, 0.6);
+    Drive.moveDistance(16, 100, 0.5);
+    Drive.swing(18, 100, -51, 1.2);
+    // run down left alley way
+    Drive.turn(-55, 100, 0.3);
+    Drive.moveDistance(70, 100, 1.7);
+    frontRightWing.open();
+    Drive.turn(-35, 100, 0.4);
+            // push tribals into the corner
+            Drive.swing(26, 100, 46, 1); // 30
+            // push left side of goal
+            Drive.moveDistance(1000, 100, 0.5);
+}
+
+autonRoute driverSkills = {"Driver Skills", 0, 0, 0, driverSkillsRoute};
 autonRoute autonSkills = {"Skills", 0, 0, 0, Skills2Route};

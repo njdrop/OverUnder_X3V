@@ -58,7 +58,7 @@ void usercontrol(void)
 {
 	int startTime = vex::timer::system();
 	if (autonRoutesList[autonSelect].name == driverSkills.name) {
-		autonSkills.routeFunction();
+		driverSkills.routeFunction();
 	}
 
 	usercontrolRunning = true;
