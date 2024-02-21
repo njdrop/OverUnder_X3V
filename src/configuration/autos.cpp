@@ -24,11 +24,11 @@ autonRoute backwardsForwards = {"Backwards Forwards", 0, 0, 0, backwardsForwards
 void nearSideAWPRoute()
 {
     backWings.open();
-    Drive.turn(-45, 100, 1);
-    Drive.turn(-35, 100, 1);
+    Drive.turn(-40, 100, 1.2);
+    Drive.turn(-35, 100, 1.2);
     backWings.close();
     wait(6, sec);
-    Drive.moveDistance(33, 100, 1.3);
+    Drive.moveDistance(35, 100, 1.8);
     intakeLift.open();
     intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
 }
