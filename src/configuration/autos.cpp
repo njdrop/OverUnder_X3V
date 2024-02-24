@@ -28,8 +28,8 @@ void nearSideAWPRoute()
     Drive.turn(-35, 100, 1.2);
     backWings.close();
     wait(6, sec);
-    Drive.moveDistance(35, 100, 1.8);
     intakeLift.open();
+    Drive.moveDistance(35, 100, 1.8);
     intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
 }
 autonRoute nearSideAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
@@ -74,25 +74,28 @@ autonRoute nearSide = {"NS Elims", 0, 0, 0, nearSideRoute};
 
 void farSideAWPRoute()
 {
-    Drive.moveDistance(7, 100, .8);
+    int starttime = vex::timer::system();
+    Drive.moveDistance(7, 50, 1);
     backWings.open();
-    Drive.moveDistance(13, 100, .8);
+    Drive.moveDistance(13, 50, 1);
     Drive.turn(-45, 100, 1);
     backWings.close();
-    wait(3, sec);
-    frontLeftWing.open();
+    wait(0.5, sec);
+    Drive.turn(-30, 100, 1);
     frontRightWing.open();
-    wait(.5, sec);
-    Drive.moveDistance(1000, 100, 1);
-    Drive.moveDistance(-5, 100, 1);
-    frontLeftWing.close();
+    wait(0.5, sec);
+    Drive.moveDistance(1000, 100, 1, false);
+    Drive.turn(-30, 100, 0.5);
+    Drive.moveDistance(-6, 100, 0.8);
     frontRightWing.close();
     wait(1, sec);
     Drive.turn(-200, 100, 1);
-    Drive.moveDistance(23, 100, 1.2);
-    Drive.turn(-140, 100, 1.2);
-    Drive.moveDistance(31, 100, 1.5);
+    Drive.moveDistance(24, 100, 1.2);
+    Drive.turn(-135, 100, 1.2);
     intakeLift.open();
+    intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(33, 100, 1.5);
+    printf("%lu\n", vex::timer::system() - starttime);
 }
 autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 
