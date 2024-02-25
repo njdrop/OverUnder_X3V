@@ -99,6 +99,7 @@ class drivetrainObj
          */
         void moveDistance(double targetDistance, double maxSpeed, double timeout, bool correctHeading);
         void moveDistance(double targetDistance, double maxSpeed, double timeout);
+        void moveDistance(double targetDistance, double maxSpeed);
 
         /**
          * @brief move the robot a specified distance and angle
@@ -117,6 +118,7 @@ class drivetrainObj
          * @param timeout The maximum time to allow for the turn. (seconds)
          */
         void turn(double targetAngle, double maxSpeed, double timeout);
+        void turn(double targetAngle, double maxSpeed);
 
         /**
          * @brief enables the task to track the position of the object

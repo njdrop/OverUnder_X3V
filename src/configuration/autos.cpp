@@ -171,7 +171,7 @@ void Skills2Route()
     SkillsSetupRoute(); // 4.45 seconds
     // shoot for 28 seconds
     int startTime = vex::timer::system();
-    while (vex::timer::system() - startTime <= 25250) //25500
+    while (vex::timer::system() - startTime <= 25250) //25250
     {
         shooter_Group.spin(fwd, 8700, vex::voltageUnits::mV);
     }
@@ -260,45 +260,8 @@ void Skills2Route()
 
 void driverSkillsRoute() 
 {
-    // run the inital setup route for skills
-    SkillsSetupRoute(); // 4.45 seconds
-    // shoot for 28 seconds
-    int startTime = vex::timer::system();
-    while (vex::timer::system() - startTime <= 25500) //25500
-    {
-        shooter_Group.spin(fwd, 8800, vex::voltageUnits::mV);
-    }
-
-    shooter_Group.stop(coast);
-    backWings.close();
-    // drive towards long barrier
-    Drive.moveDistance(55, 100, 1);
-    // turn parrell to long barrier to push triballs
-    Drive.turn(-133, 100, 0.7);
-    // open wings and run down the long barrier to push all the triballs across and into the alley way
-    frontLeftWing.open();
-    frontRightWing.open();
-    Drive.moveDistance(67, 100, 1.65);
-    frontLeftWing.close();
-    frontRightWing.close();
-    // ensure the robot has not gotten turned incedentally
-    Drive.turn(-134, 100, 0.1);
-    // back off of the short barrier
-    Drive.moveDistance(-10, 100, 0.6);
-    // sequence to get around the short barrier
-    Drive.turn(-185, 100, 0.6);
-    Drive.moveDistance(16, 100, 0.5);
-    Drive.swing(18, 100, -51, 1.2);
-    // run down left alley way
-    Drive.turn(-55, 100, 0.3);
-    Drive.moveDistance(70, 100, 1.7);
-    frontRightWing.open();
-    Drive.turn(-35, 100, 0.4);
-            // push tribals into the corner
-            Drive.swing(26, 100, 46, 1); // 30
-            // push left side of goal
-            Drive.moveDistance(1000, 100, 0.5);
+    SkillsSetupRoute();
 }
 
-autonRoute driverSkills = {"Driver Skills", 0, 0, 0, driverSkillsRoute};
+autonRoute driverSkills = {"Driver Skills", 0, 0, 0, SkillsSetupRoute};
 autonRoute autonSkills = {"Skills", 0, 0, 0, Skills2Route};

@@ -56,12 +56,13 @@ void autonomous ()
 
 void usercontrol(void)
 {
+	
 	int startTime = vex::timer::system();
 	if (autonRoutesList[autonSelect].name == driverSkills.name) {
 		driverSkills.routeFunction();
 	}
-
 	usercontrolRunning = true;
+
 	toggleBoolObject frontWingsToggle(frontLeftWing.value() && frontRightWing.value());
 	toggleBoolObject backWingsToggle(backWings.value());
 	toggleBoolObject liftToggle(lift.value());
