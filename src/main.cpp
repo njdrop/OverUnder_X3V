@@ -51,12 +51,13 @@ void pre_auton(void)
 
 void autonomous ()
 {
+	int startTime = vex::timer::system();
 	autonRoutesList[autonSelect].routeFunction();
+	printf("%lu\n", vex::timer::system() - startTime);
 }
 
 void usercontrol(void)
 {
-	
 	int startTime = vex::timer::system();
 	if (autonRoutesList[autonSelect].name == driverSkills.name) {
 		driverSkills.routeFunction();
@@ -93,7 +94,6 @@ void usercontrol(void)
 		if(con.ButtonR2.pressing())
 		{
 			intakeLiftToggle.setValue(false);
-			backWingsToggle.setValue(false);
 		}
 
 		if (con.ButtonL2.pressing())

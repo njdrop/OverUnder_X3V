@@ -89,13 +89,13 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
     double startPos = getDriveEncoderValue();
     double startAngle = driveInertial.getRotation();
     double startTime = vex::timer::system();
-    double correctionFactor, speed, actualAngle, actualDistance, encoderDistance;
+    double correctionFactor, speed, actualAngle, travelDistance, encoderDistance;
     while (vex::timer::system() - startTime <= timeout * 1000)
     {
         encoderDistance = getDriveEncoderValue() - startPos;
-        actualDistance = angularDistanceToLinearDistance(encoderDistance, wheelDiameter, gearRatio);
+        travelDistance = angularDistanceToLinearDistance(encoderDistance, wheelDiameter, gearRatio);
         actualAngle = driveInertial.getRotation();
-        speed = distanceControl.getOutput(actualDistance, targetDistance);
+        speed = distanceControl.getOutput(travelDistance, targetDistance);
         correctionFactor = headingControl.getOutput(actualAngle, startAngle);
 
         if (correctHeading)
@@ -119,6 +119,79 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
     moveDistance(targetDistance, maxSpeed, timeout, true);
 }
 
+void drivetrainObj::moveDistance(double targetDistance, double maxSpeed)
+{
+    double exitTolerance = 0.25;
+    double exitVelocityTolerance = exitTolerance / 5.0;
+    double exitHeadingTolerance = 0.5;
+    double exitHeadingVelocityTolerance = exitHeadingTolerance / 5.0;
+
+    MiniPID distanceControl(9000, 250, 6000);
+    MiniPID headingControl(500, 30, 1200);
+    
+    distanceControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
+    headingControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
+    distanceControl.setMaxIOutput(0);
+
+    double startPos = getDriveEncoderValue();
+    double startAngle = driveInertial.getRotation();
+    double startTime = vex::timer::system();
+    double correctionFactor, speed, actualAngle, travelDistance;
+    double previousTravelDistance = 0;
+    double previousHeading = driveInertial.getRotation();
+    int exitCondition = 0;
+
+    while (exitCondition <= 2 && vex::timer::system() - startTime <= 3000)
+    {   
+        travelDistance = angularDistanceToLinearDistance(getDriveEncoderValue() - startPos, wheelDiameter, gearRatio);
+        actualAngle = driveInertial.getRotation();
+
+        if (fabs(targetDistance - travelDistance) <= 8) 
+        {
+            distanceControl.setMaxIOutput(2000);
+        }
+        speed = distanceControl.getOutput(travelDistance, targetDistance);
+        correctionFactor = headingControl.getOutput(actualAngle, startAngle);
+
+        runLeftSide(speed + correctionFactor);
+        runRightSide(speed - correctionFactor);
+        
+        wait(20, msec);
+        
+        travelDistance = angularDistanceToLinearDistance(getDriveEncoderValue() - startPos, wheelDiameter, gearRatio);
+        actualAngle = driveInertial.getRotation();
+        bool errorToleranceCondition = fabs(targetDistance - travelDistance) <= exitTolerance;
+        bool errorVelocityToleranceCondition = travelDistance - previousTravelDistance <= exitVelocityTolerance;
+        bool headingToleranceCondition = fabs(startAngle - driveInertial.getRotation()) <= exitHeadingTolerance;
+        bool headingVelocityToleranceCondition = actualAngle - previousHeading <= exitHeadingVelocityTolerance;
+        previousHeading = driveInertial.getRotation();
+        previousTravelDistance = travelDistance;
+
+        if (errorToleranceCondition && errorVelocityToleranceCondition && headingToleranceCondition && headingVelocityToleranceCondition)
+        {
+            exitCondition += 1;
+        }
+        else
+        {
+            exitCondition = 0;
+        }
+
+        printf("%f   ", vex::timer::system() - startTime);
+        printf("%f   ", targetDistance - travelDistance);
+        printf("%f   ", driveInertial.getRotation() - startAngle);
+        printf("%f\n", speed);
+    }
+    stopLeftSide(vex::brakeType::coast);
+    stopRightSide(vex::brakeType::coast);
+
+    printf("\n%f\n\n", (vex::timer::system() - startTime) / 1000.0);
+}
+
+void drivetrainObj::moveDistance(double targetDistance)
+{
+    moveDistance(targetDistance , 100);
+}
+
 void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetAngle, double timeout)
 {
     MiniPID distanceControl(2000, 5, 1200);
@@ -129,15 +202,15 @@ void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetA
     double startAngle = driveInertial.getRotation();
     double currTargetAngle = driveInertial.getRotation();
     double startTime = vex::timer::system();
-    double correctionFactor, speed, actualAngle, actualDistance, encoderDistance;
+    double correctionFactor, speed, actualAngle, travelDistance, encoderDistance;
     while (vex::timer::system() - startTime <= timeout * 1000)
     {
         encoderDistance = getDriveEncoderValue() - startPos;
-        actualDistance = angularDistanceToLinearDistance(encoderDistance, wheelDiameter, gearRatio);
+        travelDistance = angularDistanceToLinearDistance(encoderDistance, wheelDiameter, gearRatio);
         actualAngle = driveInertial.getRotation();
-        double fracComplete = actualDistance / targetDistance;
+        double fracComplete = travelDistance / targetDistance;
         currTargetAngle = (targetAngle - startAngle) * fracComplete + startAngle;
-        speed = distanceControl.getOutput(actualDistance, targetDistance);
+        speed = distanceControl.getOutput(travelDistance, targetDistance);
         correctionFactor = headingControl.getOutput(actualAngle, currTargetAngle);
             runLeftSide(speed + correctionFactor);
             runRightSide(speed - correctionFactor);
@@ -146,7 +219,6 @@ void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetA
     stopLeftSide(vex::brakeType::coast);
     stopRightSide(vex::brakeType::coast);
 }
-
 
 void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 {

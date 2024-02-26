@@ -32,7 +32,32 @@ void nearSideAWPRoute()
     Drive.moveDistance(35, 100, 1.8);
     intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
 }
-autonRoute nearSideAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
+autonRoute nearSideAWP = {"Near Side AWP", 0, 0, 0, nearSideAWPRoute};
+
+void farSideAWPRoute()
+{
+    Drive.moveDistance(7, 50, 1);
+    backWings.open();
+    Drive.moveDistance(13, 50, 1);
+    Drive.turn(-45, 100, 1);
+    backWings.close();
+    wait(0.5, sec);
+    Drive.turn(-30, 100, 1);
+    frontRightWing.open();
+    wait(0.5, sec);
+    Drive.moveDistance(1000, 100, 1, false);
+    Drive.turn(-30, 100, 0.5);
+    Drive.moveDistance(-6, 100, 0.8);
+    frontRightWing.close();
+    wait(1, sec);
+    Drive.turn(-200, 100, 1);
+    Drive.moveDistance(24, 100, 1.2);
+    Drive.turn(-135, 100, 1.2);
+    intakeLift.open();
+    intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(33, 100, 1.5);
+}
+autonRoute farSideAWP = {"Far Side AWP", 0, 0, 0, farSideAWPRoute};
 
 void nearSideRoute()
 {
@@ -70,34 +95,7 @@ void nearSideRoute()
     Drive.moveDistance(22, 100, 1);
     intakeLift.open();
 }
-autonRoute nearSide = {"NS Elims", 0, 0, 0, nearSideRoute};
-
-void farSideAWPRoute()
-{
-    int starttime = vex::timer::system();
-    Drive.moveDistance(7, 50, 1);
-    backWings.open();
-    Drive.moveDistance(13, 50, 1);
-    Drive.turn(-45, 100, 1);
-    backWings.close();
-    wait(0.5, sec);
-    Drive.turn(-30, 100, 1);
-    frontRightWing.open();
-    wait(0.5, sec);
-    Drive.moveDistance(1000, 100, 1, false);
-    Drive.turn(-30, 100, 0.5);
-    Drive.moveDistance(-6, 100, 0.8);
-    frontRightWing.close();
-    wait(1, sec);
-    Drive.turn(-200, 100, 1);
-    Drive.moveDistance(24, 100, 1.2);
-    Drive.turn(-135, 100, 1.2);
-    intakeLift.open();
-    intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(33, 100, 1.5);
-    printf("%lu\n", vex::timer::system() - starttime);
-}
-autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
+autonRoute nearSide = {"Near Side Elims", 0, 0, 0, nearSideRoute};
 
 void farSideRoute()
 {
@@ -147,7 +145,7 @@ void farSideRoute()
     intakeLift.close();
     Drive.moveDistance(100000, 100, 1);
 }
-autonRoute farSide = {"FS Elims", 0, 0, 0, farSideRoute};
+autonRoute farSide = {"Six Ball", 0, 0, 0, farSideRoute};
 
 void SkillsSetupRoute()
 {
@@ -165,7 +163,7 @@ void SkillsSetupRoute()
     printf("%lu   ", vex::timer::system() - startTime);
 }
 
-void Skills2Route()
+void autonSkillsRoute()
 {
     // run the inital setup route for skills
     SkillsSetupRoute(); // 4.45 seconds
@@ -233,7 +231,7 @@ void Skills2Route()
                     Drive.moveDistance(27, 100, 0.85);
                     // frontRightWing.close();
                     // face the front of the goal agian
-                    Drive.turn(125, 100, 0.7);
+                    Drive.turn(115, 100, 0.7);
                     // second push into the front of the goal
                     backWings.open();
                     wait(100, msec);
@@ -255,6 +253,7 @@ void Skills2Route()
                                 Drive.swing(24, 100, -132, 1);
                                 Drive.moveDistance(1000, 100, 0.6);
                                 Drive.moveDistance(-1000, 100, 0.1);
+                                frontLeftWing.close();
     printf("%lu\n", vex::timer::system() - startTime);
 }
 
@@ -264,4 +263,4 @@ void driverSkillsRoute()
 }
 
 autonRoute driverSkills = {"Driver Skills", 0, 0, 0, SkillsSetupRoute};
-autonRoute autonSkills = {"Skills", 0, 0, 0, Skills2Route};
+autonRoute autonSkills = {"Skills", 0, 0, 0, autonSkillsRoute};

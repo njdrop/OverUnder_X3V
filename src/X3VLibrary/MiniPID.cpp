@@ -228,6 +228,7 @@ double MiniPID::getOutput(double actual, double setpoint)
 	// For last output, we can assume it's the current time-independent outputs.
 	if (firstRun)
 	{
+		
 		lastActual = actual;
 		lastOutput = Poutput + Foutput;
 		firstRun = false;
@@ -254,13 +255,13 @@ double MiniPID::getOutput(double actual, double setpoint)
 	output = Foutput + Poutput + Ioutput + Doutput;
 
 	// Figure out what we're doing with the error.
-	 if(minOutput!=maxOutput && !bounded(output, minOutput,maxOutput) ) {
+	if(minOutput!=maxOutput && !bounded(output, minOutput,maxOutput) ) {
 	 	errorSum=error;
 	 	// reset the error sum to a sane level
 	 	// Setting to current error ensures a smooth transition when the P term
 	 	// decreases enough for the I term to start acting upon the controller
 	 	// From that point the I term will build up as would be expected
-	 }
+	}
 	if (minOutput != maxOutput && !bounded(output, minOutput, maxOutput))
 	{
 		errorSum = error;
@@ -277,109 +278,9 @@ double MiniPID::getOutput(double actual, double setpoint)
 	}
 
 	// if we pass the destination reset the error sum to prevent occsilation
-	if (signbit(error) != signbit(error)) {
+	if (signbit(setpoint - lastActual) != signbit(setpoint - actual)) {
 		errorSum = -error;
 	}
-
-	// Restrict output to our specified output and ramp limits
-	if (outputRampRate != 0)
-	{
-		output = clamp(output, lastOutput - outputRampRate, lastOutput + outputRampRate);
-	}
-	if (minOutput != maxOutput)
-	{
-		output = clamp(output, minOutput, maxOutput);
-	}
-	if (outputFilter != 0)
-	{
-		output = lastOutput * outputFilter + output * (1 - outputFilter);
-	}
-
-	lastOutput = output;
-	return output;
-}
-
-double lastError = 0;
-double MiniPID::getOutput2(double actual, double setpoint)
-{
-	double output;
-	double Poutput;
-	double Ioutput;
-	double Doutput;
-	double Foutput;
-
-	this->setpoint = setpoint;
-
-	// Ramp the setpoint used for calculations if user has opted to do so
-	if (setpointRange != 0)
-	{
-		setpoint = clamp(setpoint, actual - setpointRange, actual + setpointRange);
-	}
-
-	// Do the simple parts of the calculations
-	double error = setpoint - actual;
-
-	// Calculate F output. Notice, this->depends only on the setpoint, and not the error.
-	Foutput = F * setpoint;
-
-	// Calculate P term
-	Poutput = P * error;
-
-	// If this->is our first time running this-> we don't actually _have_ a previous input or output.
-	// For sensor, sanely assume it was exactly where it is now.
-	// For last output, we can assume it's the current time-independent outputs.
-	if (firstRun)
-	{
-		lastActual = actual;
-		lastOutput = Poutput + Foutput;
-		firstRun = false;
-	}
-
-	// Calculate D Term
-	// Note, this->is negative. this->actually "slows" the system if it's doing
-	// the correct thing, and small values helps prevent output spikes and overshoot
-
-	Doutput = -D * (actual - lastActual);
-	lastActual = actual;
-
-	// The Iterm is more complex. There's several things to factor in to make it easier to deal with.
-	//  1. maxIoutput restricts the amount of output contributed by the Iterm.
-	//  2. prevent windup by not increasing errorSum if we're already running against our max Ioutput
-	//  3. prevent windup by not increasing errorSum if output is output=maxOutput
-	Ioutput = I * errorSum;
-	if (maxIOutput != 0)
-	{
-		Ioutput = clamp(Ioutput, -maxIOutput, maxIOutput);
-	}
-
-	// And, finally, we can just add the terms up
-	output = Foutput + Poutput + Ioutput + Doutput;
-
-	// Figure out what we're doing with the error.
-	if (signbit(error) != signbit(lastError))
-	{
-		lastError = error;
-		errorSum = 0;
-	}
-
-	if (minOutput != maxOutput && !bounded(output, minOutput, maxOutput))
-	{
-		errorSum = error;
-	}
-	else if (outputRampRate != 0 && !bounded(output, lastOutput - outputRampRate, lastOutput + outputRampRate))
-	{
-		errorSum = error;
-	}
-	else if (maxIOutput != 0)
-	{
-		errorSum = clamp(errorSum + error, -maxError, maxError);
-		// In addition to output limiting directly, we also want to prevent I term
-		// buildup, so restrict the error directly
-	}
-
-	// if (signbit(error) != signbit(error)) {
-	// 	errorSum = 0;
-	// }
 
 	// Restrict output to our specified output and ramp limits
 	if (outputRampRate != 0)

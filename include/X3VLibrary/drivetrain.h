@@ -97,9 +97,21 @@ class drivetrainObj
          * @param timeout The maximum time to allow for the movement. (seconds)
          * @param correctHeading Indicates whether to correct the heading during movement.
          */
-        void moveDistance(double targetDistance, double maxSpeed, double timeout, bool correctHeading);
-        void moveDistance(double targetDistance, double maxSpeed, double timeout);
+        void moveDistance(double targetDistance);
         void moveDistance(double targetDistance, double maxSpeed);
+        void moveDistance(double targetDistance, double maxSpeed, double timeout);
+        void moveDistance(double targetDistance, double maxSpeed, double timeout, bool correctHeading);
+
+        /**
+         * @brief Drives a straight path to a target x position
+         * 
+         * @param targetX  The distance to move. (inches)
+         * @param maxSpeed The maximum speed to use. (pct 0-100)
+         * @param timeout The maximum time to allow for the movement. (seconds)
+         */
+        void moveToX(double targetX);
+        void moveToX(double targetX, double maxSpeed);
+        void moveToX(double targetX, double maxSpeed, double timeout);
 
         /**
          * @brief move the robot a specified distance and angle
