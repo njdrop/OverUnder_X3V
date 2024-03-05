@@ -12,6 +12,8 @@ using namespace vex;
 competition Competition;
 
 int autonSelect = 0;
+int minRot = 0;
+int maxRot = 240;
 bool usercontrolRunning = false;
 void pre_auton(void)
 {
@@ -21,7 +23,7 @@ void pre_auton(void)
 	while (!Brain.Screen.pressing() && !usercontrolRunning)
 	{	
 		// prints the name of the selected auton on the controller
-		autonSelect = 0;
+		autonSelect = int(floor(autonSelector.angle(deg) / (250.0 / NUMBER_OF_AUTONS)));
 		con.Screen.clearScreen();
 		con.Screen.setCursor(1,1);
 		con.Screen.print(autonRoutesList[autonSelect].name);
@@ -35,6 +37,7 @@ void pre_auton(void)
 
 void autonomous ()
 {
+	// Drive.moveDistance(50, 100, 15);
 	autonRoutesList[autonSelect].routeFunction();
 }
 
@@ -47,7 +50,8 @@ void usercontrol(void)
 	}
 	usercontrolRunning = true;
 
-	toggleBoolObject dropDownToggle (true);
+	toggleBoolObject dropDownToggle (dropDown1.value());
+	toggleBoolObject ptoToggle (false);
 	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - startTime) <= 60000.0)
 	{
 		con.Screen.clearScreen();
@@ -84,11 +88,14 @@ void usercontrol(void)
 			shooter_Group.stop(coast);
 		}
 
+		dropDownToggle.changeValueFromInput(con.ButtonB.pressing());
+		ptoToggle.changeValueFromInput(con.ButtonUp.pressing() && con.ButtonY.pressing());
 
-
-		dropDown2.set(con.ButtonB.pressing());
+		dropDown1.set(dropDownToggle.getValue());
+		dropDown2.set(dropDownToggle.getValue());
 		rightWing.set(con.ButtonR2.pressing());
 		leftWing.set(con.ButtonL2.pressing());
+		pto.set(ptoToggle.getValue());
 
 		wait(10, msec);
 	}

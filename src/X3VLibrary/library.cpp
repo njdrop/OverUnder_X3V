@@ -3,7 +3,7 @@ using namespace vex;
 
 double angularDistanceToLinearDistance(double angularDistance, double diameter, double gearRatio)
 {
-    return angularDistance * M_PI / 180.0 * gearRatio * diameter;
+    return angularDistance * M_PI / 180.0 * gearRatio * (diameter / 2.0);
 }
 
 double clamp(double value, double min, double max) 
