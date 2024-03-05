@@ -29,7 +29,7 @@ void nearSideAWPRoute()
     Drive.turn(-45, 100, 1);
     Drive.turn(-43, 100, 1);
     dropDown1.close();
-    dropDown2.open();
+    dropDown2.close();
     wait(3, sec);
     Drive.moveDistance(41.5, 100, 1.3, true);
     // intakeLift.open();
@@ -77,22 +77,25 @@ void farSideAWPRoute()
 {
    Drive.moveDistance(7,100,.8);
    dropDown1.open();
+   dropDown2.open();
    Drive.moveDistance(13,100,.8);
    Drive.turn(-45,100,1);
    dropDown1.close();
+   dropDown2.close();
    wait(3,sec);
    leftWing.open();
+   rightWing.open();
    wait(.5,sec);
    Drive.moveDistance(1000,100,1);
    Drive.moveDistance(-5,100,1);
    leftWing.close();
+   rightWing.close();
    wait(1,sec);
    Drive.turn(-200,100,1);
    Drive.moveDistance(23,100,1.2);
    Drive.turn(-140,100,1.2);
-   Drive.moveDistance(33,100,1.5);
-//    intakeLift.open();
-
+   Drive.moveDistance(37,100,1.5);
+   intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
 }
 autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 
