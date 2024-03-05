@@ -23,13 +23,13 @@ autonRoute backwardsForwards = {"Backwards Forwards", 0, 0, 0, backwardsForwards
 
 void nearSideAWPRoute()
 {
-    backWings.open();
+    dropDown1.open();
     Drive.turn(-45, 100, 1);
     Drive.turn(-35, 100, 1);
-    backWings.close();
+    dropDown1.close();
     wait(6, sec);
     Drive.moveDistance(33, 100, 1.3, true);
-    intakeLift.open();
+    // intakeLift.open();
     intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
 }
 autonRoute nearSideAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
@@ -37,58 +37,58 @@ autonRoute nearSideAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
 void nearSideRoute()
 {
     Drive.moveDistance(-5,100,.3);
-    backWings.open();
+    dropDown1.open();
     Drive.moveDistance(5,100,.3);
     Drive.turn(-40, 100, .6);
-    backWings.close();
+    dropDown1.close();
     wait(.1,sec);
     Drive.turn(-118,100,.6);
-    intakeLift.open();
+    // intakeLift.open();
     intake_Group.spin(fwd,100,pct);
     Drive.moveDistance(50,80,1.33);
     Drive.turn(-40,100,.7);
-    intakeLift.close();
+    // intakeLift.close();
     intake_Group.spin(fwd,-100,pct);
-    frontWings.open();
+    leftWing.open();
     Drive.moveDistance(23,100,1);
     Drive.moveDistance(-10,100,.7);
-    frontWings.close();
+    leftWing.close();
     Drive.turn(-100,100,1);
     Drive.moveDistance(-50,100,1.7);
     Drive.turn(-15,100,.6);
     Drive.moveDistance(-15,100,.6);
     Drive.turn(45,100,.8);
-    backWings.open();
+    dropDown1.open();
     Drive.moveDistance(-11,100,.4);
-    backWings.close();
+    dropDown1.close();
     Drive.moveDistance(7,100,.5);
     Drive.turn(-5,100,.7);
     Drive.moveDistance(30,100,1);
     Drive.turn(-40,100,.6);
     Drive.moveDistance(22,100,1);
-    intakeLift.open();
+    // intakeLift.open();
 }
 autonRoute nearSide = {"NS Elims", 0, 0, 0, nearSideRoute};
 
 void farSideAWPRoute()
 {
    Drive.moveDistance(7,100,.8);
-   backWings.open();
+   dropDown1.open();
    Drive.moveDistance(13,100,.8);
    Drive.turn(-45,100,1);
-   backWings.close();
+   dropDown1.close();
    wait(3,sec);
-   frontWings.open();
+   leftWing.open();
    wait(.5,sec);
    Drive.moveDistance(1000,100,1);
    Drive.moveDistance(-5,100,1);
-   frontWings.close();
+   leftWing.close();
    wait(1,sec);
    Drive.turn(-200,100,1);
    Drive.moveDistance(23,100,1.2);
    Drive.turn(-140,100,1.2);
    Drive.moveDistance(33,100,1.5);
-   intakeLift.open();
+//    intakeLift.open();
 
 }
 autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
@@ -96,25 +96,25 @@ autonRoute farSideAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 void farSideRoute()
 {
    intake_Group.spin(fwd,100,pct);
-   intakeLift.open();
+//    intakeLift.open();
    wait(.4,sec);
    Drive.moveDistance(-34,100,1);
    Drive.turn(-35,100,.5);
-   backWings.open();
+   dropDown1.open();
    Drive.moveDistance(-17,100,.7);
-   backWings.close();
+   dropDown1.close();
    Drive.turn(-45, 100, 0.6);
    wait(.4,sec);
    Drive.turn(97,100,.9);
-   frontWings.open();
-   intakeLift.close();
+   leftWing.open();
+//    intakeLift.close();
    intake_Group.spin(fwd,-100,pct);
    wait(.3,sec);
    Drive.moveDistance(1000,100,.7);
    Drive.moveDistance(-10,100,.7);
-   intakeLift.open();
+//    intakeLift.open();
    intake_Group.spin(fwd,100,pct);
-   frontWings.close();
+   leftWing.close();
    wait(.3,sec);
    Drive.turn(17,100,.6);
    Drive.moveDistance(46,100,1.4);
@@ -122,18 +122,18 @@ void farSideRoute()
    Drive.moveDistance(14,100,.6);
    Drive.turn(180,100,.7);
    intake_Group.spin(fwd,-100,pct);
-   frontWings.open();
-   intakeLift.close();
+   leftWing.open();
+//    intakeLift.close();
    intake_Group.spin(fwd,-100,pct);
    Drive.moveDistance(1000,100,.8);
-   frontWings.close();
-   intakeLift.open();
+   leftWing.close();
+//    intakeLift.open();
    Drive.turn(19,100,1.2 );
    intake_Group.spin(fwd,100,pct);
    Drive.moveDistance(20,100,.9);
-   frontWings.open();
+   leftWing.open();
    Drive.turn(180,100,.8);
-   intakeLift.close();
+//    intakeLift.close();
    Drive.moveDistance(100000,100,1);
 }
 
@@ -148,7 +148,7 @@ void driverSkillsRoute()
     Drive.turn(-50, 100, 0.5);
     Drive.moveDistance(-1000, 100, 0.3, true);
     Drive.turn(-65, 100, 0.5);
-    backWings.open();
+    dropDown1.open();
     wait(100, msec);
 }
 autonRoute driverSkills = {"Driver Skills", 0, 0, 0, driverSkillsRoute};
@@ -163,7 +163,7 @@ void autonSkillsRoute()
         shooter_Group.spin(fwd, 7000, vex::voltageUnits::mV);
     }
     shooter_Group.stop(coast);
-    backWings.close();
+    dropDown1.close();
     wait(200, msec);
     Drive.turn(0, 100, 0.45);
     Drive.moveDistance(25, 100, 0.85, true);
@@ -178,16 +178,16 @@ void autonSkillsRoute()
     Drive.turn(-185, 100, 0.9);
     Drive.moveDistance(45, 100, 1, true);
     Drive.turn(-235, 100, 0.8);
-    backWings.open();
+    dropDown1.open();
     Drive.moveDistance(-1000, 100, 1, true);
-    backWings.close();
+    dropDown1.close();
     Drive.moveDistance(20, 100, 1, true);
     Drive.turn(-165, 100, 0.5);
     Drive.moveDistance(15, 100, 0.6, true);
     Drive.turn(-235, 100, 0.5);
-    backWings.open();
+    dropDown1.open();
     Drive.moveDistance(-1000, 100, 1, true);
     Drive.moveDistance(10, 100, 0.2, true);
-    backWings.close();
+    dropDown1.close();
 }
 autonRoute autonSkills = {"Skills", 0, 0, 0, autonSkillsRoute};

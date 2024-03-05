@@ -18,35 +18,19 @@ void pre_auton(void)
 	// calibrate the inertial sensor
 	driveInertial.calibrate();
 	//  tracks the first loop that the button has been held
-	bool firstButtonPress = true;
 	while (!Brain.Screen.pressing() && !usercontrolRunning)
-	{
-		if (autonSelectorSwitch.pressing())
-		{
-			// ensure autonSelect is only incremented once per button press
-			if (firstButtonPress)
-			{
-				// increment the value wrapping at 10
-				autonSelect = (autonSelect + 1) % NUMBER_OF_AUTONS;
-				// record that the first loop has now happened
-				firstButtonPress = false;
-			}
-			// on all other loops while the button is pressed nothing will happen
-		}
-		else
-		{
-			// once released, a new button press can increment the autonSelect
-			firstButtonPress = true;
-		}
-		
+	{	
 		// prints the name of the selected auton on the controller
+		autonSelect = 0;
 		con.Screen.clearScreen();
 		con.Screen.setCursor(1,1);
 		con.Screen.print(autonRoutesList[autonSelect].name);
 		Brain.Screen.clearScreen();
 		Brain.Screen.printAt(69, 69, autonRoutesList[autonSelect].name);
-		wait(100, msec);
+		wait(50, msec);
 	}
+	con.Screen.clearScreen();
+	Brain.Screen.clearScreen();
 }
 
 void autonomous ()
@@ -62,10 +46,8 @@ void usercontrol(void)
 		driverSkills.routeFunction();
 	}
 	usercontrolRunning = true;
-	toggleBoolObject frontWingsToggle(frontWings.value());
-	toggleBoolObject backWingsToggle(backWings.value());
-	toggleBoolObject liftToggle(lift.value());
-	toggleBoolObject intakeLiftToggle(intakeLift.value());
+
+	toggleBoolObject dropDownToggle (dropDown1.value());
 	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - startTime) <= 60000.0)
 	{
 		con.Screen.clearScreen();
@@ -79,56 +61,11 @@ void usercontrol(void)
 		Drive.runLeftSide(nearbyint(leftStickY));
 		// runs the 2 right side drive motors at right stick value
 		Drive.runRightSide(nearbyint(rightStickY));		
-		
-		frontWingsToggle.changeValueFromInput(con.ButtonX.pressing());
-		backWingsToggle.changeValueFromInput(con.ButtonB.pressing());
-		liftToggle.changeValueFromInput(con.ButtonUp.pressing());
-		
-		if (con.ButtonUp.pressing())
-		{
-			intakeLiftToggle.setValue(true);
-		}
+		dropDownToggle.changeValueFromInput(con.ButtonB.pressing());
 
-		if(con.ButtonR2.pressing())
-		{
-			intakeLiftToggle.setValue(false);
-			backWingsToggle.setValue(false);
-		}
-
-		if (con.ButtonL2.pressing())
-		{
-			shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
-		}
-		else if (con.ButtonDown.pressing())
-		{
-			shooter_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-		}
-		else
-		{
-			shooter_Group.stop(coast);
-		}
-
-
-		if (con.ButtonR1.pressing())
-		{
-			intakeLiftToggle.setValue(true);
-			intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-		}
-		else if (con.ButtonL1.pressing())
-		{
-			intakeLiftToggle.setValue(true);
-			intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-		}
-		else
-		{
-			intake_Group.stop(coast);
-		}
-
-		
-		frontWings.set(frontWingsToggle.getValue());
-		backWings.set(backWingsToggle.getValue());
-		intakeLift.set(intakeLiftToggle.getValue());
-		lift.set(liftToggle.getValue());
+		dropDown1.set(dropDownToggle.getValue());
+		rightWing.set(con.ButtonR2.pressing());
+		leftWing.set(con.ButtonL2.pressing());
 
 		wait(10, msec);
 	}
