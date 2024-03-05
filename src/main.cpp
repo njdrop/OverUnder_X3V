@@ -47,7 +47,7 @@ void usercontrol(void)
 	}
 	usercontrolRunning = true;
 
-	toggleBoolObject dropDownToggle (dropDown1.value());
+	toggleBoolObject dropDownToggle (true);
 	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - startTime) <= 60000.0)
 	{
 		con.Screen.clearScreen();
@@ -61,9 +61,32 @@ void usercontrol(void)
 		Drive.runLeftSide(nearbyint(leftStickY));
 		// runs the 2 right side drive motors at right stick value
 		Drive.runRightSide(nearbyint(rightStickY));		
-		dropDownToggle.changeValueFromInput(con.ButtonB.pressing());
 
-		dropDown1.set(dropDownToggle.getValue());
+		if (con.ButtonR1.pressing())
+		{
+			intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+		}
+		else if (con.ButtonL1.pressing())
+		{
+			intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+		}
+		else
+		{
+			intake_Group.stop(coast);
+		}
+
+		if (con.ButtonDown.pressing())
+		{
+			shooter_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+		}
+		else
+		{
+			shooter_Group.stop(coast);
+		}
+
+
+
+		dropDown2.set(con.ButtonB.pressing());
 		rightWing.set(con.ButtonR2.pressing());
 		leftWing.set(con.ButtonL2.pressing());
 

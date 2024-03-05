@@ -17,14 +17,14 @@ vex::motor intake (PORT16, ratio18_1, true);
 vex::motor kicker1 (PORT14, ratio18_1, true);
 vex::motor kicker2 (PORT17, ratio18_1, false);
 // pneumatics
-vex::pneumatics leftWing (Brain.ThreeWirePort.D);
-vex::pneumatics rightWing (Brain.ThreeWirePort.E);
+vex::pneumatics leftWing (Brain.ThreeWirePort.E);
+vex::pneumatics rightWing (Brain.ThreeWirePort.F);
 vex::pneumatics dropDown1 (Brain.ThreeWirePort.G);
 vex::pneumatics dropDown2 (Brain.ThreeWirePort.H);
 // sensors
 vex::inertial inertialSensorMain (PORT4);
 vex::inertial inertialSensorBackup (PORT7);
-vex::limit autonSelectorSwitch (Brain.ThreeWirePort.H);
+vex::limit autonSelectorSwitch (Brain.ThreeWirePort.A);
 // vision
 // vision::signature TRIBALL (1, -6037, -4939, -5488, -4991, -3223, -4106, 4.200, 0);
 // vex::vision visionSensor (vex::PORT6, 84, TRIBALL);
