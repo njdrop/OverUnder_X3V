@@ -97,7 +97,31 @@ class drivetrainObj
          * @param timeout The maximum time to allow for the movement. (seconds)
          * @param correctHeading Indicates whether to correct the heading during movement.
          */
-        void moveDistance(double targetDistance, double maxSpeed, double timeout, bool correctHeading = true);
+        void moveDistance(double targetDistance);
+        void moveDistance(double targetDistance, double maxSpeed);
+        void moveDistance(double targetDistance, double maxSpeed, double timeout);
+        void moveDistance(double targetDistance, double maxSpeed, double timeout, bool correctHeading);
+
+        /**
+         * @brief Drives a straight path to a target x position
+         * 
+         * @param targetX  The distance to move. (inches)
+         * @param maxSpeed The maximum speed to use. (pct 0-100)
+         * @param timeout The maximum time to allow for the movement. (seconds)
+         */
+        void moveToX(double targetX);
+        void moveToX(double targetX, double maxSpeed);
+        void moveToX(double targetX, double maxSpeed, double timeout);
+
+        /**
+         * @brief move the robot a specified distance and angle
+         * 
+         * @param targetDistance The distance to move. (inches)
+         * @param maxSpeed The maximum speed to use. (pct 0-100)
+         * @param angle absolute field-centric rotation to swing to during movement (degrees)
+         * @param timeout The maximum time to allow for the movement. (seconds)
+         */
+        void swing(double targetDistance, double maxSpeed, double targetAngle, double timeout);
 
         /**
          * @brief Turns the robot to a specified angle.
@@ -106,6 +130,7 @@ class drivetrainObj
          * @param timeout The maximum time to allow for the turn. (seconds)
          */
         void turn(double targetAngle, double maxSpeed, double timeout);
+        void turn(double targetAngle, double maxSpeed);
 
         /**
          * @brief enables the task to track the position of the object

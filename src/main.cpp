@@ -81,15 +81,20 @@ void usercontrol(void)
 
 		if (con.ButtonDown.pressing())
 		{
-			shooter_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+			shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
 		}
 		else
 		{
 			shooter_Group.stop(coast);
 		}
 
+		if (con.ButtonUp.pressing() && con.ButtonX.pressing())
+		{
+			hangRelease.open();
+		}
+
 		dropDownToggle.changeValueFromInput(con.ButtonB.pressing());
-		ptoToggle.changeValueFromInput(con.ButtonUp.pressing() && con.ButtonY.pressing());
+		ptoToggle.changeValueFromInput(con.ButtonRight.pressing() && con.ButtonY.pressing());
 
 		dropDown1.set(dropDownToggle.getValue());
 		dropDown2.set(dropDownToggle.getValue());
