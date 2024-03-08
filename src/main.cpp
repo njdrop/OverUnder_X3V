@@ -37,8 +37,9 @@ void pre_auton(void)
 
 void autonomous ()
 {
-	// Drive.moveDistance(50, 100, 15);
+	int startTime = vex::timer::system();
 	autonRoutesList[autonSelect].routeFunction();
+	printf("%lu\n", vex::timer::system() - startTime);
 }
 
 

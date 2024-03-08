@@ -32,6 +32,7 @@ extern  autonRoute      nearSideAWP;
 extern  autonRoute      nearSide;
 extern  autonRoute      farSideAWP;
 extern  autonRoute      farSide;
+extern  autonRoute      sixBallMidRush;
 extern  autonRoute      autonSkills;
 extern  autonRoute      driverSkills;
 

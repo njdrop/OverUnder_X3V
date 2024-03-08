@@ -65,7 +65,7 @@ autonRoute autonRoutesList[]
 	forwardsBackwards,
 	backwardsForwards,
 	farSideAWP,
-	farSide,
+	sixBallMidRush,
 	nearSideAWP,
 	nearSide,
 	autonSkills,
