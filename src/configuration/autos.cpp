@@ -9,13 +9,16 @@ autonRoute doNothing = {"Do Nothing", 0, 0, 0, doNothingRoute};
 
 void forwardsBackwardsRoute()
 {
+    // drive forwards 25 inches
     Drive.moveDistance(25, 100, 1, true);
+    // drive backwards 25 inches
     Drive.moveDistance(-25, 100, 1, true);
 }
 autonRoute forwardsBackwards = {"Forwards Backwards", 0, 0, 0, forwardsBackwardsRoute};
 
 void backwardsForwardsRoute()
 {
+    // same thing as forwardsBackwardsRoute() but in reverse
     Drive.moveDistance(-25, 100, 1, true);
     Drive.moveDistance(25, 100, 1, true);
 }
@@ -23,15 +26,23 @@ autonRoute backwardsForwards = {"Backwards Forwards", 0, 0, 0, backwardsForwards
 
 void nearSideAWPRoute()
 {
+    // open the back wing to get the match load triball out
     dropDown1.open();
     dropDown2.open();
+    // make sure the backwing has time to fully open
     wait(0.5, sec);
+    // turn to the left to flick the triball out of the matchloader
     Drive.turn(-45, 100, 1);
+    // put the dropdowns back up
     dropDown1.close();
     dropDown2.close();
+    // turn down the alleyway to face the hang bar
     Drive.turn(-43, 100, 1);
+    // wait to allow the matchload triball to roll infront of the robot to get an extra triball acrossed
     wait(3, sec);
+    // drive throught the alleyway and touch bar with the ziptie on the intake
     Drive.moveDistance(41.5, 100, 1.3, true);
+    // spin the intake out to push the triball that starts under the hang bar across
     intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
 }
 autonRoute nearSideAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
