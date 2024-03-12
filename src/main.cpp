@@ -11,9 +11,10 @@
 using namespace vex;
 competition Competition;
 
+// integer used to choose the correct auton route from the array
 int autonSelect = 0;
-int minRot = 0;
-int maxRot = 240;
+// booling to turn off preauton once drive control starts
+
 bool usercontrolRunning = false;
 void pre_auton(void)
 {
@@ -22,13 +23,14 @@ void pre_auton(void)
 	//  tracks the first loop that the button has been held
 	while (!Brain.Screen.pressing() && !usercontrolRunning)
 	{	
-		// prints the name of the selected auton on the controller
 		autonSelect = int(floor(autonSelector.angle(deg) / (250.0 / NUMBER_OF_AUTONS)));
+		// prints the name of the selected auton on the controller
 		con.Screen.clearScreen();
 		con.Screen.setCursor(1,1);
 		con.Screen.print(autonRoutesList[autonSelect].name);
+		// prints the name of the selected auton on the brain
 		Brain.Screen.clearScreen();
-		Brain.Screen.printAt(69, 69, autonRoutesList[autonSelect].name);
+		Brain.Screen.printAt(1, 1, autonRoutesList[autonSelect].name);
 		wait(50, msec);
 	}
 	con.Screen.clearScreen();
@@ -38,6 +40,7 @@ void pre_auton(void)
 void autonomous ()
 {
 	int startTime = vex::timer::system();
+	// run the route function of the auton selected from the array
 	autonRoutesList[autonSelect].routeFunction();
 	printf("%lu\n", vex::timer::system() - startTime);
 }
@@ -46,18 +49,25 @@ void autonomous ()
 void usercontrol(void)
 {
 	int startTime = vex::timer::system();
+	
 	if (autonRoutesList[autonSelect].name == driverSkills.name) {
+		// if driver skills was the selected auton first run the driveskill route if one exists
 		driverSkills.routeFunction();
 	}
 	usercontrolRunning = true;
 
+	// initalize objects to control the wings and pto
 	toggleBoolObject dropDownToggle (dropDown1.value());
 	toggleBoolObject ptoToggle (false);
+
+	// if driverskills is selected automaticly terminate uercontrol after 60 seconds, otherwise this will never exit
 	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - startTime) <= 60000.0)
 	{
+		// print the current time to the screen
 		con.Screen.clearScreen();
 		con.Screen.setCursor(1,1);
 		con.Screen.print((vex::timer::system() - startTime) / 1000);
+
 		// records the value of the left stick
 		double leftStickY = con.Axis3.value() * 100;
 		// records the value of the right stick
@@ -67,6 +77,7 @@ void usercontrol(void)
 		// runs the 2 right side drive motors at right stick value
 		Drive.runRightSide(nearbyint(rightStickY));		
 
+		// intake controls
 		if (con.ButtonR1.pressing())
 		{
 			intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
@@ -80,7 +91,8 @@ void usercontrol(void)
 			intake_Group.stop(coast);
 		}
 
-		if (con.ButtonDown.pressing())
+		// kicker controls
+		if (con.ButtonRight.pressing())
 		{
 			shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
 		}
@@ -89,14 +101,17 @@ void usercontrol(void)
 			shooter_Group.stop(coast);
 		}
 
+		// button to release the hang mechanism
 		if (con.ButtonUp.pressing() && con.ButtonX.pressing())
 		{
 			hangRelease.open();
 		}
 
-		dropDownToggle.changeValueFromInput(con.ButtonB.pressing());
+		// check controller input to toggle values for wings and pto
+		dropDownToggle.changeValueFromInput(con.ButtonY.pressing());
 		ptoToggle.changeValueFromInput(con.ButtonRight.pressing() && con.ButtonY.pressing());
 
+		// set all pnematics to their desired states
 		dropDown1.set(dropDownToggle.getValue());
 		dropDown2.set(dropDownToggle.getValue());
 		rightWing.set(con.ButtonR2.pressing());
