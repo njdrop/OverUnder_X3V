@@ -317,6 +317,10 @@ void autonSkillsRoute()
 void driverSkillsRoute()
 {
     SkillsSetupRoute();
+    shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
+    Drive.turn(-64, 50, 5);
+    Drive.turn(-63, 50, 5);
+    Drive.turn(-62, 50, 5);
 }
 
 autonRoute driverSkills = {"Driver Skills", 0, 0, 0, driverSkillsRoute};
