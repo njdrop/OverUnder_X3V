@@ -319,5 +319,5 @@ void driverSkillsRoute()
     SkillsSetupRoute();
 }
 
-autonRoute driverSkills = {"Driver Skills", 0, 0, 0, autonSkillsRoute};
+autonRoute driverSkills = {"Driver Skills", 0, 0, 0, driverSkillsRoute};
 autonRoute autonSkills = {"Skills", 0, 0, 0, autonSkillsRoute};

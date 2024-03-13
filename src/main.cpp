@@ -48,20 +48,22 @@ void autonomous ()
 
 void usercontrol(void)
 {
-	int startTime = vex::timer::system();
-	
-	if (autonRoutesList[autonSelect].name == driverSkills.name) {
-		// if driver skills was the selected auton first run the driveskill route if one exists
-		driverSkills.routeFunction();
-	}
 	usercontrolRunning = true;
-
+	
 	// initalize objects to control the wings and pto
 	toggleBoolObject dropDownToggle (dropDown1.value());
 	toggleBoolObject ptoToggle (false);
 
+	int startTime = vex::timer::system();
+	if (autonRoutesList[autonSelect].name == driverSkills.name) 
+	{
+		// if driver skills was the selected auton first run the driveskill route if one exists
+		driverSkills.routeFunction();
+	}
+
+
 	// if driverskills is selected automaticly terminate uercontrol after 60 seconds, otherwise this will never exit
-	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - startTime) <= 60000.0)
+	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - startTime) <= 60000)
 	{
 		// print the current time to the screen
 		con.Screen.clearScreen();
@@ -94,7 +96,7 @@ void usercontrol(void)
 		// kicker controls
 		if (con.ButtonRight.pressing())
 		{
-			shooter_Group.spin(fwd, 8000, vex::voltageUnits::mV);
+			shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
 		}
 		else
 		{
@@ -109,7 +111,7 @@ void usercontrol(void)
 
 		// check controller input to toggle values for wings and pto
 		dropDownToggle.changeValueFromInput(con.ButtonY.pressing());
-		ptoToggle.changeValueFromInput(con.ButtonRight.pressing() && con.ButtonY.pressing());
+		ptoToggle.changeValueFromInput(con.ButtonDown.pressing() && con.ButtonB.pressing());
 
 		// set all pnematics to their desired states
 		dropDown1.set(dropDownToggle.getValue());
