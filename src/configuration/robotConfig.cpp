@@ -7,25 +7,26 @@ using namespace vex;
 vex::brain Brain;
 vex::controller con;
 // motors
-vex::motor leftMotor1 (PORT1, ratio6_1, true);
-vex::motor leftMotor2 (PORT2, ratio6_1, true);
-vex::motor leftMotor3 (PORT3, ratio6_1, true);
-vex::motor rightMotor1 (PORT8, ratio6_1, false);
-vex::motor rightMotor2 (PORT9, ratio6_1, false);
-vex::motor rightMotor3 (PORT10, ratio6_1, false);
+vex::motor leftMotor1 (PORT20, ratio6_1, true);
+vex::motor leftMotor2 (PORT19, ratio6_1, true);
+vex::motor leftMotor3 (PORT18, ratio6_1, true);
+vex::motor rightMotor1 (PORT11, ratio6_1, false);
+vex::motor rightMotor2 (PORT12, ratio6_1, false);
+vex::motor rightMotor3 (PORT13, ratio6_1, false);
 vex::motor intake (PORT16, ratio18_1, true);
-vex::motor kicker1 (PORT18, ratio18_1, true);
-vex::motor kicker2 (PORT19, ratio18_1, true);
+vex::motor kicker1 (PORT14, ratio18_1, true);
+vex::motor kicker2 (PORT17, ratio18_1, false);
 // pneumatics
-vex::pneumatics intakeLift (Brain.ThreeWirePort.D);
-vex::pneumatics lift (Brain.ThreeWirePort.B);
-vex::pneumatics frontLeftWing (Brain.ThreeWirePort.G);
-vex::pneumatics frontRightWing (Brain.ThreeWirePort.A);
-vex::pneumatics backWings (Brain.ThreeWirePort.C);
+vex::pneumatics pto (Brain.ThreeWirePort.C);
+vex::pneumatics hangRelease (Brain.ThreeWirePort.D);
+vex::pneumatics leftWing (Brain.ThreeWirePort.E);
+vex::pneumatics rightWing (Brain.ThreeWirePort.F);
+vex::pneumatics dropDown1 (Brain.ThreeWirePort.G);
+vex::pneumatics dropDown2 (Brain.ThreeWirePort.H);
 // sensors
-vex::inertial inertialSensorMain (PORT4);//4
-vex::inertial inertialSensorBackup (PORT7);//7
-vex::limit autonSelectorSwitch (Brain.ThreeWirePort.H);
+vex::inertial inertialSensorMain (PORT10);
+vex::inertial inertialSensorBackup (PORT1);
+vex::pot autonSelector (Brain.ThreeWirePort.B);
 // vision
 // vision::signature TRIBALL (1, -6037, -4939, -5488, -4991, -3223, -4106, 4.200, 0);
 // vex::vision visionSensor (vex::PORT6, 84, TRIBALL);
@@ -34,7 +35,7 @@ vex::limit autonSelectorSwitch (Brain.ThreeWirePort.H);
 // Robot Parameter Definitions //
 //*****************************//
 double DRIVE_WHEEL_DIAMETER = 2.75;
-double DRIVE_GEAR_RATIO = 0.75;
+double DRIVE_GEAR_RATIO = 1.0;
 double MAX_MOTOR_VOLTAGE = 12000;
 
 //*************************//
@@ -61,14 +62,14 @@ vex::motor_group intake_Group = motor_group(intake);
 autonRoute autonRoutesList[] 
 {
 	doNothing,
+	forwardsBackwards,
+	backwardsForwards,
 	farSideAWP,
+	sixBallMidRush,
 	nearSideAWP,
-	farSide,
 	nearSide,
 	autonSkills,
 	driverSkills,
-	forwardsBackwards,
-	backwardsForwards,
 };
 
 int NUMBER_OF_AUTONS = 9;

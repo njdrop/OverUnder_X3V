@@ -97,8 +97,6 @@ class drivetrainObj
          * @param timeout The maximum time to allow for the movement. (seconds)
          * @param correctHeading Indicates whether to correct the heading during movement.
          */
-        void moveDistance(double targetDistance);
-        void moveDistance(double targetDistance, double maxSpeed);
         void moveDistance(double targetDistance, double maxSpeed, double timeout);
         void moveDistance(double targetDistance, double maxSpeed, double timeout, bool correctHeading);
 
