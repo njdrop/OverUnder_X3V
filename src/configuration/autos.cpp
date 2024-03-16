@@ -57,7 +57,7 @@ void nearSideRoute()
     dropDown1.close();
     wait(.1, sec);
     // turn to middle triball and grab it
-    Drive.turn(-114, 100, .6);
+    Drive.turn(-116, 100, .75);
     intake_Group.spin(fwd, 100, pct);
     Drive.moveDistance(52, 80, 1.33);
     // turn to barrier triball and push both over
@@ -70,18 +70,18 @@ void nearSideRoute()
     Drive.moveDistance(-12, 100, .7);
     // turn and go back to the match load area
     Drive.turn(-102, 100, 1);
-    Drive.moveDistance(-52, 100, 1.7);
+    Drive.moveDistance(-53, 100, 1.7);
     // turn to push the allience triball into the goal
     Drive.turn(-20, 100, .6);
-    Drive.moveDistance(-15, 100, .6);
-    Drive.turn(45, 100, .8);
-    Drive.moveDistance(-13, 100, .4);
+    Drive.moveDistance(-16, 100, .6);
+    Drive.turn(40, 100, .8);
+    Drive.moveDistance(-15, 100, .4);
     // go back towards alley way and push 2 more triaball to the other side
-    Drive.moveDistance(9, 100, .5);
+    Drive.moveDistance(8, 100, .5);
     Drive.turn(-5, 100, .7);
-    Drive.moveDistance(29, 100, 1);
+    Drive.moveDistance(25, 100, 1);
     Drive.turn(-40, 100, .6);
-    Drive.moveDistance(23, 100, 1);
+    Drive.moveDistance(28, 100, 1);
     // intakeLift.open();
 }
 autonRoute nearSide = {"NS Elims", 0, 0, 0, nearSideRoute};

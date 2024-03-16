@@ -39,7 +39,7 @@ void pre_auton(void)
 		con.Screen.print(int((rightMotor1.temperature(fahrenheit) + rightMotor2.temperature(fahrenheit) + rightMotor3.temperature(fahrenheit)) / 3));
 		// prints the name of the selected auton on the brain
 		Brain.Screen.clearScreen();
-		Brain.Screen.printAt(1, 1, autonRoutesList[autonSelect].name);
+		Brain.Screen.printAt(3, 3, autonRoutesList[autonSelect].name);
 		wait(200, msec);
 	}
 	con.Screen.clearScreen();
