@@ -16,22 +16,31 @@ int autonSelect = 0;
 // booling to turn off preauton once drive control starts
 
 bool usercontrolRunning = false;
+int usercontrolStartTime = 0;
 void pre_auton(void)
 {
 	// calibrate the inertial sensor
 	driveInertial.calibrate();
 	//  tracks the first loop that the button has been held
-	while (!Brain.Screen.pressing() && !usercontrolRunning)
+	while (true)
 	{	
 		autonSelect = int(floor(autonSelector.angle(deg) / (250.0 / NUMBER_OF_AUTONS)));
 		// prints the name of the selected auton on the controller
-		con.Screen.clearScreen();
-		con.Screen.setCursor(1,1);
+		con.Screen.setCursor(1, 1);
+		con.Screen.clearLine(1);
+		con.Screen.print((vex::timer::system() - usercontrolStartTime) / 1000);
+		con.Screen.setCursor(1, 20);
+		con.Screen.print(int((leftMotor1.temperature(fahrenheit) + leftMotor2.temperature(fahrenheit) + leftMotor3.temperature(fahrenheit)) / 3));
+
+		con.Screen.setCursor(2,1);
+		con.Screen.clearLine(2);
 		con.Screen.print(autonRoutesList[autonSelect].name);
+		con.Screen.setCursor(2, 20);
+		con.Screen.print(int((rightMotor1.temperature(fahrenheit) + rightMotor2.temperature(fahrenheit) + rightMotor3.temperature(fahrenheit)) / 3));
 		// prints the name of the selected auton on the brain
 		Brain.Screen.clearScreen();
 		Brain.Screen.printAt(1, 1, autonRoutesList[autonSelect].name);
-		wait(50, msec);
+		wait(200, msec);
 	}
 	con.Screen.clearScreen();
 	Brain.Screen.clearScreen();
@@ -54,7 +63,7 @@ void usercontrol(void)
 	toggleBoolObject dropDownToggle (dropDown1.value());
 	toggleBoolObject ptoToggle (false);
 
-	int startTime = vex::timer::system();
+	usercontrolStartTime = vex::timer::system();
 	if (autonRoutesList[autonSelect].name == driverSkills.name) 
 	{
 		// if driver skills was the selected auton first run the driveskill route if one exists
@@ -63,13 +72,8 @@ void usercontrol(void)
 
 
 	// if driverskills is selected automaticly terminate uercontrol after 60 seconds, otherwise this will never exit
-	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - startTime) <= 60000)
+	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - usercontrolStartTime) <= 60000)
 	{
-		// print the current time to the screen
-		con.Screen.clearScreen();
-		con.Screen.setCursor(1,1);
-		con.Screen.print((vex::timer::system() - startTime) / 1000);
-
 		// records the value of the left stick
 		double leftStickY = con.Axis3.value() * 100;
 		// records the value of the right stick

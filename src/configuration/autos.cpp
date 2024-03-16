@@ -49,36 +49,39 @@ autonRoute nearSideAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
 
 void nearSideRoute()
 {
+    // push triball out of match loader
     Drive.moveDistance(-5, 100, .3);
     dropDown1.open();
     Drive.moveDistance(5, 100, .3);
     Drive.turn(-40, 100, .6);
     dropDown1.close();
     wait(.1, sec);
-    Drive.turn(-118, 100, .6);
-    // intakeLift.open();
+    // turn to middle triball and grab it
+    Drive.turn(-114, 100, .6);
     intake_Group.spin(fwd, 100, pct);
-    Drive.moveDistance(50, 80, 1.33);
+    Drive.moveDistance(52, 80, 1.33);
+    // turn to barrier triball and push both over
     Drive.turn(-40, 100, .7);
-    // intakeLift.close();
     intake_Group.spin(fwd, -100, pct);
     leftWing.open();
-    Drive.moveDistance(23, 100, 1);
-    Drive.moveDistance(-10, 100, .7);
+    Drive.moveDistance(28, 100, 1);
+    // back away from barrier
     leftWing.close();
-    Drive.turn(-100, 100, 1);
-    Drive.moveDistance(-50, 100, 1.7);
-    Drive.turn(-15, 100, .6);
+    Drive.moveDistance(-12, 100, .7);
+    // turn and go back to the match load area
+    Drive.turn(-102, 100, 1);
+    Drive.moveDistance(-52, 100, 1.7);
+    // turn to push the allience triball into the goal
+    Drive.turn(-20, 100, .6);
     Drive.moveDistance(-15, 100, .6);
     Drive.turn(45, 100, .8);
-    dropDown1.open();
-    Drive.moveDistance(-11, 100, .4);
-    dropDown1.close();
-    Drive.moveDistance(7, 100, .5);
+    Drive.moveDistance(-13, 100, .4);
+    // go back towards alley way and push 2 more triaball to the other side
+    Drive.moveDistance(9, 100, .5);
     Drive.turn(-5, 100, .7);
-    Drive.moveDistance(30, 100, 1);
+    Drive.moveDistance(29, 100, 1);
     Drive.turn(-40, 100, .6);
-    Drive.moveDistance(22, 100, 1);
+    Drive.moveDistance(23, 100, 1);
     // intakeLift.open();
 }
 autonRoute nearSide = {"NS Elims", 0, 0, 0, nearSideRoute};
