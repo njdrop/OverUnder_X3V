@@ -174,7 +174,7 @@ void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetA
 void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 {
     // initalize object for PID control
-    MiniPID angleControl(300, 3, 3000);
+    MiniPID angleControl(350, 40, 5000);
     // configure PID controller
     angleControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     angleControl.setMaxIOutput(0);
@@ -191,9 +191,9 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 
         // only introduce the integral portion of the PID if the robot is within 5 degrees of the target
         // this helps to prevent overshoot and integral windup
-        if (fabs(targetAngle - actualAngle) < 5)
+        if (fabs(targetAngle - actualAngle) < 3)
         {
-            angleControl.setMaxIOutput(2000);
+            angleControl.setMaxIOutput(4000);
         }
         // set the motors to the desired speed
         runLeftSide(output);
@@ -202,6 +202,7 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
     }
     stopLeftSide(vex::brakeType::coast);
     stopRightSide(vex::brakeType::coast);
+    printf("%f\n", targetAngle - inertialSensorMain.rotation(deg));
 }
 
 void drivetrainObj::startTracking()
