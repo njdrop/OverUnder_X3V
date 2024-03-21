@@ -265,7 +265,7 @@ autonRoute farSideElims = {"FS Elims", 0, 0, 0, farSideRoute};
 
 void SkillsSetupRoute()
 {
-    // int startTime = vex::timer::system();
+    int startTime = vex::timer::system();
     Drive.turn(10, 100, 0.3);
     Drive.moveDistance(-22, 100, 0.75);
     Drive.turn(47, 100, 0.5);
@@ -281,7 +281,7 @@ void SkillsSetupRoute()
 
 void SkillsSetupRoute2()
 {
-    // int startTime = vex::timer::system();
+    int startTime = vex::timer::system();
     Drive.turn(20, 100, 0.5);
     Drive.moveDistance(-14, 100, 0.75);
     Drive.turn(-63, 100, 0.5);
