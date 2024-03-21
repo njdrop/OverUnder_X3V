@@ -276,27 +276,13 @@ void SkillsSetupRoute()
     Drive.moveDistance(-7, 100, 0.3);
     Drive.turn(-63, 100, 0.4);
     dropDown.open();
-    //printf("%lu   ", vex::timer::system() - startTime);
+    printf("%lu   ", vex::timer::system() - startTime);
 }
-
-void SkillsSetupRoute2()
-{
-    int startTime = vex::timer::system();
-    Drive.turn(20, 100, 0.5);
-    Drive.moveDistance(-14, 100, 0.75);
-    Drive.turn(-63, 100, 0.5);
-    Drive.moveDistance(-5, 100, .5);
-    dropDown.open();
-    printf("%f\n", inertialSensorMain.rotation(deg));
-    //printf("%lu   ", vex::timer::system() - startTime);
-}
-
 
 void autonSkillsRoute()
 {
     // run the inital setup route for skills
-    SkillsSetupRoute2(); // 4.45 seconds
-    wait(1000, sec);
+    SkillsSetupRoute(); // 4.45 seconds
     // shoot for 28 seconds
     int startTime = vex::timer::system();
     shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
