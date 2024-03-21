@@ -24,22 +24,27 @@ void pre_auton(void)
 	//  tracks the first loop that the button has been held
 	while (true)
 	{	
-		autonSelect = int(floor(autonSelector.angle(deg) / (250.0 / NUMBER_OF_AUTONS)));
+		autonSelect = int(floor(autonSelector.angle(deg) / (255.0 / NUMBER_OF_AUTONS)));
 		// prints the name of the selected auton on the controller
-		con.Screen.setCursor(1, 1);
 		con.Screen.clearLine(1);
+		con.Screen.setCursor(1, 1);
 		con.Screen.print((vex::timer::system() - usercontrolStartTime) / 1000);
 		con.Screen.setCursor(1, 20);
 		con.Screen.print(int((leftMotor1.temperature(fahrenheit) + leftMotor2.temperature(fahrenheit) + leftMotor3.temperature(fahrenheit)) / 3));
 
-		con.Screen.setCursor(2,1);
 		con.Screen.clearLine(2);
+		con.Screen.setCursor(2,1);
 		con.Screen.print(autonRoutesList[autonSelect].name);
 		con.Screen.setCursor(2, 20);
 		con.Screen.print(int((rightMotor1.temperature(fahrenheit) + rightMotor2.temperature(fahrenheit) + rightMotor3.temperature(fahrenheit)) / 3));
+
+		con.Screen.clearLine(3);
+		con.Screen.setCursor(3,20);
+		con.Screen.print(int(Brain.Battery.capacity(pct)));
+		
 		// prints the name of the selected auton on the brain
 		Brain.Screen.clearScreen();
-		Brain.Screen.printAt(3, 3, autonRoutesList[autonSelect].name);
+		Brain.Screen.printAt(10, 30, autonRoutesList[autonSelect].name);
 		wait(200, msec);
 	}
 	con.Screen.clearScreen();
@@ -60,11 +65,11 @@ void usercontrol(void)
 	usercontrolRunning = true;
 	
 	// initalize objects to control the wings and pto
-	toggleBoolObject dropDownToggle (dropDown1.value());
+	toggleBoolObject dropDownToggle (dropDown.value());
 	toggleBoolObject ptoToggle (false);
 
 	usercontrolStartTime = vex::timer::system();
-	if (autonRoutesList[autonSelect].name == driverSkills.name) 
+	if (autonRoutesList[autonSelect].name == autonSkills.name) 
 	{
 		// if driver skills was the selected auton first run the driveskill route if one exists
 		driverSkills.routeFunction();
@@ -72,7 +77,7 @@ void usercontrol(void)
 
 
 	// if driverskills is selected automaticly terminate uercontrol after 60 seconds, otherwise this will never exit
-	while (!(autonRoutesList[autonSelect].name == driverSkills.name) || (vex::timer::system() - usercontrolStartTime) <= 60000)
+	while (!(autonRoutesList[autonSelect].name == autonSkills.name) || (vex::timer::system() - usercontrolStartTime) <= 60000)
 	{
 		// records the value of the left stick
 		double leftStickY = con.Axis3.value() * 100;
@@ -118,8 +123,7 @@ void usercontrol(void)
 		ptoToggle.changeValueFromInput(con.ButtonDown.pressing() && con.ButtonB.pressing());
 
 		// set all pnematics to their desired states
-		dropDown1.set(dropDownToggle.getValue());
-		dropDown2.set(dropDownToggle.getValue());
+		dropDown.set(dropDownToggle.getValue());
 		rightWing.set(con.ButtonR2.pressing());
 		leftWing.set(con.ButtonL2.pressing());
 		pto.set(ptoToggle.getValue());

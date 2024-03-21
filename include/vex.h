@@ -27,13 +27,15 @@
 extern	autonRoute	doNothing;
 extern  autonRoute      forwardsBackwards;
 extern  autonRoute      backwardsForwards;
-extern  autonRoute      nearSideAWP;
-extern  autonRoute      nearSide;
-extern  autonRoute      farSideAWP;
-extern  autonRoute      farSide;
-extern  autonRoute      sixBallMidRush;
+extern  autonRoute      nearSideSafeAWP;
+extern  autonRoute      nearSideRushLeftAWP;
+extern  autonRoute      nearSideRushRightAWP;
+extern  autonRoute      nearSideElims;
+extern  autonRoute      farSideSafeAWP;
+extern  autonRoute      farSideRushLeftAWP;
+extern  autonRoute      farSideRushRightAWP;
+extern  autonRoute      farSideElims;
 extern  autonRoute      autonSkills;
 extern  autonRoute      driverSkills;
-
 
 #endif

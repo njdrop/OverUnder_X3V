@@ -83,7 +83,7 @@ public:
                 return nonConstSensor.rotation(deg);
             }
         }
-
+        
         // If no installed sensor is found, you can handle this case accordingly.
         // For example, you can return a default value or throw an exception.
         // Here, I'm returning -1 as an indication of no installed sensor.

@@ -17,16 +17,16 @@ vex::motor intake (PORT16, ratio18_1, true);
 vex::motor kicker1 (PORT14, ratio18_1, true);
 vex::motor kicker2 (PORT17, ratio18_1, false);
 // pneumatics
-vex::pneumatics pto (Brain.ThreeWirePort.C);
-vex::pneumatics hangRelease (Brain.ThreeWirePort.D);
-vex::pneumatics leftWing (Brain.ThreeWirePort.E);
-vex::pneumatics rightWing (Brain.ThreeWirePort.F);
-vex::pneumatics dropDown1 (Brain.ThreeWirePort.G);
-vex::pneumatics dropDown2 (Brain.ThreeWirePort.H);
+vex::pneumatics pto (Brain.ThreeWirePort.A);
+vex::pneumatics hangRelease (Brain.ThreeWirePort.F);
+vex::pneumatics dropDown (Brain.ThreeWirePort.E);
+vex::pneumatics leftWing (Brain.ThreeWirePort.G);
+vex::pneumatics rightWing (Brain.ThreeWirePort.H);
+
 // sensors
 vex::inertial inertialSensorMain (PORT10);
 vex::inertial inertialSensorBackup (PORT1);
-vex::pot autonSelector (Brain.ThreeWirePort.B);
+vex::pot autonSelector (Brain.ThreeWirePort.D);
 // vision
 // vision::signature TRIBALL (1, -6037, -4939, -5488, -4991, -3223, -4106, 4.200, 0);
 // vex::vision visionSensor (vex::PORT6, 84, TRIBALL);
@@ -62,14 +62,15 @@ vex::motor_group intake_Group = motor_group(intake);
 autonRoute autonRoutesList[] 
 {
 	doNothing,
-	forwardsBackwards,
-	backwardsForwards,
-	farSideAWP,
-	sixBallMidRush,
-	nearSideAWP,
-	nearSide,
+	nearSideSafeAWP,
+	nearSideRushLeftAWP,
+	nearSideRushRightAWP,
+	nearSideElims,
+	farSideSafeAWP,
+	farSideRushLeftAWP,
+	farSideRushRightAWP,
+	farSideElims,
 	autonSkills,
-	driverSkills,
 };
 
-int NUMBER_OF_AUTONS = 9;
+int NUMBER_OF_AUTONS = 10;

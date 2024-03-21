@@ -91,7 +91,7 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
 
     // track inital values to use for calculating total change
     double startPos = getDriveEncoderValue();
-    double startAngle = driveInertial.getRotation();
+    double startAngle = inertialSensorMain.rotation(deg);
     double startTime = vex::timer::system();
 
     // condition exits loops after some amount of time has passed
@@ -102,7 +102,7 @@ void drivetrainObj::moveDistance(double targetDistance, double maxSpeed, double 
         // converts the encoder distance to inches traveled
         double travelDistance = angularDistanceToLinearDistance(encoderDistance, wheelDiameter, gearRatio);
         // stores the current heading of the robot
-        double actualAngle = driveInertial.getRotation();
+        double actualAngle = inertialSensorMain.rotation(deg);
         // gets ouptput from pid controller for travel speed
         double output = distanceControl.getOutput(travelDistance, targetDistance);
         // gets output from pid controller for turning speed
@@ -140,9 +140,9 @@ void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetA
 
     // track inital values to use for calculating total change
     double startPos = getDriveEncoderValue();
-    double startAngle = driveInertial.getRotation();
+    double startAngle = inertialSensorMain.rotation(deg);
     double startTime = vex::timer::system();
-    double currTargetAngle = driveInertial.getRotation();
+    double currTargetAngle = inertialSensorMain.rotation(deg);
 
     // condition exits loops after some amount of time has passed
     while (vex::timer::system() - startTime <= timeout * 1000)
@@ -152,7 +152,7 @@ void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetA
         // converts the encoder distance to inches traveled
         double travelDistance = angularDistanceToLinearDistance(encoderDistance, wheelDiameter, gearRatio);
         // stores the current heading of the robot
-        double actualAngle = driveInertial.getRotation();
+        double actualAngle = inertialSensorMain.rotation(deg);
         // cacluates the percent of distance driven to target distance
         double fracComplete = travelDistance / targetDistance;
         // sets current target angle to that percentage between the start agnle and the final target angle
@@ -174,7 +174,7 @@ void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetA
 void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 {
     // initalize object for PID control
-    MiniPID angleControl(350, 15, 1500);
+    MiniPID angleControl(300, 3, 3000);
     // configure PID controller
     angleControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     angleControl.setMaxIOutput(0);
@@ -185,7 +185,7 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
     while (vex::timer::system() - startTime <= timeout * 1000)
     {
         // stores the robots current heading
-        double actualAngle = driveInertial.getRotation();
+        double actualAngle = inertialSensorMain.rotation(deg);
         // gets output from PID controller for desired turn spped
         double output = angleControl.getOutput(actualAngle, targetAngle);
 
@@ -261,7 +261,7 @@ int drivetrainObj::updatePositionFunction(void *)
         double headingInRad = heading * 3.1416 / 180;
         xPosition += sin(headingInRad) * relativeMovementY + cos(headingInRad) * relativeMovementX;
         yPosition += cos(headingInRad) * relativeMovementY - sin(headingInRad) * relativeMovementX;
-        heading = driveInertial.getRotation();
+        heading = inertialSensorMain.rotation(deg);
 
         // update previous values for reference
         previousRelativeX = 0;
