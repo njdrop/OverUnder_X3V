@@ -56,10 +56,7 @@ void autonomous ()
 	int startTime = vex::timer::system();
 	// run the route function of the auton selected from the array
 	autonRoutesList[autonSelect].routeFunction();
-<<<<<<< HEAD
 	Drive.turn(90, 100, 1);
-=======
->>>>>>> parent of 00f0cf5 (pid tuning wip)
 	printf("%lu\n", vex::timer::system() - startTime);
 }
 

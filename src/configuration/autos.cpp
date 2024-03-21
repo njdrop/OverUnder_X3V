@@ -300,15 +300,15 @@ void autonSkillsRoute()
     // shoot for 28 seconds
     int startTime = vex::timer::system();
     shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
-    // wait(22.25, sec);
+    wait(22.25, sec);
     shooter_Group.stop(coast);
     dropDown.close();
-    Drive.turn(-66, 100, 0.5);
+    Drive.turn(-65, 100, 0.5);
     // spin intake to prevent double possesion
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     // drive towards long barrier
     rightWing.open();
-    Drive.swing(62, 100, -35, 1);
+    Drive.swing(62, 100, -35, 1.2);
     rightWing.close();
     Drive.moveDistance(-15, 100, 0.7);
     // turn parrell to long barrier to push triballs
@@ -326,8 +326,8 @@ void autonSkillsRoute()
     Drive.moveDistance(-15, 100, 0.6);
     // sequence to get around the short barrier
     Drive.turn(-200, 100, 0.6);
-    Drive.moveDistance(25, 100, 0.5);
-    Drive.swing(25, 100, -58, 1);
+    Drive.moveDistance(30, 100, 0.5);
+    Drive.swing(30, 100, -58, 1);
     // run down left alley way
     Drive.turn(-60, 100, 0.2);
     rightWing.open();
@@ -344,15 +344,15 @@ void autonSkillsRoute()
     Drive.turn(135, 100, 0.9);
     Drive.swing(45, 100, 100, 1);
     Drive.turn(-15, 100, 0.95);
-    leftWing.open();
+    rightWing.open();
     // first push into the front of the goal
     Drive.swing(40, 85, -60, 1);
     Drive.moveDistance(1000, 100, 0.4);
-    Drive.turn(-0, 100, 0.3); 
-    leftWing.close();
-    Drive.swing(-30, 100, 51, 1);
+    Drive.turn(0, 100, 0.3); 
+    rightWing.close();
     // turn to move further right for the second push
-    Drive.moveDistance(27, 100, 0.85);
+    Drive.swing(-30, 100, 51, 1);
+    Drive.moveDistance(30, 100, 0.85);
     // face the front of the goal agian
     Drive.turn(-60, 100, 0.7);
     // second push into the front of the goal
@@ -381,8 +381,10 @@ void autonSkillsRoute()
     Drive.turn(-60, 100, 0.75);
     leftWing.open();
     Drive.swing(40, 100, -134, 1.2);
-    Drive.moveDistance(1000, 100, 0.6);
-    Drive.moveDistance(-1000, 100, 0.1);
+    Drive.moveDistance(1000, 100, 0.3);
+    Drive.moveDistance(-1000, 100, 0.5);
+    Drive.moveDistance(1000, 100, 0.7);
+    Drive.moveDistance(-1000, 100, 0.2);
     leftWing.close();
     printf("%lu\n", vex::timer::system() - startTime);
 }
