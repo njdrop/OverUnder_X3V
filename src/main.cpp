@@ -56,6 +56,10 @@ void autonomous ()
 	int startTime = vex::timer::system();
 	// run the route function of the auton selected from the array
 	// autonRoutesList[autonSelect].routeFunction();
+	// Drive.turn(60, 100, 3);
+	// Drive.turn(120, 100, 1);
+	// Drive.turn(180, 100, 1);
+	// Drive.turn(240, 100, 1);
 	Drive.turn(90, 100, 3);
 	Drive.turn(180, 100, 1);
 	Drive.turn(270, 100, 1);

@@ -174,27 +174,38 @@ void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetA
 void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 {
     // initalize object for PID control
-    MiniPID angleControl(350, 40, 5000);
+    MiniPID angleControl(300, 0, 0);
     // configure PID controller
     angleControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
-    angleControl.setMaxIOutput(0);
     // store the inital time
     double startTime = vex::timer::system();
-
+    int counter = 0;
     // condition exits loops after some amount of time has passed
-    while (vex::timer::system() - startTime <= timeout * 1000)
+    while (vex::timer::system() - startTime < timeout * 1000)
     {
-        // stores the robots current heading
-        double actualAngle = inertialSensorMain.rotation(deg);
         // gets output from PID controller for desired turn spped
-        double output = angleControl.getOutput(actualAngle, targetAngle);
+        double output = angleControl.getOutput(inertialSensorMain.rotation(deg), targetAngle);
 
         // only introduce the integral portion of the PID if the robot is within 5 degrees of the target
         // this helps to prevent overshoot and integral windup
-        if (fabs(targetAngle - actualAngle) < 3)
+        // if (fabs(targetAngle - actualAngle) < 10)
+        // {
+        //     angleControl.setMaxIOutput(4000);
+        // }
+
+        // exit condition
+        if (fabs(output) < 500) {
+            counter++;
+            if (counter > 20) 
+            {
+                break;
+            }
+        } 
+        else
         {
-            angleControl.setMaxIOutput(4000);
+            counter = 0;
         }
+
         // set the motors to the desired speed
         runLeftSide(output);
         runRightSide(-output);
@@ -202,7 +213,8 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
     }
     stopLeftSide(vex::brakeType::coast);
     stopRightSide(vex::brakeType::coast);
-    printf("%f\n", targetAngle - inertialSensorMain.rotation(deg));
+    wait(500, msec);
+    printf("%f\t%f\n", targetAngle - inertialSensorMain.rotation(deg), vex::timer::system() - startTime);
 }
 
 void drivetrainObj::startTracking()
