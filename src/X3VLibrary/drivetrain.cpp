@@ -174,7 +174,7 @@ void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetA
 void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 {
     // initalize object for PID control
-    MiniPID angleControl(300, 3, 3000);
+    MiniPID angleControl(350, 20, 3000);
     // configure PID controller
     angleControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     angleControl.setMaxIOutput(0);
@@ -200,6 +200,7 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
         runRightSide(-output);
         wait(10, msec);
     }
+    printf("%f\n", targetAngle - inertialSensorMain.rotation(deg));
     stopLeftSide(vex::brakeType::coast);
     stopRightSide(vex::brakeType::coast);
 }
