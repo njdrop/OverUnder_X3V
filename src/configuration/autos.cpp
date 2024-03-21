@@ -265,10 +265,6 @@ autonRoute farSideElims = {"FS Elims", 0, 0, 0, farSideRoute};
 
 void SkillsSetupRoute()
 {
-<<<<<<< HEAD
-=======
-    int startTime = vex::timer::system();
->>>>>>> parent of 6139a29 (tuning pids after car drop off doing zombies)
     Drive.turn(10, 100, 0.3);
     Drive.moveDistance(-22, 100, 0.75);
     Drive.turn(47, 100, 0.5);
@@ -283,10 +279,6 @@ void SkillsSetupRoute()
 
 void SkillsSetupRoute2()
 {
-<<<<<<< HEAD
-=======
-    int startTime = vex::timer::system();
->>>>>>> parent of 6139a29 (tuning pids after car drop off doing zombies)
     Drive.turn(20, 100, 0.5);
     Drive.moveDistance(-14, 100, 0.75);
     Drive.turn(-63, 100, 0.5);

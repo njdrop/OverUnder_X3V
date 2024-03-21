@@ -174,11 +174,7 @@ void drivetrainObj::swing(double targetDistance, double maxSpeed, double targetA
 void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 {
     // initalize object for PID control
-<<<<<<< HEAD
     MiniPID angleControl(300, 0, 0);
-=======
-    MiniPID angleControl(300, 3, 3000);
->>>>>>> parent of 6139a29 (tuning pids after car drop off doing zombies)
     // configure PID controller
     angleControl.setOutputLimits(-120 * maxSpeed, 120 * maxSpeed);
     // store the inital time
@@ -192,7 +188,6 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
 
         // only introduce the integral portion of the PID if the robot is within 5 degrees of the target
         // this helps to prevent overshoot and integral windup
-<<<<<<< HEAD
         // if (fabs(targetAngle - actualAngle) < 10)
         // {
         //     angleControl.setMaxIOutput(4000);
@@ -209,11 +204,6 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
         else
         {
             counter = 0;
-=======
-        if (fabs(targetAngle - actualAngle) < 5)
-        {
-            angleControl.setMaxIOutput(2000);
->>>>>>> parent of 6139a29 (tuning pids after car drop off doing zombies)
         }
 
         // set the motors to the desired speed
@@ -223,11 +213,8 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
     }
     stopLeftSide(vex::brakeType::coast);
     stopRightSide(vex::brakeType::coast);
-<<<<<<< HEAD
     wait(500, msec);
     printf("%f\t%f\n", targetAngle - inertialSensorMain.rotation(deg), vex::timer::system() - startTime);
-=======
->>>>>>> parent of 6139a29 (tuning pids after car drop off doing zombies)
 }
 
 void drivetrainObj::startTracking()
