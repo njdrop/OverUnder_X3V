@@ -277,10 +277,10 @@ double MiniPID::getOutput(double actual, double setpoint)
 		// buildup, so restrict the error directly
 	}
 
-	// // if we pass the destination reset the error sum to prevent occsilation
-	// if (signbit(setpoint - lastActual) != signbit(setpoint - actual)) {
-	// 	errorSum = -error;
-	// }
+	// if we pass the destination reset the error sum to prevent occsilation
+	if (signbit(setpoint - lastActual) != signbit(setpoint - actual)) {
+		errorSum = -error;
+	}
 
 	// Restrict output to our specified output and ramp limits
 	if (outputRampRate != 0)
