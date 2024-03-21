@@ -55,6 +55,7 @@ void autonomous ()
 {
 	int startTime = vex::timer::system();
 	// run the route function of the auton selected from the array
+<<<<<<< HEAD
 	// autonRoutesList[autonSelect].routeFunction();
 	// Drive.turn(60, 100, 3);
 	// Drive.turn(120, 100, 1);
@@ -64,6 +65,13 @@ void autonomous ()
 	Drive.turn(180, 100, 1);
 	Drive.turn(270, 100, 1);
 	Drive.turn(360, 100, 1);
+=======
+	autonRoutesList[autonSelect].routeFunction();
+<<<<<<< HEAD
+	Drive.turn(90, 100, 1);
+=======
+>>>>>>> parent of 00f0cf5 (pid tuning wip)
+>>>>>>> parent of 6139a29 (tuning pids after car drop off doing zombies)
 	printf("%lu\n", vex::timer::system() - startTime);
 }
 
