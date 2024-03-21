@@ -175,7 +175,35 @@ autonRoute farSideSafeAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 
 void farSideRushLeftAWPRoute()
 {
+    inertialSensorMain.setRotation(65, deg);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(53, 100, 1.4);
+    Drive.moveDistance(-32, 100, 0.8);
+    Drive.turn(70, 100, 0.6);
+    Drive.moveDistance(-25, 100, 0.8);
+    rightWing.open();
+    wait(100, msec);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    Drive.turn(140, 70, 1);
+    rightWing.close();
     
+    // Drive.turn(160, 100, 0.75);
+    // Drive.moveDistance(19, 100, 0.8);
+    // dropDown.open();
+    // Drive.turn(70, 100, 0.8);
+    // dropDown.close();
+    // wait(200, msec);
+    // Drive.turn(-45, 100, 0.8);
+    // Drive.moveDistance(-10, 100, 0.8);
+    // Drive.turn(-90, 100, 0.8);
+    // dropDown.open();
+    // Drive.moveDistance(-100, 100, 0.8);
+    // dropDown.close();
+    // Drive.turn(-45, 100, 0.8);
+    // Drive.moveDistance(30, 100, 0.8);
+    // Drive.turn(7, 100, 0.75);
+    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // Drive.moveDistance(33, 100, 1.4);
 }
 autonRoute farSideRushLeftAWP = {"FS Rush Left AWP", 0, 0, 0, farSideRushLeftAWPRoute};
 
