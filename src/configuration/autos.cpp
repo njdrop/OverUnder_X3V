@@ -293,31 +293,33 @@ void autonSkillsRoute()
     // drive towards long barrier
     // rightWing.open();
     Drive.swing(55, 100, 0, 1); //-35
+    Drive.turn(-20, 100, 0.4);
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV); // temp
     rightWing.close();
-    Drive.moveDistance(-18, 100, 0.7);
+    Drive.moveDistance(-12, 100, 0.8);
     // turn parrell to long barrier to push triballs
     Drive.turn(-127, 100, 0.85);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     // open wings and run down the long barrier to push all the triballs across and into the alley way
     leftWing.open();
     rightWing.open();
-    Drive.moveDistance(70, 100, 1.65); //75
+    Drive.moveDistance(75, 100, 1.65);
     leftWing.close();
     // ensure the robot has not gotten turned incedentally
-    Drive.turn(-130, 100, 0.1);
+    // Drive.turn(-130, 100, 0.1);
     // sequence to get around the short barrier
     Drive.turn(-240, 70, 0.8);
     Drive.turn(-200, 100, 0.4);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(40, 100, 0.9);
-    // Drive.swing(40, 100, );
+    rightWing.close();
+    intake_Group.spin(fwd, 0, vex::voltageUnits::mV);
+    // Drive.moveDistance(40, 100, 0.9);
+    Drive.swing(42, 100, -240, 1);
     leftWing.open();
-    Drive.turn(-90, 100, 0.8);
+    Drive.turn(-120, 100, 0.8);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     leftWing.close();
-    Drive.swing(40, 100, -58, 0.9);
-    wait(100, sec);
+    rightWing.open();
+    Drive.swing(40, 100, -48, 0.9);
     // run down left alley way
     Drive.turn(-60, 100, 0.4);
     rightWing.open();
@@ -332,16 +334,17 @@ void autonSkillsRoute()
     Drive.turn(36, 100, 0.2);
     // move around to the front side of the goal
     Drive.turn(135, 100, 0.9);
-    Drive.swing(45, 100, 100, 1);
+    rightWing.open(); // temp
+    Drive.swing(30, 100, 100, 1);// 45
     Drive.turn(-10, 100, 0.95);
     // first push into the front of the goal
-    rightWing.open();
-    Drive.swing(45, 80, -60, 0.8);
+    // rightWing.open();
+    Drive.swing(30, 80, -60, 0.8);
     Drive.moveDistance(1000, 100, 0.4);
     Drive.turn(0, 100, 0.3); 
     rightWing.close();
     // turn and move further right for the second push
-    Drive.swing(-25, 100, 51, 1.0);
+    Drive.swing(-15, 100, 51, 1.0);
     Drive.moveDistance(29, 100, 0.85);
     // face the front of the goal agian
     Drive.turn(-60, 100, 0.7);
