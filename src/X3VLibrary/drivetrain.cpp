@@ -200,7 +200,6 @@ void drivetrainObj::turn(double targetAngle, double maxSpeed, double timeout)
         runRightSide(-output);
         wait(10, msec);
     }
-    printf("%f\n", targetAngle - inertialSensorMain.rotation(deg));
     stopLeftSide(vex::brakeType::coast);
     stopRightSide(vex::brakeType::coast);
 }
