@@ -285,34 +285,39 @@ void autonSkillsRoute()
     SkillsSetupRoute(); // 4.45 seconds
     // shoot for 28 seconds
     shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
-    wait(21.5, sec);
+    wait(21, sec);
     shooter_Group.stop(coast);
     dropDown.close();
     // spin intake to prevent double possesion
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV); //+12000
     // drive towards long barrier
-    rightWing.open();
-    Drive.swing(62, 100, -35, 1);
+    // rightWing.open();
+    Drive.swing(55, 100, 0, 1); //-35
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV); // temp
     rightWing.close();
-    Drive.moveDistance(-15, 100, 0.7);
+    Drive.moveDistance(-18, 100, 0.7);
     // turn parrell to long barrier to push triballs
     Drive.turn(-127, 100, 0.85);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     // open wings and run down the long barrier to push all the triballs across and into the alley way
     leftWing.open();
     rightWing.open();
-    Drive.moveDistance(75, 100, 1.65);
+    Drive.moveDistance(70, 100, 1.65); //75
     leftWing.close();
-    rightWing.close();
     // ensure the robot has not gotten turned incedentally
     Drive.turn(-130, 100, 0.1);
-    // back off of the short barrier
-    Drive.moveDistance(-10, 100, 0.6);
     // sequence to get around the short barrier
-    Drive.turn(-200, 100, 0.8);
-    Drive.moveDistance(35, 100, 0.9);
+    Drive.turn(-240, 70, 0.8);
+    Drive.turn(-200, 100, 0.4);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(40, 100, 0.9);
+    // Drive.swing(40, 100, );
+    leftWing.open();
     Drive.turn(-90, 100, 0.8);
-    Drive.swing(35, 100, -58, 0.9);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    leftWing.close();
+    Drive.swing(40, 100, -58, 0.9);
+    wait(100, sec);
     // run down left alley way
     Drive.turn(-60, 100, 0.4);
     rightWing.open();
