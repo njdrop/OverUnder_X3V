@@ -283,7 +283,7 @@ void autonSkillsRoute()
 {
     // run the inital setup route for skills
     SkillsSetupRoute(); // 4.45 seconds
-    // shoot for 28 seconds
+    // shoot for 21 seconds
     shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
     wait(21, sec);
     shooter_Group.stop(coast);
