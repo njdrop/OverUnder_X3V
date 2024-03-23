@@ -268,13 +268,13 @@ autonRoute farSideElims = {"FS Elims", 0, 0, 0, farSideRoute};
 void SkillsSetupRoute()
 {
     Drive.turn(10, 100, 0.3);
-    Drive.moveDistance(-22, 100, 0.7);
-    Drive.turn(47, 100, 0.5);
+    Drive.moveDistance(-20, 100, 0.9);
+    Drive.turn(47, 100, 0.7);
     Drive.moveDistance(-10000, 100, 0.5);
-    Drive.turn(45, 100, 0.6);
-    Drive.moveDistance(10, 100, 0.4);
-    Drive.turn(-63, 100, 0.5);
-    Drive.moveDistance(-7, 100, 0.3);
+    Drive.turn(45, 100, 0.7);
+    Drive.moveDistance(10, 100, 0.7);
+    Drive.turn(-63, 100, 0.6);
+    Drive.moveDistance(-7, 100, 0.5);
     Drive.turn(-63, 100, 0.8);    
     dropDown.open();
 }
@@ -285,18 +285,17 @@ void autonSkillsRoute()
     SkillsSetupRoute(); // 4.45 seconds
     // shoot for 21 seconds
     shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
-    wait(21, sec);
+    wait(21.5, sec);
     shooter_Group.stop(coast);
     dropDown.close();
     // spin intake to prevent double possesion
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV); //+12000
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     // drive towards long barrier
-    // rightWing.open();
-    Drive.swing(55, 100, 0, 1); //-35
+    Drive.swing(55, 100, 0, 1); 
     Drive.turn(-20, 100, 0.4);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV); // temp
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     rightWing.close();
-    Drive.moveDistance(-12, 100, 0.8);
+    Drive.moveDistance(-12, 100, 0.8); //~-.25
     // turn parrell to long barrier to push triballs
     Drive.turn(-127, 100, 0.85);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
