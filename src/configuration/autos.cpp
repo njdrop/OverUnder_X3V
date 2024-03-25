@@ -285,7 +285,7 @@ void autonSkillsRoute()
     SkillsSetupRoute(); // 4.45 seconds
     // shoot for 21 seconds
     shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
-    wait(21.5, sec);
+    wait(22, sec);
     shooter_Group.stop(coast);
     dropDown.close();
     // spin intake to prevent double possesion
@@ -326,47 +326,37 @@ void autonSkillsRoute()
     // push left side of goal
     Drive.moveDistance(1000, 100, 0.5);
     Drive.moveDistance(-14, 100, 0.6);
-    rightWing.close();
     // move around to the front side of the goal
                                                                 Drive.turn(118, 100, 0.8);
-    Drive.moveDistance(45, 100, 0.9);
-    Drive.turn(-10, 100, 0.9);
+    Drive.moveDistance(35, 100, 0.9);
+    Drive.turn(10, 70, 0.9);
+    rightWing.close();
     // first push into the front of the goal
-    rightWing.open();
-    Drive.swing(45, 80, -60, 0.8);
-    Drive.moveDistance(1000, 100, 0.4);
-    rightWing.close();
-    // turn and move further right for the second push
-                                                                // Drive.swing(-25, 100, 51, 1.0);
-                                                                // Drive.moveDistance(29, 100, 0.85);
-                                                                Drive.turn(-15, 100, 0.7);
-                                                                Drive.moveDistance(-26, 100, 0.7);
-                                                                Drive.turn(51, 100, 0.7);
-                                                                Drive.moveDistance(31, 100, 0.85);
-    // face the front of the goal agian
-    Drive.turn(-60, 100, 0.7);
-    // second push into the front of the goal
-    leftWing.open();
-    Drive.swing(60, 100, -5, 1);
-    Drive.moveDistance(1000, 100, 0.25);
-    Drive.turn(-55, 100, 0.45);
-    leftWing.close();
-    Drive.moveDistance(-38, 100, 0.9);
-    // move over to third push
-    Drive.turn(48, 100, 0.65);
-    Drive.moveDistance(35, 100, 0.8);
-    Drive.turn(-45, 100, 0.7);
-    Drive.moveDistance(5, 100, 0.5);
-    // third push
-    Drive.turn(-100, 100, 0.7);
+    Drive.swing(35, 70, -60, 1.2);
+    Drive.turn(40, 100, .5);
+    Drive.swing(-20, 100, 80, 1.2);
     rightWing.open();
     leftWing.open();
-    Drive.swing(54, 100, -5, 1.0);
-    Drive.moveDistance(1000, 100, 0.3);
-    Drive.turn(-55, 100, 0.45);
-    Drive.moveDistance(-15, 100, 0.4);
-    leftWing.close();
+    Drive.swing(30, 70, -45, 1.2);
     rightWing.close();
+    Drive.moveDistance(1000, 100, 0.8);
+    Drive.turn(0, 100, .4);
+    Drive.swing(-20, 100, 70, 1.2);
+    rightWing.open();
+    Drive.swing(30, 70, -45, 1.2);
+    rightWing.close();
+    Drive.moveDistance(1000, 100, 0.8);
+    // Drive.swing(-20, 100, 50, 0.8);
+    // rightWing.open();
+    // Drive.swing(45, 100, -35, 1);
+    // Drive.moveDistance(10, 100, .8);
+    // Drive.turn(-135, 100, .8)
+    // Drive.moveDistance(1000, 100, 0.8);
+    // Drive.moveDistance(-5, 100, .5);
+   
+
+
+    Drive.moveDistance(-8, 100, 0.5);
     // push right side
     Drive.turn(30, 100, 0.85);
     Drive.moveDistance(60, 100, 1);
@@ -375,7 +365,7 @@ void autonSkillsRoute()
     Drive.swing(50, 100, -134, 1);
     Drive.moveDistance(1000, 100, 0.5);
     Drive.moveDistance(-1000, 100, 0.2);
-    Drive.moveDistance(1000, 100, 0.4);
+    Drive.moveDistance(1000, 100, 0.7);
     Drive.moveDistance(-1000, 100, 0.2);
     leftWing.close();
 }

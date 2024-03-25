@@ -70,7 +70,7 @@ autonRoute autonRoutesList[]
 	farSideRushLeftAWP,
 	farSideRushRightAWP,
 	farSideElims,
-	autonSkills,
+
 };
 
-int NUMBER_OF_AUTONS = 10;
+int NUMBER_OF_AUTONS = 9;
