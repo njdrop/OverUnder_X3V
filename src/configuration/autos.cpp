@@ -27,13 +27,13 @@ autonRoute backwardsForwards = {"Backwards Forwards", 0, 0, 0, backwardsForwards
 void nearSideAWPRoute()
 {
     // open the back wing to get the match load triball out
-    dropDown.open();
+    rightDropDown.open();
     // make sure the backwing has time to fully open
     wait(0.5, sec);
     // turn to the left to flick the triball out of the matchloader
     Drive.turn(-45, 100, 1);
     // put the dropdowns back up
-    dropDown.close();
+    rightDropDown.close();
     // turn down the alleyway to face the hang bar
     Drive.turn(-43, 100, 1);
     // wait to allow the matchload triball to roll infront of the robot to get an extra triball acrossed
@@ -63,12 +63,12 @@ void nearSideRushLeftAWPRoute()
     Drive.moveDistance(15, 75, 1);
     Drive.turn(50, 100, 0.8);
     Drive.moveDistance(17, 75, 1);
-    dropDown.open();
+    rightDropDown.open();
     wait(200, msec);
     Drive.turn(-50, 100, 1);
     wait(200, msec);
     Drive.turn(5, 100, 1);
-    dropDown.close();
+    rightDropDown.close();
     Drive.moveDistance(38.5, 80, 2);
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     wait(50, msec);
@@ -100,11 +100,11 @@ void nearSideRushRightAWPRoute()
     Drive.moveDistance(12, 75, 1);
     Drive.turn(50, 100, 0.8);
     Drive.moveDistance(13, 75, 1);
-    dropDown.open();
+    rightDropDown.open();
     wait(200, msec);
     Drive.turn(-30, 100, 1);
     Drive.turn(10, 100, 1);
-    dropDown.close();
+    rightDropDown.close();
     Drive.moveDistance(39, 80, 2);
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     wait(50, msec);
@@ -138,26 +138,26 @@ void nearSideRoute()
     Drive.moveDistance(16, 75, 1);
     Drive.turn(50, 100, 0.8);
     Drive.moveDistance(15, 75, 1);
-    dropDown.open();
+    rightDropDown.open();
     wait(200, msec);
     Drive.turn(-30, 100, 1);
     Drive.turn(10, 100, 1);
-    dropDown.close();
+    rightDropDown.close();
     Drive.moveDistance(38, 80, 1.4); 
     Drive.turn(0, 100, 0.4);  
     Drive.moveDistance(-42, 100, 1);
     Drive.turn(45, 100, 0.4);
-    dropDown.open();
+    rightDropDown.open();
 }
 autonRoute nearSideElims = {"NS Barrier Elims", 0, 0, 0, nearSideRoute};
 
 void farSideAWPRoute()
 {
     Drive.moveDistance(7, 100, .8);
-    dropDown.open();
+    rightDropDown.open();
     Drive.moveDistance(13, 100, .8);
     Drive.turn(-45, 100, 1);
-    dropDown.close();
+    rightDropDown.close();
     wait(3, sec);
     leftWing.open();
     rightWing.open();
@@ -192,11 +192,11 @@ void farSideRushLeftAWPRoute()
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     Drive.moveDistance(19, 100, 0.8);
     Drive.turn(145, 100, 0.8);
-    dropDown.open();
+    rightDropDown.open();
     wait(200, msec);
     Drive.moveDistance(9, 100, 0.7);
     Drive.turn(70, 100, 0.8);
-    dropDown.close();
+    rightDropDown.close();
     Drive.turn(110, 100, 0.6);
     rightWing.open();
     Drive.moveDistance(100, 100, 0.6);
@@ -225,10 +225,10 @@ void farSideRoute()
     Drive.turn(140, 100, 1.2);
     intake_Group.spin(fwd, -100, pct);
     Drive.moveDistance(19, 100, 0.6);
-    dropDown.open();
+    rightDropDown.open();
     Drive.moveDistance(12, 100, 0.6);
     Drive.turn(80, 100, 0.6);
-    dropDown.close();
+    rightDropDown.close();
 
     // turn and push all triballs into the goal
     Drive.turn(120, 100, 0.4);
@@ -276,7 +276,7 @@ void SkillsSetupRoute()
     Drive.turn(-63, 100, 0.6);
     Drive.moveDistance(-5, 100, 0.5);
     Drive.turn(-63, 100, 0.8);    
-    dropDown.open();
+    rightDropDown.open();
 }
 
 void autonSkillsRoute()
@@ -287,7 +287,7 @@ void autonSkillsRoute()
     shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
     wait(22, sec);
     shooter_Group.stop(coast);
-    dropDown.close();
+    rightDropDown.close();
     // spin intake to prevent double possesion
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     // drive towards long barrier

@@ -24,7 +24,8 @@ extern vex::pneumatics pto;
 extern vex::pneumatics hangRelease;
 extern vex::pneumatics leftWing;
 extern vex::pneumatics rightWing;
-extern vex::pneumatics dropDown;
+extern vex::pneumatics rightDropDown;
+extern vex::pneumatics leftDropDown;
 extern vex::pneumatics dropDown2;
 // sensors
 extern vex::inertial inertialSensorMain;

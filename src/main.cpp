@@ -65,8 +65,10 @@ void usercontrol(void)
 	usercontrolRunning = true;
 	
 	// initalize objects to control the wings and pto
-	toggleBoolObject dropDownToggle (dropDown.value());
+	toggleBoolObject rightDropDownToggle (rightDropDown.value());
+	toggleBoolObject leftDropDownToggle (leftDropDown.value());
 	toggleBoolObject ptoToggle (false);
+	toggleBoolObject hangReleaseToggle (false);
 
 	usercontrolStartTime = vex::timer::system();
 	if (autonRoutesList[autonSelect].name == autonSkills.name) 
@@ -102,31 +104,34 @@ void usercontrol(void)
 			intake_Group.stop(coast);
 		}
 
-		// kicker controls
-		if (con.ButtonRight.pressing())
-		{
-			shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
-		}
-		else
-		{
-			shooter_Group.stop(coast);
-		}
+		// // kicker controls
+		// if (con.ButtonRight.pressing())
+		// {
+		// 	shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
+		// }
+		// else
+		// {
+		// 	shooter_Group.stop(coast);
+		// }
 
 		// button to release the hang mechanism
-		if (con.ButtonUp.pressing() && con.ButtonX.pressing())
-		{
-			hangRelease.open();
-		}
+		
+
+		
 
 		// check controller input to toggle values for wings and pto
-		dropDownToggle.changeValueFromInput(con.ButtonY.pressing());
-		ptoToggle.changeValueFromInput(con.ButtonDown.pressing() && con.ButtonB.pressing());
+		rightDropDownToggle.changeValueFromInput(con.ButtonY.pressing());
+		leftDropDownToggle.changeValueFromInput(con.ButtonRight.pressing());
+		ptoToggle.changeValueFromInput(con.ButtonY.pressing());
+		hangReleaseToggle.changeValueFromInput(con.ButtonUp.pressing());
 
 		// set all pnematics to their desired states
-		dropDown.set(dropDownToggle.getValue());
+		rightDropDown.set(rightDropDownToggle.getValue());
+		leftDropDown.set(leftDropDownToggle.getValue());
 		rightWing.set(con.ButtonR2.pressing());
 		leftWing.set(con.ButtonL2.pressing());
 		pto.set(ptoToggle.getValue());
+		hangRelease.set(hangReleaseToggle.getValue());
 
 		wait(10, msec);
 	}
