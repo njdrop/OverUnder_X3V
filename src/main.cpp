@@ -122,7 +122,7 @@ void usercontrol(void)
 		// check controller input to toggle values for wings and pto
 		rightDropDownToggle.changeValueFromInput(con.ButtonY.pressing());
 		leftDropDownToggle.changeValueFromInput(con.ButtonRight.pressing());
-		ptoToggle.changeValueFromInput(con.ButtonY.pressing());
+		ptoToggle.changeValueFromInput(con.ButtonX.pressing());
 		hangReleaseToggle.changeValueFromInput(con.ButtonUp.pressing());
 
 		// set all pnematics to their desired states
