@@ -29,19 +29,25 @@ void nearSideAWPRoute()
     // open the back wing to get the match load triball out
     rightDropDown.open();
     // make sure the backwing has time to fully open
-    wait(0.5, sec);
+    wait(500, msec);
     // turn to the left to flick the triball out of the matchloader
     Drive.turn(-45, 100, 1);
     // put the dropdowns back up
     rightDropDown.close();
     // turn down the alleyway to face the hang bar
-    Drive.turn(-43, 100, 1);
+    Drive.turn(-30, 100, 1);
     // wait to allow the matchload triball to roll infront of the robot to get an extra triball acrossed
-    wait(3, sec);
+    wait(1000, msec);
+    rightWing.open();
+    wait(1000, msec);
+    rightWing.close();
+    wait(1000, msec);
     // drive throught the alleyway and touch bar with the ziptie on the intake
-    Drive.moveDistance(41.5, 100, 1.3, true);
+    Drive.moveDistance(41, 25, 5);
     // spin the intake out to push the triball that starts under the hang bar across
-    intake_Group.spin(reverse, 12000, vex::voltageUnits::mV);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    wait(200, msec);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
 }
 autonRoute nearSideSafeAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
 

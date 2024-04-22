@@ -13,7 +13,7 @@ competition Competition;
 
 // integer used to choose the correct auton route from the array
 int autonSelect = 0;
-// booling to turn off preauton once drive control starts
+// boolean to turn off preauton once drive control starts
 
 bool usercontrolRunning = false;
 int usercontrolStartTime = 0;
@@ -104,17 +104,16 @@ void usercontrol(void)
 			intake_Group.stop(coast);
 		}
 
-		// // kicker controls
-		// if (con.ButtonRight.pressing())
-		// {
-		// 	shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
-		// }
-		// else
-		// {
-		// 	shooter_Group.stop(coast);
-		// }
+		// kicker controls
+		if (con.ButtonLeft.pressing())
+		{
+			shooter_Group.spin(fwd, 11000, vex::voltageUnits::mV);
+		}
+		else
+		{
+			shooter_Group.stop(coast);
+		}
 
-		// button to release the hang mechanism
 		
 
 		
@@ -122,17 +121,13 @@ void usercontrol(void)
 		// check controller input to toggle values for wings and pto
 		rightDropDownToggle.changeValueFromInput(con.ButtonY.pressing());
 		leftDropDownToggle.changeValueFromInput(con.ButtonRight.pressing());
-		ptoToggle.changeValueFromInput(con.ButtonX.pressing());
-		hangReleaseToggle.changeValueFromInput(con.ButtonUp.pressing());
 
 		// set all pnematics to their desired states
 		rightDropDown.set(rightDropDownToggle.getValue());
 		leftDropDown.set(leftDropDownToggle.getValue());
 		rightWing.set(con.ButtonR2.pressing());
 		leftWing.set(con.ButtonL2.pressing());
-		pto.set(ptoToggle.getValue());
-		hangRelease.set(hangReleaseToggle.getValue());
-
+		
 		wait(10, msec);
 	}
 	Drive.stopLeftSide(coast);

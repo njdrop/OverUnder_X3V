@@ -20,13 +20,10 @@ extern vex::motor intake;
 extern vex::motor kicker1;
 extern vex::motor kicker2;
 // pneumatics
-extern vex::pneumatics pto;
-extern vex::pneumatics hangRelease;
 extern vex::pneumatics leftWing;
 extern vex::pneumatics rightWing;
 extern vex::pneumatics rightDropDown;
 extern vex::pneumatics leftDropDown;
-extern vex::pneumatics dropDown2;
 // sensors
 extern vex::inertial inertialSensorMain;
 extern vex::inertial inertialSensorBackup;

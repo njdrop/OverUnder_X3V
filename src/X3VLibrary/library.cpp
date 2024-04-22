@@ -6,14 +6,8 @@ double angularDistanceToLinearDistance(double angularDistance, double diameter, 
     return angularDistance * M_PI / 180.0 * gearRatio * (diameter / 2.0);
 }
 
-double clamp(double value, double min, double max) 
+double clamp(double value, double min, double max)
 {
-    // if the value is within the desire interval just return the value
-    if (min <= value && value <= max)
-    {
-        return value;
-    }
-    
     // if the value is less than the min then just return the min
     if (value < min)
     {
@@ -25,10 +19,34 @@ double clamp(double value, double min, double max)
     {
         return max;
     }
-    return -1;
+
+    // else return the origional value
+    return value;
 }
-double clamp(double value, double min); 
-double clamp(double value, double max);
+
+double clamp_min(double value, double min)
+{
+    // if the value is less than the min then just return the min
+    if (value < min)
+    {
+        return min;
+    }
+
+    // else return the origional value
+    return value;
+}
+
+double clamp_max(double value, double max)
+{
+    // if the value excedes the maximimum then return the max
+    if (value > max)
+    {
+        return max;
+    }
+
+    // else return the origional value
+    return value;
+}
 
 toggleBoolObject::toggleBoolObject(bool initialValue)
 {

@@ -23,44 +23,6 @@ class drivetrainObj
         drivetrainObj(double wheelDiam, double gR);
 
         /**
-         * @brief gets the X position of the object relative to a point on the field
-         * @return double
-         */
-        double getX();
-
-        /**
-         * @brief gets the Y position of the object relative to a point on the field
-         * @return double
-         */
-        double getY();
-
-        /**
-         * @brief gets the heading of the object
-         * @return double
-         */
-        double getHeading();
-
-        /**
-         * @brief manualy set the X value of the object relative to (0,0) on the field
-         */
-        void setX(double newX);
-
-        /**
-         * @brief manualy set the Y value of the object relative to (0,0) on the field
-         */
-        void setY(double newY);
-
-        /**
-         * @brief manualy set the X and Y value of the object relative to (0,0) on the field
-         */
-        void setPosition(double newX, double newY);
-
-        /**
-         * @brief calibrate the inertial sensors
-         */
-        void calibrate();
-
-        /**
          * @brief Runs the left side of the drivetrain.
          * @param voltage The voltage to apply.
          */
@@ -101,17 +63,6 @@ class drivetrainObj
         void moveDistance(double targetDistance, double maxSpeed, double timeout, bool correctHeading);
 
         /**
-         * @brief Drives a straight path to a target x position
-         * 
-         * @param targetX  The distance to move. (inches)
-         * @param maxSpeed The maximum speed to use. (pct 0-100)
-         * @param timeout The maximum time to allow for the movement. (seconds)
-         */
-        void moveToX(double targetX);
-        void moveToX(double targetX, double maxSpeed);
-        void moveToX(double targetX, double maxSpeed, double timeout);
-
-        /**
          * @brief move the robot a specified distance and angle
          * 
          * @param targetDistance The distance to move. (inches)
@@ -128,27 +79,6 @@ class drivetrainObj
          * @param timeout The maximum time to allow for the turn. (seconds)
          */
         void turn(double targetAngle, double maxSpeed, double timeout);
-        void turn(double targetAngle, double maxSpeed);
-
-        /**
-         * @brief enables the task to track the position of the object
-         */
-        void startTracking();
-
-        /**
-         * @brief pauses the task to track the position of the object
-         */
-        void pauseTracking();
-
-        /**
-         * @brief resumes the task to track the position of the object
-         */
-        void resumeTracking();
-
-        /**
-         * @brief stops the task to track the position of the object
-         */
-        void stopTracking();
 
     private:
         /**
@@ -168,23 +98,6 @@ class drivetrainObj
          * @return The encoder value.
          */
         double getDriveEncoderValue();
-
-        /**
-         * @brief Static function for task constructor
-         * @param instance Pointer to the instance of the odometry
-         */
-        static int findNewPositionStatic(void *instance);
-
-        /**
-         * @brief Member function for the odometry task
-         * @param Unused parameter
-         */
-        int updatePositionFunction(void *);
-
-        /**
-         * @brief Task for tracking the position of the object
-         */
-        vex::task odometryTask;
         
         /**
          * @brief memeber variable that stores the diameter of the wheels in inches
@@ -196,21 +109,6 @@ class drivetrainObj
          * 
          */
         double gearRatio;
-
-        /**
-         * @brief the current X value of the object
-         */
-        double xPosition;
-
-        /**
-         * @brief the current Y value of the object
-         */
-        double yPosition;
-
-        /**
-         * @brief the current heading value of the object
-         */
-        double heading;
 };
 
 #endif

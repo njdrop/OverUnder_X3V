@@ -17,8 +17,6 @@ vex::motor intake (PORT16, ratio18_1, true);
 vex::motor kicker1 (PORT14, ratio18_1, true);
 vex::motor kicker2 (PORT17, ratio18_1, false);
 // pneumatics
-vex::pneumatics pto (Brain.ThreeWirePort.D);
-vex::pneumatics hangRelease (Brain.ThreeWirePort.C);
 vex::pneumatics rightDropDown (Brain.ThreeWirePort.H);
 vex::pneumatics leftDropDown (Brain.ThreeWirePort.E);
 vex::pneumatics rightWing (Brain.ThreeWirePort.G);
@@ -28,9 +26,6 @@ vex::pneumatics leftWing (Brain.ThreeWirePort.F);
 vex::inertial inertialSensorMain (PORT10);
 vex::inertial inertialSensorBackup (PORT1);
 vex::pot autonSelector (Brain.ThreeWirePort.B);
-// vision
-// vision::signature TRIBALL (1, -6037, -4939, -5488, -4991, -3223, -4106, 4.200, 0);
-// vex::vision visionSensor (vex::PORT6, 84, TRIBALL);
 
 //*****************************//
 // Robot Parameter Definitions //
