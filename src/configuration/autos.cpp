@@ -1,12 +1,14 @@
 #include "vex.h"
 using namespace vex;
 
+// final
 void doNothingRoute()
 {
     // do nothing
 }
 autonRoute doNothing = {"Do Nothing", 0, 0, 0, doNothingRoute};
 
+// final
 void forwardsBackwardsRoute()
 {
     // drive forwards 25 inches
@@ -16,6 +18,7 @@ void forwardsBackwardsRoute()
 }
 autonRoute forwardsBackwards = {"Forwards Backwards", 0, 0, 0, forwardsBackwardsRoute};
 
+// final
 void backwardsForwardsRoute()
 {
     // same thing as forwardsBackwardsRoute() but in reverse
@@ -24,6 +27,7 @@ void backwardsForwardsRoute()
 }
 autonRoute backwardsForwards = {"Backwards Forwards", 0, 0, 0, backwardsForwardsRoute};
 
+// final
 void nearSideAWPRoute()
 {
     // open the back wing to get the match load triball out
@@ -35,18 +39,22 @@ void nearSideAWPRoute()
     // put the dropdowns back up
     rightDropDown.close();
     // turn down the alleyway to face the hang bar
-    Drive.turn(-30, 100, 1);
-    // wait to allow the matchload triball to roll infront of the robot to get an extra triball acrossed
     wait(1000, msec);
     rightWing.open();
     wait(1000, msec);
     rightWing.close();
     wait(1000, msec);
+
+    Drive.turn(-30, 100, 1);
+    // wait to allow the matchload triball to roll infront of the robot to get an extra triball acrossed
+    
     // drive throught the alleyway and touch bar with the ziptie on the intake
-    Drive.moveDistance(41, 25, 5);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    Drive.moveDistance(40.5, 25, 5);
+    Drive.turn(-45, 100, 0.5);
     // spin the intake out to push the triball that starts under the hang bar across
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    wait(200, msec);
+    wait(600, msec);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
 }
 autonRoute nearSideSafeAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
@@ -224,50 +232,26 @@ autonRoute farSideRushRightAWP = {"FS Rush Right AWP", 0, 0, 0, farSideRushRight
 void farSideRoute()
 {
     // grab hang bar triball and drive back to matchload bar
-    intake_Group.spin(fwd, 100, pct);
-    Drive.moveDistance(4, 100, 0.4);
-    Drive.moveDistance(-37, 85, 1.2);
-    // turn and knock triball out of matchloader
-    Drive.turn(140, 100, 1.2);
-    intake_Group.spin(fwd, -100, pct);
-    Drive.moveDistance(19, 100, 0.6);
+    inertialSensorMain.setRotation(-12, deg);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(54, 100, 1.8);
+    Drive.moveDistance(-62, 80, 1.8);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    Drive.turn(90, 100, 1);
+    Drive.moveDistance(-10, 100, 0.7);
+    Drive.turn(-90, 100, 1);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(20, 100, 1);
+    Drive.moveDistance(-20, 100, 1);
+    Drive.turn(90, 100, 1);
+    Drive.moveDistance(10, 100, 0.7);
+    Drive.turn(45, 100, 0.8);
+    Drive.moveDistance(25, 100, 0.8);
     rightDropDown.open();
-    Drive.moveDistance(12, 100, 0.6);
-    Drive.turn(80, 100, 0.6);
+    Drive.turn(0, 100, 0.5);
     rightDropDown.close();
-
-    // turn and push all triballs into the goal
-    Drive.turn(120, 100, 0.4);
-    leftWing.open();
-    Drive.swing(1000, 100, 90, 0.6);
-    Drive.moveDistance(-20, 100, 0.5);
-    leftWing.close();
-
-    // turn and grab free triball on barrier
-    Drive.turn(33, 100, 0.6);
-    intake_Group.spin(fwd, 100, pct);
-    Drive.swing(55, 100, 5, 1.25);
-    Drive.turn(105, 100, 0.7);
-    Drive.moveDistance(12, 100, 0.6);
-    Drive.turn(180, 100, 0.6);
-    intake_Group.spin(fwd, -100, pct);
-
-    leftWing.open();
-    Drive.moveDistance(1000, 100, 0.8);
-    leftWing.close();
-
-    Drive.turn(15, 100, 1.2);
-    intake_Group.spin(fwd, 100, pct);
-    Drive.moveDistance(30, 100, 0.9);
-    Drive.turn(180, 100, 1.2);
-    leftWing.open();
     rightWing.open();
-    intake_Group.spin(fwd, -100, pct);
-    Drive.moveDistance(100000, 100, 0.7);
-    leftWing.close();
-    rightWing.close();
-    Drive.moveDistance(-10000, 100, 0.05);
-    intake_Group.stop(coast);
+    Drive.moveDistance(1000, 100, 2);
 }
 autonRoute farSideElims = {"FS Elims", 0, 0, 0, farSideRoute};
 

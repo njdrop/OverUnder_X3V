@@ -19,8 +19,9 @@ bool usercontrolRunning = false;
 int usercontrolStartTime = 0;
 void pre_auton(void)
 {
+	
 	// calibrate the inertial sensor
-	driveInertial.calibrate();
+	inertialSensorMain.calibrate();
 	//  tracks the first loop that the button has been held
 	while (true)
 	{	
@@ -57,6 +58,7 @@ void autonomous ()
 	// run the route function of the auton selected from the array
 	autonRoutesList[autonSelect].routeFunction();
 	printf("%lu\n", vex::timer::system() - startTime);
+
 }
 
 

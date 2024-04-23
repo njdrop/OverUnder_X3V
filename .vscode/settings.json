@@ -7,6 +7,7 @@
 		"eliminations": "cpp"
 	},
 	"C_Cpp.default.compilerPath": "/Users/2024noahdropsey/Library/Application Support/Code/User/globalStorage/vexrobotics.vexcode/tools/cpp/toolchain_osxarm64/clang/bin/clang",
-	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
-	"C_Cpp.errorSquiggles": "disabled"
+	"C_Cpp.default.configurationProvider": "",
+	"C_Cpp.errorSquiggles": "disabled",
+	"makefile.makefilePath": ""
 }

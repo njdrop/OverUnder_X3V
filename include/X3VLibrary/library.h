@@ -65,38 +65,4 @@ private:
     bool toggleValue;
 };
 
-
-class InertialGroup {
-private:
-    std::vector<vex::inertial> inertialSensors;
-
-public:
-    // Initialize the group with a variable number of inertial sensors
-    template <typename... Sensors>
-    InertialGroup(Sensors&&... sensors) : inertialSensors{std::forward<Sensors>(sensors)...} {}
-
-    // Get the heading from the installed sensor
-    double getRotation() const {
-        for (const auto& sensor : inertialSensors) {
-            vex::inertial nonConstSensor = sensor;  // Create a non-const copy
-            if (nonConstSensor.installed()) {
-                return nonConstSensor.rotation(deg);
-            }
-        }
-        
-        // If no installed sensor is found, you can handle this case accordingly.
-        // For example, you can return a default value or throw an exception.
-        // Here, I'm returning -1 as an indication of no installed sensor.
-        return -1;
-    }
-
-    void calibrate() const {
-        for (const auto& sensor : inertialSensors) {
-            vex::inertial nonConstSensor = sensor;
-            nonConstSensor.calibrate();
-        }
-    }
-};
-
-
 #endif

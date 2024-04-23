@@ -25,10 +25,14 @@ extern vex::pneumatics rightWing;
 extern vex::pneumatics rightDropDown;
 extern vex::pneumatics leftDropDown;
 // sensors
+/**
+ * @brief the main inertial sensor for tracking the rotation of the robot
+ */
 extern vex::inertial inertialSensorMain;
 extern vex::inertial inertialSensorBackup;
 extern vex::pot autonSelector;
 // vision
+
 
 
 //**************************//
@@ -36,7 +40,6 @@ extern vex::pot autonSelector;
 //**************************//
 extern vex::motor_group leftDrive_Group;
 extern vex::motor_group rightDrive_Group;
-extern InertialGroup driveInertial;
 extern drivetrainObj Drive;
 
 //****************************//
