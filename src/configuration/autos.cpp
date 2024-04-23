@@ -167,25 +167,18 @@ autonRoute nearSideElims = {"NS Barrier Elims", 0, 0, 0, nearSideRoute};
 
 void farSideAWPRoute()
 {
-    Drive.moveDistance(7, 100, .8);
+    inertialSensorMain.setRotation(21, deg);
+    Drive.moveDistance(-22, 50, 1, true);
+    Drive.turn(0, 100, 1);
+    Drive.moveDistance(-1000, 50, 1, false);
+    Drive.turn(0, 100, 1);
+    Drive.moveDistance(14, 100, 1);
+    Drive.turn(-75, 100, 1.2);
+    Drive.moveDistance(-32, 100, 2.5);
+    Drive.turn(-110, 40, 1);
+    Drive.moveDistance(-17, 30, 2);
     rightDropDown.open();
-    Drive.moveDistance(13, 100, .8);
-    Drive.turn(-45, 100, 1);
-    rightDropDown.close();
-    wait(3, sec);
-    leftWing.open();
-    rightWing.open();
-    wait(.5, sec);
-    Drive.moveDistance(1000, 100, 1);
-    Drive.moveDistance(-5, 100, 1);
-    leftWing.close();
-    rightWing.close();
-    wait(1, sec);
-    Drive.turn(-200, 100, 1);
-    Drive.moveDistance(23, 100, 1.2);
-    Drive.turn(-140, 100, 1.2);
-    Drive.moveDistance(37, 100, 1.5);
-    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    Drive.turn(-70, 40, 1);
 }
 autonRoute farSideSafeAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 
