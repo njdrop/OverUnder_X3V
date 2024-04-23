@@ -231,27 +231,39 @@ autonRoute farSideRushRightAWP = {"FS Rush Right AWP", 0, 0, 0, farSideRushRight
 
 void farSideRoute()
 {
-    // grab hang bar triball and drive back to matchload bar
-    inertialSensorMain.setRotation(-12, deg);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(54, 100, 1.8);
-    Drive.moveDistance(-62, 80, 1.8);
+    // inertialSensorMain.setRotation(-12, deg);
+    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // Drive.moveDistance(54, 75, 1.6);
+    // Drive.moveDistance(-61, 80, 1.5);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // Drive.turn(90, 100, 0.7);
+    // Drive.moveDistance(-10, 100, 0.5);
+    // Drive.turn(-90, 100, 0.9);
+    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // Drive.moveDistance(19, 100, 0.7);
+    inertialSensorMain.setRotation(-90, deg);
+    Drive.moveDistance(-23, 100, 0.65);
+    Drive.turn(80, 100, 0.7);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-    Drive.turn(90, 100, 1);
-    Drive.moveDistance(-10, 100, 0.7);
-    Drive.turn(-90, 100, 1);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(20, 100, 1);
-    Drive.moveDistance(-20, 100, 1);
-    Drive.turn(90, 100, 1);
-    Drive.moveDistance(10, 100, 0.7);
-    Drive.turn(45, 100, 0.8);
-    Drive.moveDistance(25, 100, 0.8);
+    Drive.moveDistance(16, 100, 0.7);
+    Drive.turn(45, 100, 0.6);
+    Drive.moveDistance(13, 100, 0.8);
     rightDropDown.open();
-    Drive.turn(0, 100, 0.5);
+    wait(200, msec);
+    Drive.turn(-10, 100, 0.4);
     rightDropDown.close();
+    Drive.swing(-10, 100, 30, 0.7);
+    Drive.moveDistance(1000, 100, 0.6, false);
+    Drive.moveDistance(-20, 100, 0.7);
+    Drive.turn(-70, 100, 0.75);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(50, 100, 1.2);
+    Drive.swing(-35, 100, 80, 1);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     rightWing.open();
-    Drive.moveDistance(1000, 100, 2);
+    Drive.swing(30, 100, 0, 0.7);
+    Drive.moveDistance(1000, 100, 0.4, false);
+    rightWing.close();
 }
 autonRoute farSideElims = {"FS Elims", 0, 0, 0, farSideRoute};
 
