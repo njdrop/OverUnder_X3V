@@ -231,39 +231,42 @@ autonRoute farSideRushRightAWP = {"FS Rush Right AWP", 0, 0, 0, farSideRushRight
 
 void farSideRoute()
 {
-    // inertialSensorMain.setRotation(-12, deg);
-    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    // Drive.moveDistance(54, 75, 1.6);
-    // Drive.moveDistance(-61, 80, 1.5);
-    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-    // Drive.turn(90, 100, 0.7);
-    // Drive.moveDistance(-10, 100, 0.5);
-    // Drive.turn(-90, 100, 0.9);
-    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    // Drive.moveDistance(19, 100, 0.7);
-    inertialSensorMain.setRotation(-90, deg);
-    Drive.moveDistance(-23, 100, 0.65);
-    Drive.turn(80, 100, 0.7);
+    inertialSensorMain.setRotation(-12, deg);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(52, 80, 1.4);
+    Drive.moveDistance(-59, 80, 1.3);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    Drive.turn(90, 100, 0.7);
+    Drive.moveDistance(-10, 100, 0.5);
+    Drive.turn(-90, 100, 0.8);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(22, 100, 0.65);
+    // inertialSensorMain.setRotation(-90, deg);
+    Drive.moveDistance(-22, 100, 0.6);
+    Drive.turn(80, 100, 0.65);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     Drive.moveDistance(16, 100, 0.7);
     Drive.turn(45, 100, 0.6);
-    Drive.moveDistance(13, 100, 0.8);
+    Drive.moveDistance(13, 100, 0.6);
     rightDropDown.open();
     wait(200, msec);
     Drive.turn(-10, 100, 0.4);
     rightDropDown.close();
-    Drive.swing(-10, 100, 30, 0.7);
-    Drive.moveDistance(1000, 100, 0.6, false);
-    Drive.moveDistance(-20, 100, 0.7);
+    // Drive.swing(-10, 100, 30, 0.7);
+    Drive.moveDistance(-10, 100, 0.12);
+    Drive.turn(10, 100, 0.12);
+    Drive.moveDistance(1000, 100, 0.7, false);
+    Drive.moveDistance(-15, 100, 0.6);
     Drive.turn(-70, 100, 0.75);
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     Drive.moveDistance(50, 100, 1.2);
-    Drive.swing(-35, 100, 80, 1);
+    Drive.swing(-35, 100, 70, 0.9);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     rightWing.open();
-    Drive.swing(30, 100, 0, 0.7);
+    Drive.swing(35, 100, 0, 0.7);
     Drive.moveDistance(1000, 100, 0.4, false);
     rightWing.close();
+    Drive.moveDistance(-1000, 100, 0.4, false);
 }
 autonRoute farSideElims = {"FS Elims", 0, 0, 0, farSideRoute};
 
