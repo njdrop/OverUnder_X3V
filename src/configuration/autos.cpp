@@ -59,40 +59,66 @@ void nearSideAWPRoute()
 }
 autonRoute nearSideSafeAWP = {"NS AWP SAFE", 0, 0, 0, nearSideAWPRoute};
 
+// bFinal
 void nearSideRushLeftAWPRoute()
 {
-    inertialSensorMain.setRotation(-80, deg);
+    inertialSensorMain.setRotation(-78, deg);
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(47, 100, 1.2);
-    Drive.moveDistance(-49, 100, 1.3);
-    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    Drive.moveDistance(47, 100, 1.2, true);
+    Drive.moveDistance(-7, 100, .5, true);
+    Drive.turn(0, 100, .4);
     leftWing.open();
-    Drive.turn(20, 70, 1);
+    Drive.moveDistance(20, 100, 1, true);
     leftWing.close();
-    Drive.moveDistance(-25, 100, 1);
-    intake_Group.spin(fwd, 0, vex::voltageUnits::mV);
-    Drive.turn(90, 100, 0.8);
-    Drive.moveDistance(-11, 50, 0.6);
-    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-    Drive.moveDistance(15, 75, 1);
-    Drive.turn(50, 100, 0.8);
-    Drive.moveDistance(17, 75, 1);
+    Drive.turn(-40, 100, 1);
+    Drive.moveDistance(-56, 60, 3, true);
+    Drive.turn(45, 100, 1);
     rightDropDown.open();
-    wait(200, msec);
-    Drive.turn(-50, 100, 1);
-    wait(200, msec);
-    Drive.turn(5, 100, 1);
+    Drive.moveDistance(20, 100, 1, true);
     rightDropDown.close();
-    Drive.moveDistance(38.5, 80, 2);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    wait(50, msec);
+    Drive.turn(-5, 100, 1);
+    Drive.moveDistance(-5, 100, .25, true);
+    rightWing.open();
+    Drive.turn(-30, 100, .5);
+    Drive.turn(5, 100, .5);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-    wait(200, msec);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    wait(50, msec);
-    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-    wait(200, msec);
-    intake_Group.spin(fwd, 0, vex::voltageUnits::mV);
+    Drive.moveDistance(34, 100, 2);
+    rightWing.close();
+    Drive.moveDistance(5, 50, 1);
+    rightWing.open();
+    
+    // inertialSensorMain.setRotation(-78, deg);
+    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // Drive.moveDistance(47, 100, 1.2);
+    // Drive.moveDistance(-49, 100, 1.3);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // leftWing.open();
+    // Drive.turn(20, 70, 1);
+    // leftWing.close();
+    // Drive.moveDistance(-25, 100, 1);
+    // intake_Group.spin(fwd, 0, vex::voltageUnits::mV);
+    // Drive.turn(90, 100, 0.8);
+    // Drive.moveDistance(-11, 50, 0.6);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // Drive.moveDistance(15, 75, 1);
+    // Drive.turn(50, 100, 0.8);
+    // Drive.moveDistance(17, 75, 1);
+    // rightDropDown.open();
+    // wait(200, msec);
+    // Drive.turn(-50, 100, 1);
+    // wait(200, msec);
+    // Drive.turn(5, 100, 1);
+    // rightDropDown.close();
+    // Drive.moveDistance(38.5, 80, 2);
+    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // wait(50, msec);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // wait(200, msec);
+    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // wait(50, msec);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // wait(200, msec);
+    // intake_Group.spin(fwd, 0, vex::voltageUnits::mV);
 }
 autonRoute nearSideRushLeftAWP = {"NS Rush Left AWP", 0, 0, 0, nearSideRushLeftAWPRoute};
 
@@ -165,6 +191,7 @@ void nearSideRoute()
 }
 autonRoute nearSideElims = {"NS Barrier Elims", 0, 0, 0, nearSideRoute};
 
+// final
 void farSideAWPRoute()
 {
     inertialSensorMain.setRotation(21, deg);
@@ -184,35 +211,13 @@ autonRoute farSideSafeAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 
 void farSideRushLeftAWPRoute()
 {
-    inertialSensorMain.setRotation(65, deg);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(55, 100, 1.5);
-    Drive.moveDistance(-50, 80, 1.1);
-    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-    Drive.turn(135, 70, 0.7);
-    Drive.moveDistance(-13, 100, 0.7);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.turn(10, 100, 0.7);
-    Drive.moveDistance(25, 100, 0.7);
-    Drive.moveDistance(-24, 100, 0.8);
-    Drive.turn(180, 100, 1);
-    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-    Drive.moveDistance(19, 100, 0.8);
-    Drive.turn(145, 100, 0.8);
-    rightDropDown.open();
-    wait(200, msec);
-    Drive.moveDistance(9, 100, 0.7);
-    Drive.turn(70, 100, 0.8);
-    rightDropDown.close();
-    Drive.turn(110, 100, 0.6);
-    rightWing.open();
-    Drive.moveDistance(100, 100, 0.6);
-    Drive.moveDistance(-25, 100, 0.7);
-    rightWing.close();
-    Drive.turn(-10, 100, 0.8);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(45, 100, 1.3);
-
+        inertialSensorMain.setRotation(165, deg);
+        leftWing.open();
+        Drive.swing(-36, 100, 140, 2);
+        leftWing.close();
+        rightDropDown.open();
+        Drive.swing(-8, 100, 310, 2);
+        rightDropDown.close();
 }
 autonRoute farSideRushLeftAWP = {"FS Rush Left AWP", 0, 0, 0, farSideRushLeftAWPRoute};
 
@@ -222,44 +227,89 @@ void farSideRushRightAWPRoute()
 }
 autonRoute farSideRushRightAWP = {"FS Rush Right AWP", 0, 0, 0, farSideRushRightAWPRoute};
 
+// final
 void farSideRoute()
 {
     inertialSensorMain.setRotation(-12, deg);
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(52, 80, 1.4);
-    Drive.moveDistance(-59, 80, 1.3);
+    Drive.moveDistance(46, 100, 1.2);
+    Drive.moveDistance(-55, 100, 1.3);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     Drive.turn(90, 100, 0.7);
     Drive.moveDistance(-10, 100, 0.5);
-    Drive.turn(-90, 100, 0.8);
+    Drive.turn(-90, 100, 1);
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(22, 100, 0.65);
-    // inertialSensorMain.setRotation(-90, deg);
-    Drive.moveDistance(-22, 100, 0.6);
-    Drive.turn(80, 100, 0.65);
-    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-    Drive.moveDistance(16, 100, 0.7);
-    Drive.turn(45, 100, 0.6);
-    Drive.moveDistance(13, 100, 0.6);
+    Drive.moveDistance(21, 100, 0.65);
+    Drive.moveDistance(-33, 100, 0.8);
+    Drive.turn(-135, 100, 0.5);
+    leftDropDown.open();
     rightDropDown.open();
-    wait(200, msec);
-    Drive.turn(-10, 100, 0.4);
+    Drive.moveDistance(-17, 100, .8);
+    leftDropDown.close();
     rightDropDown.close();
-    // Drive.swing(-10, 100, 30, 0.7);
-    Drive.moveDistance(-10, 100, 0.12);
-    Drive.turn(10, 100, 0.12);
-    Drive.moveDistance(1000, 100, 0.7, false);
-    Drive.moveDistance(-15, 100, 0.6);
-    Drive.turn(-70, 100, 0.75);
-    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
-    Drive.moveDistance(50, 100, 1.2);
-    Drive.swing(-35, 100, 70, 0.9);
+    Drive.moveDistance(-6, 100, .8);
+    Drive.turn(-320, 100, 1.2);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
-    rightWing.open();
-    Drive.swing(35, 100, 0, 0.7);
-    Drive.moveDistance(1000, 100, 0.4, false);
-    rightWing.close();
-    Drive.moveDistance(-1000, 100, 0.4, false);
+    leftWing.open();
+    Drive.moveDistance(30, 100, 1);
+    Drive.moveDistance(-20, 100, .7);
+    leftWing.close();
+    Drive.turn(-420, 100, 1);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(50, 100, 1.3);
+    intake_Group.spin(fwd, 0, vex::voltageUnits::mV);
+    Drive.turn(-290, 100, .6);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    Drive.moveDistance(100, 100, 1);
+    // Drive.moveDistance(-15, 100, .8);
+    // Drive.moveDistance(10, 100, .5);
+    // Drive.turn(0, -90, .4);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // Drive.turn(20, 100, .4);
+    // Drive.moveDistance(25, 100, 1);
+    // Drive.moveDistance(-10, 100, .6);
+    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // Drive.turn(-70, 100, .6);
+    // Drive.moveDistance(50, 100, 1.2);
+    // Drive.turn(60, 100, .6);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // Drive.moveDistance(100, 100, 1);
+    
+
+    // Drive.moveDistance(52, 80, 1.4);
+    // Drive.moveDistance(-59, 80, 1.3);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // Drive.turn(90, 100, 0.7);
+    // Drive.moveDistance(-10, 100, 0.5);
+    // Drive.turn(-90, 100, 0.8);
+    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // Drive.moveDistance(22, 100, 0.65);
+    // // inertialSensorMain.setRotation(-90, deg);
+    // Drive.moveDistance(-22, 100, 0.6);
+    // Drive.turn(80, 100, 0.65);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // Drive.moveDistance(16, 100, 0.7);
+    // Drive.turn(45, 100, 0.6);
+    // Drive.moveDistance(13, 100, 0.6);
+    // rightDropDown.open();
+    // wait(200, msec);
+    // Drive.turn(-10, 100, 0.4);
+    // rightDropDown.close();
+    // // Drive.swing(-10, 100, 30, 0.7);
+    // Drive.moveDistance(-10, 100, 0.12);
+    // Drive.turn(10, 100, 0.12);
+    // Drive.moveDistance(1000, 100, 0.7, false);
+    // Drive.moveDistance(-15, 100, 0.6);
+    // Drive.turn(-70, 100, 0.75);
+    // intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    // Drive.moveDistance(50, 100, 1.2);
+    // Drive.swing(-35, 100, 70, 0.9);
+    // intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    // rightWing.open();
+    // Drive.swing(35, 100, 0, 0.7);
+    // Drive.moveDistance(1000, 100, 0.4, false);
+    // rightWing.close();
+    // Drive.moveDistance(-1000, 100, 0.4, false);
 }
 autonRoute farSideElims = {"FS Elims", 0, 0, 0, farSideRoute};
 
@@ -282,18 +332,19 @@ void autonSkillsRoute()
     // run the inital setup route for skills
     SkillsSetupRoute(); // 4.45 seconds
     // shoot for 21 seconds
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
     shooter_Group.spin(fwd, 10000, vex::voltageUnits::mV);
-    wait(22, sec);
+    wait(0, sec); //22
     shooter_Group.stop(coast);
     rightDropDown.close();
     // spin intake to prevent double possesion
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     // drive towards long barrier
-    Drive.swing(55, 100, 0, 1); 
+    Drive.swing(55, 100, 5, 1); 
     Drive.turn(-20, 100, 0.4);
     intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
     rightWing.close();
-    Drive.moveDistance(-12, 100, 0.7); //~-.25
+    Drive.moveDistance(-10, 100, 0.7); //~-.25
     // turn parrell to long barrier to push triballs
     Drive.turn(-127, 100, 0.85);
     intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
@@ -316,34 +367,38 @@ void autonSkillsRoute()
     Drive.swing(40, 100, -48, 0.9);
     Drive.turn(-60, 100, 0.4);
     // run down left alley way
-    rightWing.open();
+    // rightWing.open();
+    // rightWing.close();
     Drive.moveDistance(50, 100, 1.6);
     Drive.turn(-35, 100, 0.4);
     // push tribals into the corner
-    Drive.swing(47, 100, 46, 1);
+    Drive.swing(47, 100, 36, .9);
+    Drive.turn(45, 100, .25);
     // push left side of goal
-    Drive.moveDistance(1000, 100, 0.5);
+    Drive.moveDistance(1000, 100, 0.8);
+    Drive.moveDistance(-20, 100, 0.7);
+    Drive.moveDistance(1000, 100, 0.8);
     Drive.moveDistance(-14, 100, 0.6);
     // move around to the front side of the goal
-                                                                Drive.turn(118, 100, 0.8);
-    Drive.moveDistance(35, 100, 0.9);
-    Drive.turn(10, 70, 0.9);
     rightWing.close();
+    Drive.turn(118, 100, 0.8);
+    Drive.swing(48, 100, 105, 1);
     // first push into the front of the goal
-    Drive.swing(35, 70, -60, 1.2);
-    Drive.turn(40, 100, .5);
+    Drive.turn(-35, 100, 1);
+    Drive.moveDistance(100, 100, 1);
+    Drive.turn(30, 100, .5);
     Drive.swing(-20, 100, 80, 1.2);
     rightWing.open();
     leftWing.open();
     Drive.swing(30, 70, -45, 1.2);
     rightWing.close();
-    Drive.moveDistance(1000, 100, 0.8);
+    Drive.moveDistance(1000, 100, 1);
     Drive.turn(0, 100, .4);
     Drive.swing(-20, 100, 70, 1.2);
     rightWing.open();
     Drive.swing(30, 70, -45, 1.2);
     rightWing.close();
-    Drive.moveDistance(1000, 100, 0.8);
+    Drive.moveDistance(1000, 100, 1);
     // Drive.swing(-20, 100, 50, 0.8);
     // rightWing.open();
     // Drive.swing(45, 100, -35, 1);
@@ -354,18 +409,18 @@ void autonSkillsRoute()
    
 
 
-    Drive.moveDistance(-8, 100, 0.5);
-    // push right side
-    Drive.turn(30, 100, 0.85);
-    Drive.moveDistance(60, 100, 1);
-    Drive.turn(-60, 100, 0.7);
-    leftWing.open();
-    Drive.swing(50, 100, -134, 1);
-    Drive.moveDistance(1000, 100, 0.5);
-    Drive.moveDistance(-1000, 100, 0.2);
-    Drive.moveDistance(1000, 100, 0.7);
-    Drive.moveDistance(-1000, 100, 0.2);
-    leftWing.close();
+    // Drive.moveDistance(-8, 100, 0.5);
+    // // push right side
+    // Drive.turn(30, 100, 0.85);
+    // Drive.moveDistance(60, 100, 1);
+    // Drive.turn(-60, 100, 0.7);
+    // leftWing.open();
+    // Drive.swing(50, 100, -134, 1);
+    // Drive.moveDistance(1000, 100, 0.5);
+    // Drive.moveDistance(-1000, 100, 0.2);
+    // Drive.moveDistance(1000, 100, 0.7);
+    // Drive.moveDistance(-1000, 100, 0.2);
+    // leftWing.close();
 }
 
 void driverSkillsRoute()

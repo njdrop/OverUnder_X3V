@@ -23,8 +23,8 @@ vex::pneumatics rightWing (Brain.ThreeWirePort.G);
 vex::pneumatics leftWing (Brain.ThreeWirePort.F);
 
 // sensors
-vex::inertial inertialSensorMain (PORT10);
-vex::inertial inertialSensorBackup (PORT1);
+vex::inertial inertialSensorMain (PORT1);
+vex::inertial inertialSensorBackup (PORT10);
 vex::pot autonSelector (Brain.ThreeWirePort.B);
 
 //*****************************//
@@ -65,6 +65,7 @@ autonRoute autonRoutesList[]
 	farSideRushLeftAWP,
 	farSideRushRightAWP,
 	farSideElims,
+	autonSkills,
 };
 
-int NUMBER_OF_AUTONS = 9;
+int NUMBER_OF_AUTONS = 10;

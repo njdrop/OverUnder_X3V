@@ -71,6 +71,7 @@ void usercontrol(void)
 	toggleBoolObject leftDropDownToggle (leftDropDown.value());
 	toggleBoolObject ptoToggle (false);
 	toggleBoolObject hangReleaseToggle (false);
+	toggleBoolObject parkAssist (false);
 
 	usercontrolStartTime = vex::timer::system();
 	if (autonRoutesList[autonSelect].name == autonSkills.name) 
@@ -79,14 +80,25 @@ void usercontrol(void)
 		driverSkills.routeFunction();
 	}
 
+	double leftStickY;
+	double rightStickY;
+	double hangAssistInertInit;
 
 	// if driverskills is selected automaticly terminate uercontrol after 60 seconds, otherwise this will never exit
 	while (!(autonRoutesList[autonSelect].name == autonSkills.name) || (vex::timer::system() - usercontrolStartTime) <= 60000)
 	{
-		// records the value of the left stick
-		double leftStickY = con.Axis3.value() * 100;
-		// records the value of the right stick
-		double rightStickY = con.Axis2.value() * 100;
+
+		if (!parkAssist.getValue()) 
+			{
+				// records the value of the left stick
+				leftStickY = con.Axis3.value() * 100;
+				// records the value of the right stick
+				rightStickY = con.Axis2.value() * 100;
+			}
+		else{
+			leftStickY = 100;
+			rightStickY = 100;
+		}
 		// runs the 2 left side drive motors at right stick value
 		Drive.runLeftSide(nearbyint(leftStickY));
 		// runs the 2 right side drive motors at right stick value
@@ -123,6 +135,14 @@ void usercontrol(void)
 		// check controller input to toggle values for wings and pto
 		rightDropDownToggle.changeValueFromInput(con.ButtonY.pressing());
 		leftDropDownToggle.changeValueFromInput(con.ButtonRight.pressing());
+		parkAssist.changeValueFromInput(con.ButtonA.pressing());
+		if (con.ButtonA.pressing() || !parkAssist.getValue()){
+			parkAssist.setValue(true);
+			hangAssistInertInit = inertialSensorMain.roll(deg);
+		}
+		if (fabs(inertialSensorMain.roll(deg)-hangAssistInertInit) >= 3){
+			parkAssist.setValue(false);
+		}
 
 		// set all pnematics to their desired states
 		rightDropDown.set(rightDropDownToggle.getValue());
