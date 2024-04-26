@@ -85,7 +85,7 @@ void usercontrol(void)
 	double hangAssistInertInit;
 
 	// if driverskills is selected automaticly terminate uercontrol after 60 seconds, otherwise this will never exit
-	while (!(autonRoutesList[autonSelect].name == autonSkills.name) || (vex::timer::system() - usercontrolStartTime) <= 60000)
+	while (true/*!(autonRoutesList[autonSelect].name == autonSkills.name) || (vex::timer::system() - usercontrolStartTime) <= 60000*/)
 	{
 
 		if (!parkAssist.getValue()) 

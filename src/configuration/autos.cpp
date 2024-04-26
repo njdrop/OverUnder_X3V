@@ -209,6 +209,35 @@ void farSideAWPRoute()
 }
 autonRoute farSideSafeAWP = {"FS AWP SAFE", 0, 0, 0, farSideAWPRoute};
 
+void farSideAWPRouteEXT()
+{
+    inertialSensorMain.setRotation(201, deg);
+    leftDropDown.open();
+    Drive.moveDistance(-4, 100, .5);
+    leftDropDown.close();
+    Drive.turn(30, 100, 1);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    Drive.moveDistance(100, 100, 1, false);
+    Drive.moveDistance(-10, 100, .5, false);
+    Drive.moveDistance(100, 100, 1, false);
+    Drive.moveDistance(-20, 100, .7);
+    Drive.turn(-60, 100, 1);
+    intake_Group.spin(fwd, 12000, vex::voltageUnits::mV);
+    Drive.moveDistance(50, 100, 1.3);
+    intake_Group.spin(fwd, 0, vex::voltageUnits::mV);
+    Drive.turn(70, 100, .6);
+    intake_Group.spin(fwd, -12000, vex::voltageUnits::mV);
+    Drive.moveDistance(100, 100, 1);
+    Drive.turn(50, 100, 1);
+    Drive.moveDistance(-50, 100, 2);
+    Drive.turn(90, 100, .5);
+    Drive.moveDistance(-20, 50, 1, false);
+    rightDropDown.open();
+    Drive.moveDistance(3, 50, .5);
+    Drive.turn(130, 30, 3);
+}
+autonRoute farSideSafeAWPEXT = {"FS AWP SAFE EXT", 0, 0, 0, farSideAWPRouteEXT};
+
 void farSideRushLeftAWPRoute()
 {
         inertialSensorMain.setRotation(165, deg);
@@ -227,7 +256,7 @@ void farSideRushRightAWPRoute()
 }
 autonRoute farSideRushRightAWP = {"FS Rush Right AWP", 0, 0, 0, farSideRushRightAWPRoute};
 
-// final
+// bFinal
 void farSideRoute()
 {
     inertialSensorMain.setRotation(-12, deg);

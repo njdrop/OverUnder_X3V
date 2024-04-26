@@ -31,6 +31,7 @@ extern  autonRoute      farSideRushRightAWP;
 extern  autonRoute      farSideElims;
 extern  autonRoute      autonSkills;
 extern  autonRoute      driverSkills;
+extern  autonRoute      farSideSafeAWPEXT;
 
 #endif
 

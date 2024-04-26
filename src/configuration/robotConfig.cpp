@@ -59,13 +59,10 @@ autonRoute autonRoutesList[]
 	doNothing,
 	nearSideSafeAWP,
 	nearSideRushLeftAWP,
-	nearSideRushRightAWP,
-	nearSideElims,
 	farSideSafeAWP,
-	farSideRushLeftAWP,
-	farSideRushRightAWP,
+	farSideSafeAWPEXT,
 	farSideElims,
 	autonSkills,
 };
 
-int NUMBER_OF_AUTONS = 10;
+int NUMBER_OF_AUTONS = 7;
